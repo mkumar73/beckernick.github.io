@@ -1,6 +1,7 @@
 # main links links
 main:
   - title: "Sample Navigation Link"
+    #url: https://beckernick.github.io/about
     url: https://beckernick.github.io/about
 
   - title: "Sample Navigation Link 2"

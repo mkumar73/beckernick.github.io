@@ -6,7 +6,7 @@ categories: projects
 tags: [data science, deep learning, neural networks]
 
 image:
-  feature: http://blogs-images.forbes.com/kevinmurnane/files/2016/03/google-deepmind-artificial-intelligence-2-970x0-970x646.jpg
+  feature: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"
   credit: Google
 comments: true
 ---

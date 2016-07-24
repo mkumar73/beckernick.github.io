@@ -3,8 +3,5 @@ main:
   - title: "about"
     url: /about/
 
-  - title: "Sample Navigation Link 2"
-    url: /
-
-  - title: "posts"
-    url: /posts/
+  - title: "projects"
+    url: /projects/

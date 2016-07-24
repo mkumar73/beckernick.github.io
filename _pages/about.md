@@ -1,4 +1,11 @@
-about page
+---
+title: "About"
+layout: single
+excerpt: "About Nick Becker"
+sitemap: false
+permalink: /about.html
+---
 
-test
+About me
+
 test

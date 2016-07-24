@@ -1,7 +1,8 @@
 # main links links
 main:
-  - title: "about"
-    url: https://beckernick.github.io/about
+  - title: "Sample Navigation Link"
+    #url: https://mmistakes.github.io/minimal-mistakes/docs/navigation/
+    url: https://beckernick.github.io/about/
 
   - title: "Sample Navigation Link 2"
     url: /

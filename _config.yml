@@ -7,11 +7,11 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "Homepage"
+title                    : "nick becker"
 title_separator          : "-"
 name                     : "Nick Becker"
 description              : "An amazing website."
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://beckernick.github.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 gh_repo                  :
 teaser                   : # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
@@ -65,9 +65,9 @@ google_ad_slot           :
 author:
   name             : "Nick Becker"
   avatar           : "bio-photo.jpg"
-  bio              : "I am an amazing person."
+  bio              : "trying to make a difference"
   location         : "Washington, D.C."
-  email            :
+  email            : "nickb500@gmail.com"
   uri              :
   bitbucket        :
   codepen          :
@@ -75,7 +75,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           :
+  github           : "beckernick"
   google_plus      :
   keybase          :
   instagram        :

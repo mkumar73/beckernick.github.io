@@ -1,7 +1,10 @@
 # main links links
 main:
-  - title: "test Sample Navigation Link"
+  - title: "about"
     url: /about/
 
   - title: "Sample Navigation Link 2"
     url: /
+
+  - title: "posts"
+  	url: /posts/

@@ -8,6 +8,6 @@ modified: 9-9-2013
 comments: true
 ---
 
-### My career path has gone something like this:
+### about me
 
->im nick
+>about me

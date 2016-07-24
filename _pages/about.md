@@ -1,13 +1,13 @@
 ---
+title: "About me"
 layout: page
 permalink: /about/
-title: About me
 tagline: 
 tags: [about]
 modified: 9-9-2013
 comments: true
 ---
 
-###about me
+### My career path has gone something like this:
 
-im nick
+>im nick

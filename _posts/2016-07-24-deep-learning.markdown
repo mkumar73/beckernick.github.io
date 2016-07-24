@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Deep Learning"
+title:  "test post"
 date:   2016-07-24
 categories: projects
 tags: [data science, deep learning, neural networks]

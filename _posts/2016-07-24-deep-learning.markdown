@@ -11,5 +11,4 @@ image:
 comments: true
 ---
 
-test post
 this is a test post

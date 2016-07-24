@@ -7,7 +7,7 @@ tags: [data science, deep learning, neural networks]
 
 image:
   feature: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"
-  credit: Google
+  thumb: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"
 comments: true
 ---
 

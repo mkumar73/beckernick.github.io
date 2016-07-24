@@ -1,10 +1,8 @@
 ---
-title: "AProjects"
-layout: page
+layout: post-index
 permalink: /projects/
-tagline: 
-tags: [projects]
-modified: 7-24-2016
+title: "Projects"
+tagline: Projects
+tags: [data science, photography]
 ---
 
-### Projects

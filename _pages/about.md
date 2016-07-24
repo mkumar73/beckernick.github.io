@@ -1,4 +1,10 @@
 ---
+layout: page
+permalink: /about/
+title: About me
+tagline: 
+tags: [about]
+modified: 7-24-2016
 ---
 
-About me test
+im a data scientist

@@ -8,4 +8,6 @@ modified: 9-9-2013
 comments: true
 ---
 
-im a data scientist and
+#about me
+
+im nick

@@ -65,7 +65,7 @@ google_ad_slot           :
 author:
   name             : "Nick Becker"
   avatar           : "bio-photo.jpg"
-  bio              : "trying to make a difference"
+  bio              : "temp" #"trying to make a difference"
   location         : "Washington, D.C."
   email            :
   uri              :

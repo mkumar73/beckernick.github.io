@@ -7,4 +7,4 @@ tags: [about]
 modified: 7-24-2016
 ---
 
-im a data scientist
+im a data scientist and

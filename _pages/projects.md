@@ -1,7 +1,6 @@
 ---
 permalink: /projects/
-title: Projects
-tagline: Projects
+title: "Projects"
 tags: [data science, photography]
 ---
 

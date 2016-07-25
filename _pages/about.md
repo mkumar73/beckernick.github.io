@@ -10,6 +10,7 @@ header:
 >Forecasting
 <br>
 Causal Modeling
+>Competition and Regulatory Analysis
 
-### Duke
+### Duke University
 > Economics

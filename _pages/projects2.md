@@ -1,6 +1,6 @@
 ---
 layout: archive
-permalink: /projects/
+permalink: /projectshello/
 title: "Projects"
 tags: [data science, photography]
 ---

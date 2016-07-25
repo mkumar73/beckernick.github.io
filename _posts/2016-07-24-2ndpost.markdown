@@ -1,7 +1,7 @@
 ---
 title:  "2nd post"
 date:   2016-07-24
-categories: data science
+categories: [data science]
 tags: [data science, deep learning, neural networks]
 header:
   image: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"

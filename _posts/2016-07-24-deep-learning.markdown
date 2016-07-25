@@ -1,5 +1,4 @@
 ---
-layout: page
 title:  "header test"
 date:   2016-07-24
 categories: projects
@@ -8,4 +7,4 @@ header:
   image: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"
 ---
 
-this is a test post 2.0
+this is my 1st post

@@ -1,5 +1,4 @@
 ---
-layout: post-index
 permalink: /projects/
 title: Projects
 tagline: Projects

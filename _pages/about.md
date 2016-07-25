@@ -8,7 +8,7 @@ header:
 
 ### Federal Reserve Board of Governors
 > Forecasting Entrepreneurship
-> Causal Modeling
+Causal Modeling
 
 ### Duke
 > Economics

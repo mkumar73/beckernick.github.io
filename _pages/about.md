@@ -10,5 +10,6 @@ header:
 >Building statistical models and algorithms to analyze data for U.S. monetary policy, financial regulatory policy, and economic research
 
 
-### Duke University
+
+# Duke University
 > Economics

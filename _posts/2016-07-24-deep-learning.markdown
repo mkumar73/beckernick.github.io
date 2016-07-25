@@ -1,5 +1,5 @@
 ---
-title:  "header test"
+title:  "1st post"
 date:   2016-07-24
 categories: projects
 tags: [data science, deep learning, neural networks]

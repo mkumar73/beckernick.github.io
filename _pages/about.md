@@ -1,11 +1,14 @@
 ---
-title: "About me"
+title: "about me"
 permalink: /about/
 tags: [about]
 header:
   image: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"
 ---
 
-### about me
+### Federal Reserve Board of Governors
+> Forecasting Entrepreneurship
+> Causal Modeling
 
->about me
+### Duke
+> Economics

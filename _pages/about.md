@@ -7,8 +7,7 @@ header:
 ---
 
 ### Federal Reserve Board of Governors
-> Forecasting Entrepreneurship
-<br></br>
+>Forecasting Entrepreneurship
 Causal Modeling
 
 ### Duke

@@ -9,6 +9,6 @@ header:
 
 this is my 2nd post
 
-```r
-print('bar')
+```python
+print 'bar'
 ```

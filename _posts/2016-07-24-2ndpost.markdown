@@ -8,3 +8,7 @@ header:
 ---
 
 this is my 2nd post
+
+```python
+print 'bar'
+```

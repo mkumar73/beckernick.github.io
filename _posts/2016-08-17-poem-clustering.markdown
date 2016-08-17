@@ -4,7 +4,7 @@ date:   2016-08-17
 categories: [data science, poetry, clustering]
 tags: [data science]
 header:
-  image: "http://lareinadelbarrio.org/wp-content/uploads/2014/04/i_love_poetry.jpg"
+  image: "i_love_poetry.jpg"
 ---
 
 

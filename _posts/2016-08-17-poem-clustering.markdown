@@ -2,7 +2,7 @@
 title:  "Cluster Poetry using TF-IDF"
 date:   2016-08-17
 categories: [data science, poetry, clustering]
-tags: [data science]
+tags: [data science, unsupervised learning, poetry]
 header:
   image: "i_love_poetry.jpg"
 ---

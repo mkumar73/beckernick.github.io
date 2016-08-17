@@ -1,10 +1,10 @@
 ---
-title:  "1st post"
-date:   2016-07-24
-categories: [data science]
+title:  "Cluster Poetry using TF-IDF"
+date:   2016-08-17
+categories: [data science, poetry, clustering]
 tags: [data science]
 header:
-  image: "http://www.lf.k12.de.us/wp-content/uploads/2015/03/Sports.png"
+  image: "http://lareinadelbarrio.org/wp-content/uploads/2014/04/i_love_poetry.jpg"
 ---
 
 

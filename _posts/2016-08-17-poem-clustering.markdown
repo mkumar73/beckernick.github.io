@@ -1,25 +1,17 @@
 ---
-title:  "Cluster Poetry using TF-IDF"
+title:  "Clustering Poetry using TF-IDF"
 date:   2016-08-17
 categories: [data science, poetry, clustering, natural language processing]
-tags: [data science, web scraping, poetry, natural langauge processing]
+tags: [data science, poetry, natural langauge processing]
 header:
   image: "i_love_poetry.jpg"
 ---
 
 
+# Clustering Poetry by Textual Similarity
+
 
 ```python
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Aug 17 12:22:55 2016
-
-@author: nickbecker
-"""
-
-
-# Clustering books based on their textual similarity
-
 import bs4
 import urllib2
 import re
@@ -116,6 +108,7 @@ for i in range(len(poetry_tuples_list)):
             pickle.dump(poetry_dictionary, handle)
             
     time.sleep(4)
+
 
 with open('/users/nickbecker/Python_Projects/great_poetry/poetry_dict_full.pickle', 'wb') as handle:
     pickle.dump(poetry_dictionary, handle)
@@ -226,5 +219,15 @@ with open('/users/nickbecker/Python_Projects/great_poetry/closest_poems_dict.pic
 
 
 
+
+```
+
+
+```python
+
+```
+
+
+```python
 
 ```

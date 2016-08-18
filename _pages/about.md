@@ -3,7 +3,7 @@ title: "about me"
 permalink: /about/
 tags: [about]
 header:
-  image: "google-deepmind-artificial-intelligence-2-970x0-970x646.jpg"
+  image: "niagara.jpg"
 ---
 
 ### Federal Reserve Board of Governors

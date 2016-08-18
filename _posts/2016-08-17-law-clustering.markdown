@@ -113,12 +113,6 @@ Let's take a look at the text of one of the bills:
 
 
 ```python
-with open(data_path + 'bills_dictionary.pickle', 'r') as handle:
-    bills_dictionary = pickle.load(handle)
-```
-
-
-```python
 print bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
 ```
 
@@ -253,12 +247,6 @@ Let's see how the cleaned law looks:
 
 
 ```python
-with open(data_path + 'bills_dictionary_clean.pickle', 'r') as handle:
-    clean_bills_dictionary = pickle.load(handle)
-```
-
-
-```python
 print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
 ```
 
@@ -325,7 +313,7 @@ def load_sparse_csr(filename):
 save_sparse_csr(data_path + 'laws_tf_idf.npz', tfs)
 ```
 
-### Finding Laws' Nearest Neighbors with Cosine Distance
+### Finding a Law's Nearest Neighbors with Cosine Distance
 
 Finally, we can find similar laws! We'll initialize a NearestNeighbors class and fit our tf-idf matrix to it. Since we want to use cosine distance as our distance metric, I'll initialize it with ```metric='cosine'```.
 

@@ -2,6 +2,7 @@
 title:  "Identifying Similar US Laws using TF-IDF and K-Nearest Neighbors"
 date:   2016-08-18
 tags: [data science, natural langauge processing]
+comments: true
 header:
   image: "congress_edge_detection.jpg"
 ---

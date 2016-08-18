@@ -5,11 +5,14 @@ tags: [data science, natural langauge processing]
 header:
   image: "congress_edge_detection.jpg"
   caption: "Photo credit: [**Politico**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
+excerpt: "A unique line of text to describe this post that will display in an archive listing and meta description with SEO benefits."
 ---
 
-It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to Spotify's Discover Weekly, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates. Eeventually, I got to work.
+It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to Spotify's Discover Weekly, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates.
 
-Since I'm doing some natural language processing at work, I figured I might as well write a post about NLP in Python. Inspired by the view of The Capitol from my apartment's window, I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create it myself by scraping laws from [www.congress.gov](https://www.congress.gov).
+Eeventually, I got to work.
+
+Since I'm doing some natural language processing at work, I figured I might as well write a post about NLP in Python. Inspired by the view of The Capitol from my apartment's window, I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov).
 
 
 

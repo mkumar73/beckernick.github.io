@@ -352,7 +352,7 @@ def print_nearest_neighbors(query_tf_idf, full_bill_dictionary, knn_model, k):
             print '{0}: {1}\n'.format(bill, nearest_neighbors[bill])
 ```
 
-Time to test it! I'll pick a random law and find it's nearest neighbors.
+Time to test it! I'll pick a couple random laws and find their nearest neighbors.
 
 
 ```python

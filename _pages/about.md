@@ -3,7 +3,7 @@ title: "about me"
 permalink: /about/
 tags: [about]
 header:
-  image: "niagara.jpg"
+  image: "niagara_falls.jpg"
 ---
 
 ### Federal Reserve Board of Governors

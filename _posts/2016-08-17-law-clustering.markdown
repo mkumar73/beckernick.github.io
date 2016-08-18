@@ -1,5 +1,5 @@
 ---
-title:  "Identifying Similar US Laws using TF-IDF, and K-Nearest Neighbors"
+title:  "Identifying Similar US Laws using TF-IDF and K-Nearest Neighbors"
 date:   2016-08-18
 categories: [data science, law, clustering, natural language processing]
 tags: [data science, natural langauge processing]

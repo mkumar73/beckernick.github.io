@@ -6,7 +6,7 @@ header:
   image: "congress_edge_detection.jpg"
 ---
 
-It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to music, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics with my roommates. Eeventually, I got to work.
+It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to music, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates. Eeventually, I got to work.
 
 Since I'm doing some natural language processing at work, I figured I might as well write a post about NLP in Python. Inspired by the view of The Capital from my apartment's window, I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create it myself by scraping it from www.congress.gov
 

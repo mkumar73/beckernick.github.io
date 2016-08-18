@@ -5,7 +5,7 @@ tags: [data science, natural langauge processing]
 header:
   image: "congress_edge_detection.jpg"
   caption: "Photo credit: [**Politico**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
-excerpt: "A unique line of text to describe this post that will display in an archive listing and meta description with SEO benefits."
+excerpt: "data science, US laws, natural language processing, tf-idf, and k-nearest neighbors."
 ---
 
 It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to Spotify's Discover Weekly, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates.

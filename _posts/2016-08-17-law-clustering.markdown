@@ -216,7 +216,7 @@ print bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Bo
     
 
 
-Nice! This looks pretty good for a raw file. Since we're going to use tf-idf, we need to clean the text to keep only letters. We'll also remove stopwords (using the standard list included in NLTK) to remove words that provide very little information.
+Nice! This looks pretty good for a raw file. Since we're going to use tf-idf, we need to clean the text to keep only letters. We'll also remove stopwords (using the standard lists included in NLTK and sklearn) to remove words that provide very little information.
 
 After cleaning, I zip the titles and clean text into a new dictionary ```bills_clean_dictionary``` and save it for quick recall.
 

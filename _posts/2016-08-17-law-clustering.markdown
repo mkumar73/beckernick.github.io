@@ -8,7 +8,6 @@ header:
 ---
 
 
-
 # Download Enacted Laws from www.congress.gov
 
 ### Web Scraping with BeautifulSoup
@@ -48,15 +47,7 @@ for i in xrange(1, 150):
         if m:
             relevant_links.append(m.group(1))
 
-#with open('/users/nickbecker/Python_Projects/law_links.txt', 'w') as handle:
-#    for link in relevant_links:
-#        handle.write("%s\n" % link)
-
-
-
-
 ```
-
 
 With the hyperlinks to few thousands enacted bills in relevant_links, I next need to download the actual bills. By looking at a few of the pages, I noticed that access to the text version of the bills (instead of the PDF) is controlled by the URL ending ```/text?format=txt```. On each page, the text stored in a ```<pre>``` tag with id ```billTextContainer```.
 
@@ -100,12 +91,6 @@ for i in xrange(len(relevant_links)):
 
 ### Cleaning the bills
 Let's take a look at the text of one of the bills:
-
-
-```python
-with open('/users/nickbecker/Python_Projects/bills_dictionary.pickle', 'r') as handle:
-    bills_dictionary = pickle.load(handle)
-```
 
 
 ```python
@@ -238,20 +223,10 @@ bills_text_list_clean = map(clean_bill, bills_text_list)
 
 bills_clean_dictionary = dict(zip(titles_list, bills_text_list_clean))
 
-#with open('/users/nickbecker/Python_Projects/bills_dictionary_clean.pickle', 'wb') as handle:
-#    pickle.dump(bills_clean_dictionary, handle)
-
 
 ```
 
 Let's see how the cleaned law looks:
-
-
-```python
-#with open('/users/nickbecker/Python_Projects/bills_dictionary_clean.pickle', 'r') as handle:
-#    clean_bills_dictionary = pickle.load(handle)
-```
-
 
 ```python
 print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
@@ -279,10 +254,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 from nltk.stem.porter import PorterStemmer
 import pickle
-
-
-with open('/users/nickbecker/Python_Projects/bills_dictionary_clean.pickle', 'r') as handle:
-    clean_bills_dictionary = pickle.load(handle)
 
 
 stemmer = PorterStemmer()
@@ -415,4 +386,3 @@ Pretty good! Remember, we didn't use the title of the laws in the corpus.
 ```python
 
 ```
-

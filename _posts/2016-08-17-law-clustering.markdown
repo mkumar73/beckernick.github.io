@@ -8,12 +8,12 @@ header:
 
 It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to music, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates. Eeventually, I got to work.
 
-Since I'm doing some natural language processing at work, I figured I might as well write a post about NLP in Python. Inspired by the view of The Capitol from my apartment's window, I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create it myself by scraping it from www.congress.gov
+Since I'm doing some natural language processing at work, I figured I might as well write a post about NLP in Python. Inspired by the view of The Capitol from my apartment's window, I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create it myself by scraping laws from [www.congress.gov](https://www.congress.gov/legislation).
 
 
 
 ### Scraping www.congress.gov with BeautifulSoup
-First, I needed to scrape [www.congress.gov](https://www.congress.gov/legislation) to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
+First, I needed to scrape https://www.congress.gov/legislation)to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
 
 So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the data in the table on each page, and the inner loop extracts the hyperlinks for bills. Out of respect for Congress's servers, I store the links in a list and write the list to a text file so I don't have to scrape them again.
 

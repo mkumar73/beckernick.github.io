@@ -4,7 +4,7 @@ date:   2016-08-18
 tags: [data science, natural langauge processing]
 header:
   image: "congress_edge_detection.jpg"
-  caption: "Photo credit: [**Politico**](http://s3-origin-images.politico.com/news/110916_jointsession_congress_ap_328.jpg)"
+  caption: "Photo credit: [**Politico**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
 ---
 
 It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to Spotify's Discover Weekly, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates. Eeventually, I got to work.

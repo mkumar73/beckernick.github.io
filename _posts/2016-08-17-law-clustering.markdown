@@ -1,16 +1,13 @@
 ---
 title:  "Identifying Similar US Laws using TF-IDF and K-Nearest Neighbors"
 date:   2016-08-18
-categories: [data science, law, clustering, natural language processing]
 tags: [data science, natural langauge processing]
 header:
   image: "congress_edge_detection.jpg"
 ---
 
-# Download Enacted Laws from www.congress.gov
-
-### Web Scraping with BeautifulSoup
-First, I needed to scrape https://www.congress.gov/legislation to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside 'h2' tags within an 'ol' tag of class 'results_list').
+### Scraping www.congress.gov with BeautifulSoup
+First, I needed to scrape https://www.congress.gov/legislation to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
 
 So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the data in the table on each page, and the inner loop extracts the hyperlinks for bills. Out of respect for www.congress.gov's servers, I store the links in a list and write the list to a text file so I don't have to scrape them again.
 
@@ -18,16 +15,20 @@ So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the 
 ```python
 from __future__ import division
 import re
+import nltk
 from nltk.corpus import stopwords
 import bs4
 import urllib2
 import time
 import pickle
+```
 
 
+```python
 # Get the hyperlinks for all of the bills
 base_law_url = 'https://www.congress.gov/legislation?q=%7B"bill-status"%3A"law"%7D&page='
 relevant_links = []
+data_path = '/users/nickbecker/Python_Projects/clustering_laws/'
 
 for i in xrange(1, 150):
     print 'Page {0}'.format(i)
@@ -46,11 +47,131 @@ for i in xrange(1, 150):
         if m:
             relevant_links.append(m.group(1))
 
+with open(data_path + 'law_links.txt', 'w') as handle:
+    for link in relevant_links:
+        handle.write("%s\n" % link)
 ```
 
-With the hyperlinks to few thousands enacted bills in relevant_links, I next need to download the actual bills. By looking at a few of the pages, I noticed that access to the text version of the bills (instead of the PDF) is controlled by the URL ending ```/text?format=txt```. On each page, the text stored in a ```<pre>``` tag with id ```billTextContainer```.
+    Page 1
+    Page 2
+    Page 3
 
-By looping through ```relevant_links```, I grab the title and text of each bill and store them in ```titles_list``` and ```bills_text_list```.
+
+
+    ---------------------------------------------------------------------------
+
+    KeyboardInterrupt                         Traceback (most recent call last)
+
+    <ipython-input-3-fc45dae313ad> in <module>()
+          7     print 'Page {0}'.format(i)
+          8 
+    ----> 9     response = urllib2.urlopen(base_law_url + str(i))
+         10     html = response.read()
+         11     soup = bs4.BeautifulSoup(html)
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in urlopen(url, data, timeout, cafile, capath, cadefault, context)
+        152     else:
+        153         opener = _opener
+    --> 154     return opener.open(url, data, timeout)
+        155 
+        156 def install_opener(opener):
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in open(self, fullurl, data, timeout)
+        427             req = meth(req)
+        428 
+    --> 429         response = self._open(req, data)
+        430 
+        431         # post-process response
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in _open(self, req, data)
+        445         protocol = req.get_type()
+        446         result = self._call_chain(self.handle_open, protocol, protocol +
+    --> 447                                   '_open', req)
+        448         if result:
+        449             return result
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in _call_chain(self, chain, kind, meth_name, *args)
+        405             func = getattr(handler, meth_name)
+        406 
+    --> 407             result = func(*args)
+        408             if result is not None:
+        409                 return result
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in https_open(self, req)
+       1239         def https_open(self, req):
+       1240             return self.do_open(httplib.HTTPSConnection, req,
+    -> 1241                 context=self._context)
+       1242 
+       1243         https_request = AbstractHTTPHandler.do_request_
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in do_open(self, http_class, req, **http_conn_args)
+       1199         else:
+       1200             try:
+    -> 1201                 r = h.getresponse(buffering=True)
+       1202             except TypeError: # buffering kw not supported
+       1203                 r = h.getresponse()
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in getresponse(self, buffering)
+       1134 
+       1135         try:
+    -> 1136             response.begin()
+       1137             assert response.will_close != _UNKNOWN
+       1138             self.__state = _CS_IDLE
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in begin(self)
+        451         # read until we get a non-100 response
+        452         while True:
+    --> 453             version, status, reason = self._read_status()
+        454             if status != CONTINUE:
+        455                 break
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in _read_status(self)
+        407     def _read_status(self):
+        408         # Initialize with Simple-Response defaults
+    --> 409         line = self.fp.readline(_MAXLINE + 1)
+        410         if len(line) > _MAXLINE:
+        411             raise LineTooLong("header line")
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/socket.pyc in readline(self, size)
+        478             while True:
+        479                 try:
+    --> 480                     data = self._sock.recv(self._rbufsize)
+        481                 except error, e:
+        482                     if e.args[0] == EINTR:
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/ssl.pyc in recv(self, buflen, flags)
+        754                     "non-zero flags not allowed in calls to recv() on %s" %
+        755                     self.__class__)
+    --> 756             return self.read(buflen)
+        757         else:
+        758             return self._sock.recv(buflen, flags)
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/ssl.pyc in read(self, len, buffer)
+        641                 v = self._sslobj.read(len, buffer)
+        642             else:
+    --> 643                 v = self._sslobj.read(len)
+        644             return v
+        645         except SSLError as x:
+
+
+    KeyboardInterrupt: 
+
+
+With the hyperlinks to few thousand enacted bills in relevant_links, I next need to download the actual bills. By looking at a few of the pages, I noticed that access to the text version of the bills (instead of the PDF) is controlled by the URL ending ```/text?format=txt```. On each page, the text stored in a ```<pre>``` tag with id ```billTextContainer```.
+
+By looping through ```relevant_links```, I grab the title and text of each bill and store them in ```titles_list``` and ```bills_text_list```. I'll zip them into a the dictionary ```bills_dictionary``` with the titles as keys and text as values.
 
 
 ```python
@@ -86,6 +207,10 @@ for i in xrange(len(relevant_links)):
         
         titles_list.append(title_soup[st:end])
 
+bills_dictionary = dict(zip(titles_list, bills_text_list))
+
+with open(data_path + 'bills_dictionary.pickle', 'wb') as handle:
+    pickle.dump(bills_clean_dictionary, handle)
 ```
 
 ### Cleaning the bills
@@ -93,7 +218,14 @@ Let's take a look at the text of one of the bills:
 
 
 ```python
+with open(data_path + 'bills_dictionary.pickle', 'r') as handle:
+    bills_dictionary = pickle.load(handle)
+```
+
+
+```python
 print bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
+```
 
     
     [107th Congress Public Law 60]
@@ -197,7 +329,7 @@ print bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Bo
 
 Nice! This looks pretty good for a raw file. Since we're going to use tf-idf, we need to clean the text to keep only letters. We'll also remove stopwords (using the standard list included in NLTK) to remove words that provide very little information.
 
-After cleaning, I zip the titles and clean text into a dictionary ```bills_clean_dictionary``` with the titles as keys and text as values to save them efficiently.
+After cleaning, I zip the titles and clean text into a new dictionary ```bills_clean_dictionary``` and save it for quick recall.
 
 
 ```python
@@ -206,25 +338,30 @@ def clean_bill(raw_bill):
     Function to clean bill text to keep only letters and remove stopwords
     Returns a string of the cleaned bill text
     """
-    letters_only = re.sub("[^a-zA-Z]",
-                          " ",
-                          raw_bill)
+    letters_only = re.sub('[^a-zA-Z]', ' ', raw_bill)
     words = letters_only.lower().split()
     stopwords_eng = set(stopwords.words("english"))
     useful_words = [x for x in words if not x in stopwords_eng]
     
     # Combine words into a paragraph again
-    useful_words_string = " ".join(useful_words)
+    useful_words_string = ' '.join(useful_words)
     return(useful_words_string)
 
 bills_text_list_clean = map(clean_bill, bills_text_list)
-
 bills_clean_dictionary = dict(zip(titles_list, bills_text_list_clean))
 
-
+with open(data_path + 'bills_dictionary_clean.pickle', 'wb') as handle:
+    pickle.dump(bills_clean_dictionary, handle)
 ```
 
 Let's see how the cleaned law looks:
+
+
+```python
+with open(data_path + 'bills_dictionary_clean.pickle', 'r') as handle:
+    clean_bills_dictionary = pickle.load(handle)
+```
+
 
 ```python
 print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
@@ -235,24 +372,18 @@ print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic S
 
 Perfect! Way harder to read, but way more useful for finding textual similarities
 
-
-```python
-
-```
-
-### Clustering laws using TF-IDF and Cosine Distance
+### Calculating TF-IDF Vectors
 
 So we've got a dictionary of laws and their text. Now it's time to calculate the tf-idf vectors. We'll initialize a stemmer from NLTK to treat words like ```incredible``` and ```incredibly``` as the same token. Then we'll initialize a TfidfVectorizer from ```sklearn``` and fit our corpus to the vectorizer. Since our corpus is all the values of the dictionary ```clean_bills_dictionary```, we'll pass ```clean_bills_dictionary.values()``` to the vectorizer.
 
 
 ```python
-from __future__ import division
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-import nltk
 from nltk.stem.porter import PorterStemmer
-import pickle
 
+with open('/users/nickbecker/Python_Projects/bills_dictionary_clean.pickle', 'r') as handle:
+    clean_bills_dictionary = pickle.load(handle)
 
 stemmer = PorterStemmer()
 
@@ -264,11 +395,8 @@ def tokenize(text):
     stems = stem_words(tokens, stemmer)
     return stems
 
-    
-
 tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words='english')
 tfs = tfidf.fit_transform(clean_bills_dictionary.values())
-
 ```
 
 So what do we actually have now? ```tfs``` should be a matrix, where each row represents a law and each column represents a token (word) in the corpus. Let's see if we're right.
@@ -286,9 +414,23 @@ tfs
 
 
 
-Perfect. It's a sparse numpy array because it's essentially a matrix of zeros, with a handful of nonzero elements per row. The sparse matrix format is more efficient storage wise.
+Perfect. It's a sparse numpy array because it's essentially a matrix of zeros, with a handful of nonzero elements per row. The sparse matrix format is more efficient storage wise. Let's save the sparse matrix so we won't have to recalculate it. These functions (from the Scipy user group) let us easily save and load the array.
 
-### Finding Laws' Nearest Neighbors
+
+```python
+def save_sparse_csr(filename,array):
+    np.savez(filename,data = array.data ,indices=array.indices,
+             indptr =array.indptr, shape=array.shape )
+
+def load_sparse_csr(filename):
+    loader = np.load(filename)
+    return csr_matrix((loader['data'], loader['indices'], loader['indptr']),
+                         shape = loader['shape'])
+
+save_sparse_csr(data_path + 'laws_tf_idf.npz', tfs)
+```
+
+### Finding Laws' Nearest Neighbors with Cosine Distance
 
 Finally, we can find similar laws! We'll initialize a NearestNeighbors class and fit our tf-idf matrix to it. Since we want to use cosine distance as our distance metric, I'll initialize it with ```metric='cosine'```.
 
@@ -325,30 +467,27 @@ def print_nearest_neighbors(query_tf_idf, full_bill_dictionary, knn_model, k):
             print 'Query Law: {0}\n'.format(nearest_neighbors[bill])
         else:
             print '{0}: {1}\n'.format(bill, nearest_neighbors[bill])
-
-
 ```
 
-Time to test! I'll pick a random law and find it's nearest neighbors.
+Time to test it! I'll pick a random law and find it's nearest neighbors.
 
 
 ```python
-#np.random.seed(12)
 bill_id = np.random.choice(tfs.shape[0])
 print_nearest_neighbors(tfs[bill_id], clean_bills_dictionary, model_tf_idf, k=5)
 ```
 
-    Query Law: H.R.3734 - To designate the Federal building located at Fifth and Richardson Avenues in Roswell, New Mexico, as the "Joe Skeen Federal Building".
+    Query Law: H.R.2517 - Protecting Our Children Comes First Act of 2007
     
-    1: H.R.3147 - To designate the Federal building located at 324 Twenty-Fifth Street in Ogden, Utah, as the "James V. Hansen Federal Building".
+    1: H.R.3209 - Recovering Missing Children Act
     
-    2: H.R.4957 - To designate the Federal building located at 99 New York Avenue, N.E., in the District of Columbia as the "Ariel Rios Federal Building".
+    2: S.1738 - PROTECT Our Children Act of 2008
     
-    3: H.R.3639 - To designate the Federal building located at 2201 C Street, Northwest, in the District of Columbia, currently headquarters for the Department of State, as the "Harry S. Truman Federal Building".
+    3: S.249 - Missing, Exploited, and Runaway Children Protection Act
     
-    4: H.R.5773 - To designate the Federal building located at 6401 Security Boulevard in Baltimore, Maryland, commonly known as the Social Security Administration  Operations Building, as the "Robert M. Ball Federal Building".
+    4: H.R.3092 - E. Clay Shaw, Jr. Missing Children's Assistance Reauthorization Act of 2013
     
-    5: H.R.821 - To designate the facility of the United States Postal Service located at 1030 South Church Street in Asheboro, North Carolina, as the "W. Joe Trogdon Post Office Building".
+    5: S.151 - PROTECT Act
     
 
 
@@ -358,22 +497,20 @@ bill_id = np.random.choice(tfs.shape[0])
 print_nearest_neighbors(tfs[bill_id], clean_bills_dictionary, model_tf_idf, k=5)
 ```
 
-    Query Law: H.R.1953 - San Francisco Old Mint Commemorative Coin Act
+    Query Law: H.R.539 - Caribbean National Forest Act of 2005
     
-    1: H.R.3373 - To require the Secretary of the Treasury to mint coins in conjunction with the minting of coins by the Republic of Iceland in commemoration of the millennium of the discovery of the New World by Lief Ericson.
+    1: S.4001 - New England Wilderness Act of 2006
     
-    2: H.R.3229 - National Infantry Museum and Soldier Center Commemorative Coin Act
+    2: H.R.4750 - Big Sur Wilderness and Conservation Act of 2002 
     
-    3: H.R.2768 - John Marshall Commemorative Coin Act
+    3: H.R.233 - Northern California Coastal Wild Heritage Wilderness Act
     
-    4: H.R.634 - American Veterans Disabled for Life Commemorative Coin Act
+    4: S.503 - Spanish Peaks Wilderness Act of 2000
     
-    5: H.R.5714 - United States Army Commemorative Coin Act of 2008
+    5: H.R.15 - Otay Mountain Wilderness Act of 1999
     
 
 
+Pretty good! Remember, we didn't use the title of the laws in the corpus. So these rankings are just based on the textual similarity.
 
-## Final Thoughts
-Pretty good! Remember, we didn't use the title of the laws in the corpus.
-
-
+## What's Next?

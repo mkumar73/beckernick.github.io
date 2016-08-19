@@ -44,7 +44,7 @@ from nltk.stem.porter import PorterStemmer
 # Get the hyperlinks for all of the bills
 base_law_url = 'https://www.congress.gov/legislation?q=%7B"bill-status"%3A"law"%7D&page='
 relevant_links = []
-data_path = '~/Python_Projects/clustering_laws/'
+data_path = '~/clustering_laws/'
 
 for i in xrange(1, 150):
     print 'Page {0}'.format(i)

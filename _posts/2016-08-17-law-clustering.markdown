@@ -472,7 +472,6 @@ for i in set(km.labels_):
     #print i
     current_cluster_bills = [clean_bills_dictionary.keys()[x] for x in np.where(km.labels_ == i)[0]]
     cluster_assignments_dict[i] = current_cluster_bills
-
 ```
 
 Let's take a look at a couple random clusters.

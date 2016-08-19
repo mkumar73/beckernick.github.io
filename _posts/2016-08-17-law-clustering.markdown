@@ -707,7 +707,7 @@ plt.show()
 ```
 
 
-![png](https://github.com/beckernick/beckernick.github.io/blob/master/images/clustering_laws_images/clusters_histogram.png)
+![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/clusters_histogram.png)
 
 
 So it's not uniformly distributed (which makes sense), but it's not a disaster. Good enough to push forward. Let's take assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws assigned to their respective clusters as values.

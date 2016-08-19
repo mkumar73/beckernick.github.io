@@ -19,7 +19,7 @@ Since I'm doing some natural language processing at work, I figured I might as w
 
 
 
-### Scraping www.congress.gov with BeautifulSoup
+## Scraping www.congress.gov with BeautifulSoup
 First, I needed to scrape https://www.congress.gov/legislation to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
 
 So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the data in the table on each page, and the inner loop extracts the hyperlinks for bills. Out of respect for www.congress.gov's servers, I store the links in a list and write the list to a text file so I don't have to scrape them again.
@@ -48,7 +48,6 @@ data_path = '~/Python_Projects/clustering_laws/'
 
 for i in xrange(1, 150):
     print 'Page {0}'.format(i)
-    
     response = urllib2.urlopen(base_law_url + str(i))
     html = response.read()
     soup = bs4.BeautifulSoup(html)
@@ -83,7 +82,6 @@ html_tags_re = re.compile(r'<[^>]+>')
 def remove_html_tags(text):
     return html_tags_re.sub('', text)
 
-
 for i in xrange(len(relevant_links)):
     print i
     response = urllib2.urlopen(relevant_links[i] + text_ending)
@@ -115,113 +113,106 @@ with open(data_path + 'bills_dictionary.pickle', 'wb') as handle:
 ### Cleaning the bills
 Let's take a look at the text of one of the bills:
 
-
-```python
-with open(data_path + 'bills_dictionary.pickle', 'r') as handle:
-    bills_dictionary = pickle.load(handle)
-```
-
-
 ```python
 print bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
-
-    
-[107th Congress Public Law 60]
-[From the U.S. Government Printing Office]
-
-
-&amp;lt;DOC&amp;gt;
-[DOCID: f:publ060.107]
-
-
-[[Page 115 STAT. 408]]
-
-Public Law 107-60
-107th Congress
-
-                                 An Act
-
-
- 
-To adjust the boundary of the William Howard Taft National Historic Site 
-  in the State of Ohio, to authorize an exchange of land in connection 
-    with the historic site, and for other purposes. &amp;lt;&amp;lt;NOTE: Nov. 5, 
-                         2001 -  [H.R. 1000]&amp;gt;&amp;gt; 
-
-    Be it enacted by the Senate and House of Representatives of the 
-United States of America in Congress &amp;lt;&amp;lt;NOTE: William Howard Taft 
-National Historic Site Boundary Adjustment Act of 2001. 16 USC 461 
-note.&amp;gt;&amp;gt; assembled,
-
-SECTION 1. SHORT TITLE.
-
-    This Act may be cited as the ``William Howard Taft National Historic 
-Site Boundary Adjustment Act of 2001''.
-
-SEC. 2. EXCHANGE OF LANDS AND BOUNDARY ADJUSTMENT, WILLIAM HOWARD TAFT 
-            NATIONAL HISTORIC SITE, OHIO.
-
-    (a) Definitions.--In this section:
-            (1) Historic site.--The term ``historic site'' means the 
-        William Howard Taft National Historic Site in Cincinnati, Ohio, 
-        established pursuant to Public Law 91-132 (83 Stat. 273; 16 
-        U.S.C. 461 note).
-            (2) Map.--The term ``map'' means the map entitled ``Proposed 
-        Boundary Map, William Howard Taft National Historic Site, 
-        Hamilton County, Cincinnati, Ohio,'' numbered 448/80,025, and 
-        dated November 2000.
-            (3) Secretary.--The term ``Secretary'' means the Secretary 
-        of the Interior, acting through the Director of the National 
-        Park Service.
-
-    (b) Authorization of Land Exchange.--
-            (1) Exchange.--The Secretary may acquire a parcel of real 
-        property consisting of less than one acre, which is depicted on 
-        the map as the ``Proposed Exchange Parcel (Outside Boundary)'', 
-        in exchange for a parcel of real property, also consisting of 
-        less than one acre, which is depicted on the map as the 
-        ``Current USA Ownership (Inside Boundary)''.
-            (2) Equalization of values.--If the values of the parcels to 
-        be exchanged under paragraph (1) are not equal, the difference 
-        may be equalized by donation, payment using donated or 
-        appropriated funds, or the conveyance of additional land.
-            (3) Adjustment of boundary.--The Secretary shall revise the 
-        boundary of the historic site to reflect the exchange upon its 
-        completion.
-
-    (c) Additional Boundary Revision and Acquisition Authority.--
-            (1) &amp;lt;&amp;lt;NOTE: Effective date.&amp;gt;&amp;gt; Inclusion of parcel in 
-        boundary.--Effective on the date of the enactment of this Act, 
-        the boundary of the historic site is revised to include an 
-        additional parcel of real property, which is depicted on the map 
-        as the ``Proposed Acquisition''.
-
-[[Page 115 STAT. 409]]
-
-            (2) Acquisition authority.--The Secretary may acquire the 
-        parcel referred to in paragraph (1) by donation, purchase from 
-        willing sellers with donated or appropriated funds, or exchange.
-
-    (d) Availability of Map.--The map shall be on file and available for 
-public inspection in the appropriate offices of the National Park 
-Service.
-    (e) Administration of Acquired Lands.--Any lands acquired under this 
-section shall be administered by the Secretary as part of the historic 
-site in accordance with applicable laws and regulations.
-
-    Approved November 5, 2001.
-
-LEGISLATIVE HISTORY--H.R. 1000:
----------------------------------------------------------------------------
-
-HOUSE REPORTS: No. 107-88 (Comm. on Resources).
-SENATE REPORTS: No. 107-76 (Comm. on Energy and Natural Resources).
-CONGRESSIONAL RECORD, Vol. 147 (2001):
-            June 6, considered and passed House.
-            Oct. 17, considered and passed Senate.
-
-                                  &amp;lt;all&amp;gt;
 ```
+    
+    [107th Congress Public Law 60]
+    [From the U.S. Government Printing Office]
+    
+    
+    &amp;lt;DOC&amp;gt;
+    [DOCID: f:publ060.107]
+    
+    
+    [[Page 115 STAT. 408]]
+    
+    Public Law 107-60
+    107th Congress
+    
+                                     An Act
+    
+    
+     
+    To adjust the boundary of the William Howard Taft National Historic Site 
+      in the State of Ohio, to authorize an exchange of land in connection 
+        with the historic site, and for other purposes. &amp;lt;&amp;lt;NOTE: Nov. 5, 
+                             2001 -  [H.R. 1000]&amp;gt;&amp;gt; 
+    
+        Be it enacted by the Senate and House of Representatives of the 
+    United States of America in Congress &amp;lt;&amp;lt;NOTE: William Howard Taft 
+    National Historic Site Boundary Adjustment Act of 2001. 16 USC 461 
+    note.&amp;gt;&amp;gt; assembled,
+    
+    SECTION 1. SHORT TITLE.
+    
+        This Act may be cited as the ``William Howard Taft National Historic 
+    Site Boundary Adjustment Act of 2001''.
+    
+    SEC. 2. EXCHANGE OF LANDS AND BOUNDARY ADJUSTMENT, WILLIAM HOWARD TAFT 
+                NATIONAL HISTORIC SITE, OHIO.
+    
+        (a) Definitions.--In this section:
+                (1) Historic site.--The term ``historic site'' means the 
+            William Howard Taft National Historic Site in Cincinnati, Ohio, 
+            established pursuant to Public Law 91-132 (83 Stat. 273; 16 
+            U.S.C. 461 note).
+                (2) Map.--The term ``map'' means the map entitled ``Proposed 
+            Boundary Map, William Howard Taft National Historic Site, 
+            Hamilton County, Cincinnati, Ohio,'' numbered 448/80,025, and 
+            dated November 2000.
+                (3) Secretary.--The term ``Secretary'' means the Secretary 
+            of the Interior, acting through the Director of the National 
+            Park Service.
+    
+        (b) Authorization of Land Exchange.--
+                (1) Exchange.--The Secretary may acquire a parcel of real 
+            property consisting of less than one acre, which is depicted on 
+            the map as the ``Proposed Exchange Parcel (Outside Boundary)'', 
+            in exchange for a parcel of real property, also consisting of 
+            less than one acre, which is depicted on the map as the 
+            ``Current USA Ownership (Inside Boundary)''.
+                (2) Equalization of values.--If the values of the parcels to 
+            be exchanged under paragraph (1) are not equal, the difference 
+            may be equalized by donation, payment using donated or 
+            appropriated funds, or the conveyance of additional land.
+                (3) Adjustment of boundary.--The Secretary shall revise the 
+            boundary of the historic site to reflect the exchange upon its 
+            completion.
+    
+        (c) Additional Boundary Revision and Acquisition Authority.--
+                (1) &amp;lt;&amp;lt;NOTE: Effective date.&amp;gt;&amp;gt; Inclusion of parcel in 
+            boundary.--Effective on the date of the enactment of this Act, 
+            the boundary of the historic site is revised to include an 
+            additional parcel of real property, which is depicted on the map 
+            as the ``Proposed Acquisition''.
+    
+    [[Page 115 STAT. 409]]
+    
+                (2) Acquisition authority.--The Secretary may acquire the 
+            parcel referred to in paragraph (1) by donation, purchase from 
+            willing sellers with donated or appropriated funds, or exchange.
+    
+        (d) Availability of Map.--The map shall be on file and available for 
+    public inspection in the appropriate offices of the National Park 
+    Service.
+        (e) Administration of Acquired Lands.--Any lands acquired under this 
+    section shall be administered by the Secretary as part of the historic 
+    site in accordance with applicable laws and regulations.
+    
+        Approved November 5, 2001.
+    
+    LEGISLATIVE HISTORY--H.R. 1000:
+    ---------------------------------------------------------------------------
+    
+    HOUSE REPORTS: No. 107-88 (Comm. on Resources).
+    SENATE REPORTS: No. 107-76 (Comm. on Energy and Natural Resources).
+    CONGRESSIONAL RECORD, Vol. 147 (2001):
+                June 6, considered and passed House.
+                Oct. 17, considered and passed Senate.
+    
+                                      &amp;lt;all&amp;gt;
+    
     
 
 
@@ -256,12 +247,6 @@ Let's see how the cleaned law looks:
 
 
 ```python
-with open(data_path + 'bills_dictionary_clean.pickle', 'r') as handle:
-    clean_bills_dictionary = pickle.load(handle)
-```
-
-
-```python
 print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
 ```
 
@@ -273,11 +258,6 @@ Perfect! Way harder to read, but way more useful for finding textual similaritie
 ### Calculating TF-IDF Vectors
 
 So we've got a dictionary of laws and their text. Now it's time to calculate the tf-idf vectors. We'll initialize a stemmer from NLTK to treat words like ```incredible``` and ```incredibly``` as the same token. Then we'll initialize a TfidfVectorizer from ```sklearn``` and fit our corpus to the vectorizer. Since our corpus is all the values of the dictionary ```clean_bills_dictionary```, we'll pass ```clean_bills_dictionary.values()``` to the vectorizer.
-
-
-```python
-with open('/users/nickbecker/Python_Projects/bills_dictionary_clean.pickle', 'r') as handle:
-    clean_bills_dictionary = pickle.load(handle)
 
 stemmer = PorterStemmer()
 
@@ -295,12 +275,9 @@ tfs = tfidf.fit_transform(clean_bills_dictionary.values())
 
 So what do we actually have now? ```tfs``` should be a matrix, where each row represents a law and each column represents a token (word) in the corpus. Let's see if we're right.
 
-
 ```python
 tfs
 ```
-
-
 
 
     <3725x30894 sparse matrix of type '<type 'numpy.float64'>'
@@ -461,10 +438,6 @@ km.fit(tfs)
     [...]
     Converged at iteration 25
 
-
-
-
-
     KMeans(copy_x=True, init='k-means++', max_iter=100, n_clusters=50, n_init=5,
         n_jobs=1, precompute_distances='auto', random_state=None, tol=0.0001,
         verbose=1)
@@ -485,18 +458,11 @@ plt.hist(km.labels_, bins=k)
 plt.show()
 ```
 
-
 ![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/clusters_histogram.png)
 
 
 So it's not uniformly distributed (which makes sense), but it's not a disaster. Good enough to push forward. Let's take assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws assigned to their respective clusters as values.
 
-
-```python
-with open(data_path + 'bills_dictionary_clean.pickle', 'r') as handle:
-    clean_bills_dictionary = pickle.load(handle)
-
-```
 
 
 ```python
@@ -630,17 +596,12 @@ Since so many laws have `United States` in them, we'll add those words to the se
 
 
 ```python
-stemmer = PorterStemmer()
-
-def stem_words(words_list, stemmer):
-    return [stemmer.stem(word) for word in words_list]
-
-def tokenize(text):
-    tokens = nltk.word_tokenize(text)
-    stems = stem_words(tokens, stemmer)
-    return stems
 
 def clean_bill(raw_bill):
+    """
+    Function to clean bill text to keep only letters and remove stopwords
+    Returns a string of the cleaned bill text
+    """
     letters_only = re.sub('[^a-zA-Z]', ' ', raw_bill)
     words = letters_only.lower().split()
     stopwords_eng = set(stopwords.words("english"))
@@ -651,7 +612,6 @@ def clean_bill(raw_bill):
     # Combine words into a paragraph again
     useful_words_string = ' '.join(useful_words)
     return(useful_words_string)
-
 ```
 
 
@@ -687,7 +647,7 @@ How can we "squeeze" the information contained in the high dimensional space dow
 
 In their [t-SNE paper](http://www.cs.toronto.edu/~hinton/absps/tsne.pdf), van der Maaten and Hinton describe the core of stochastic neighbor embedding as:
 
-1) "estimating the similarity of datapoint x<sub>j</sub> to datapoint x<sub>i</sub> is the conditional probability, p<sub>j|i</sub>, that x<sub>i</sub> would pick x<sub>j</sub> as its neighbor if neighbors were picked in proportion to their probability density under a Gaussian centered at x<sub>i</sub>."
+1) "Estimating the similarity of datapoint x<sub>j</sub> to datapoint x<sub>i</sub> is the conditional probability, p<sub>j|i</sub>, that x<sub>i</sub> would pick x<sub>j</sub> as its neighbor if neighbors were picked in proportion to their probability density under a Gaussian centered at x<sub>i</sub>."
 
 2) "For the low-dimensional counterparts y<sub>i</sub> and y<sub>j</sub> of the high-dimensional datapoints x<sub>i</sub> and x<sub>j</sub>, it is possible to compute a similar conditional probability, which we denote by q<sub>j|i</sub>."
 
@@ -714,13 +674,11 @@ Let's take a look at the first law's representation in both spaces.
 
 ```python
 print tfs[0].A
-print '\n'
 print tfs_reduced[0]
 ```
 
     [[ 0.  0.  0. ...,  0.  0.  0.]]
-    
-    
+
     [  4.38423875e-01  -3.00248418e-03   2.33335259e-01  -1.37438286e-01
        2.84206786e-01   2.66262552e-01  -2.12074337e-02   4.12346062e-02
        7.49885919e-02   6.55497460e-02  -9.97137039e-03  -5.88120140e-02
@@ -741,7 +699,6 @@ Next, we'll find a 2-D representation of our 50-dimensional tensor using t-SNE.
 
 ```python
 tfs_embedded = TSNE(n_components=2, perplexity=40, verbose=2).fit_transform(tfs_reduced)
-print tfs_embedded.shape
 ```
 
     [t-SNE] Computing pairwise distances...
@@ -757,19 +714,8 @@ print tfs_embedded.shape
     [t-SNE] Iteration 100: error = 1.2346758, gradient norm = 0.0018688
     [t-SNE] Error after 100 iterations with early exaggeration: 1.234676
     [t-SNE] Iteration 125: error = 1.1260014, gradient norm = 0.0014051
-    [t-SNE] Iteration 150: error = 1.0931615, gradient norm = 0.0012835
-    [t-SNE] Iteration 175: error = 1.0850121, gradient norm = 0.0012593
-    [t-SNE] Iteration 200: error = 1.0827918, gradient norm = 0.0012533
-    [t-SNE] Iteration 225: error = 1.0821831, gradient norm = 0.0012516
-    [t-SNE] Iteration 250: error = 1.0820014, gradient norm = 0.0012511
-    [t-SNE] Iteration 275: error = 1.0819577, gradient norm = 0.0012510
-    [t-SNE] Iteration 300: error = 1.0819440, gradient norm = 0.0012509
-    [t-SNE] Iteration 325: error = 1.0819411, gradient norm = 0.0012509
-    [t-SNE] Iteration 350: error = 1.0819398, gradient norm = 0.0012509
-    [t-SNE] Iteration 375: error = 1.0819392, gradient norm = 0.0012509
-    [t-SNE] Iteration 375: error difference 0.000000. Finished.
+    [...]
     [t-SNE] Error after 375 iterations: 1.081939
-    (3725, 2)
 
 
 With our vector embeddings in hand, let's plot the laws colored according to their k-means cluster assignment.

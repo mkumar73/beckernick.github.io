@@ -486,10 +486,6 @@ cluster_assignments_dict[cluster_pick]
 
     Cluster 41
 
-
-
-
-
     ['H.R.2719 - Transportation Security Acquisition Reform Act',
      'H.R.1626 - DHS IT Duplication Reduction Act of 2015',
      'H.R.1801 - Risk-Based Security Screening for Members of the Armed Forces Act',
@@ -541,10 +537,6 @@ cluster_assignments_dict[cluster_pick]
 ```
 
     Cluster 27
-
-
-
-
 
     ['S.3397 - Secure and Responsible Drug Disposal Act of 2010',
      'H.R.1321 - Microbead-Free Waters Act of 2015',

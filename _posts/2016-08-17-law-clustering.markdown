@@ -1,11 +1,11 @@
 ---
-title:  "Finding Similar US Laws using TF-IDF and K-Nearest Neighbors"
+title:  "Clustering Similar US Laws using TF-IDF, K-Nearest Neighbors, and K-Means"
 date:   2016-08-18
 tags: [data science, natural langauge processing]
 
 header:
   image: "congress_edge_detection.jpg"
-  caption: "Photo credit: [**Politico**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
+  caption: "Photo credit: [**Original Photo: Politico, Edited by Nick Becker**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
 
 #excerpt: "data science, US laws, natural language processing, tf-idf, and k-nearest neighbors."
 ---
@@ -18,10 +18,11 @@ Since I'm doing some natural language processing at work, I figured I might as w
 
 
 
-### Scraping www.congress.gov with BeautifulSoup
-First, I needed to scrape [https://www.congress.gov/legislation](https://www.congress.gov/legislation) to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
 
-So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the data in the table on each page, and the inner loop extracts the hyperlinks for bills. Out of respect for Congress's servers, I store the links in a list and write the list to a text file so I don't have to scrape them again.
+### Scraping www.congress.gov with BeautifulSoup
+First, I needed to scrape https://www.congress.gov/legislation to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
+
+So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the data in the table on each page, and the inner loop extracts the hyperlinks for bills. Out of respect for www.congress.gov's servers, I store the links in a list and write the list to a text file so I don't have to scrape them again.
 
 
 ```python
@@ -33,6 +34,9 @@ import bs4
 import urllib2
 import time
 import pickle
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.stem.porter import PorterStemmer
 ```
 
 
@@ -40,7 +44,7 @@ import pickle
 # Get the hyperlinks for all of the bills
 base_law_url = 'https://www.congress.gov/legislation?q=%7B"bill-status"%3A"law"%7D&page='
 relevant_links = []
-data_path = '~/Python_Projects/clustering_laws/'
+data_path = '/users/nickbecker/Python_Projects/clustering_laws/'
 
 for i in xrange(1, 150):
     print 'Page {0}'.format(i)
@@ -65,9 +69,118 @@ with open(data_path + 'law_links.txt', 'w') as handle:
 ```
 
     Page 1
-    Page 2
-    Page 3
-    [...]
+
+
+
+    ---------------------------------------------------------------------------
+
+    KeyboardInterrupt                         Traceback (most recent call last)
+
+    <ipython-input-2-fc45dae313ad> in <module>()
+          7     print 'Page {0}'.format(i)
+          8 
+    ----> 9     response = urllib2.urlopen(base_law_url + str(i))
+         10     html = response.read()
+         11     soup = bs4.BeautifulSoup(html)
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in urlopen(url, data, timeout, cafile, capath, cadefault, context)
+        152     else:
+        153         opener = _opener
+    --> 154     return opener.open(url, data, timeout)
+        155 
+        156 def install_opener(opener):
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in open(self, fullurl, data, timeout)
+        427             req = meth(req)
+        428 
+    --> 429         response = self._open(req, data)
+        430 
+        431         # post-process response
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in _open(self, req, data)
+        445         protocol = req.get_type()
+        446         result = self._call_chain(self.handle_open, protocol, protocol +
+    --> 447                                   '_open', req)
+        448         if result:
+        449             return result
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in _call_chain(self, chain, kind, meth_name, *args)
+        405             func = getattr(handler, meth_name)
+        406 
+    --> 407             result = func(*args)
+        408             if result is not None:
+        409                 return result
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in https_open(self, req)
+       1239         def https_open(self, req):
+       1240             return self.do_open(httplib.HTTPSConnection, req,
+    -> 1241                 context=self._context)
+       1242 
+       1243         https_request = AbstractHTTPHandler.do_request_
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in do_open(self, http_class, req, **http_conn_args)
+       1199         else:
+       1200             try:
+    -> 1201                 r = h.getresponse(buffering=True)
+       1202             except TypeError: # buffering kw not supported
+       1203                 r = h.getresponse()
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in getresponse(self, buffering)
+       1134 
+       1135         try:
+    -> 1136             response.begin()
+       1137             assert response.will_close != _UNKNOWN
+       1138             self.__state = _CS_IDLE
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in begin(self)
+        451         # read until we get a non-100 response
+        452         while True:
+    --> 453             version, status, reason = self._read_status()
+        454             if status != CONTINUE:
+        455                 break
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in _read_status(self)
+        407     def _read_status(self):
+        408         # Initialize with Simple-Response defaults
+    --> 409         line = self.fp.readline(_MAXLINE + 1)
+        410         if len(line) > _MAXLINE:
+        411             raise LineTooLong("header line")
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/socket.pyc in readline(self, size)
+        478             while True:
+        479                 try:
+    --> 480                     data = self._sock.recv(self._rbufsize)
+        481                 except error, e:
+        482                     if e.args[0] == EINTR:
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/ssl.pyc in recv(self, buflen, flags)
+        754                     "non-zero flags not allowed in calls to recv() on %s" %
+        755                     self.__class__)
+    --> 756             return self.read(buflen)
+        757         else:
+        758             return self._sock.recv(buflen, flags)
+
+
+    /Users/nickbecker/anaconda/lib/python2.7/ssl.pyc in read(self, len, buffer)
+        641                 v = self._sslobj.read(len, buffer)
+        642             else:
+    --> 643                 v = self._sslobj.read(len)
+        644             return v
+        645         except SSLError as x:
+
+
+    KeyboardInterrupt: 
 
 
 With the hyperlinks to few thousand enacted bills in relevant_links, I next need to download the actual bills. By looking at a few of the pages, I noticed that access to the text version of the bills (instead of the PDF) is controlled by the URL ending ```/text?format=txt```. On each page, the text stored in a ```<pre>``` tag with id ```billTextContainer```.
@@ -116,6 +229,12 @@ with open(data_path + 'bills_dictionary.pickle', 'wb') as handle:
 
 ### Cleaning the bills
 Let's take a look at the text of one of the bills:
+
+
+```python
+with open(data_path + 'bills_dictionary.pickle', 'r') as handle:
+    bills_dictionary = pickle.load(handle)
+```
 
 
 ```python
@@ -222,7 +341,7 @@ print bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Bo
     
 
 
-Nice! This looks pretty good for a raw file. Since we're going to use tf-idf, we need to clean the text to keep only letters. We'll also remove stopwords (using the standard lists included in NLTK and sklearn) to remove words that provide very little information.
+Nice! This looks pretty good for a raw file. Since we're going to use tf-idf, we need to clean the text to keep only letters. We'll also remove stopwords (using the standard lists  included in NLTK and sklearn) to remove words that provide very little information.
 
 After cleaning, I zip the titles and clean text into a new dictionary ```bills_clean_dictionary``` and save it for quick recall.
 
@@ -253,6 +372,12 @@ Let's see how the cleaned law looks:
 
 
 ```python
+with open(data_path + 'bills_dictionary_clean.pickle', 'r') as handle:
+    clean_bills_dictionary = pickle.load(handle)
+```
+
+
+```python
 print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic Site Boundary Adjustment Act of 2001']
 ```
 
@@ -267,10 +392,6 @@ So we've got a dictionary of laws and their text. Now it's time to calculate the
 
 
 ```python
-import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.stem.porter import PorterStemmer
-
 with open('/users/nickbecker/Python_Projects/bills_dictionary_clean.pickle', 'r') as handle:
     clean_bills_dictionary = pickle.load(handle)
 
@@ -307,6 +428,8 @@ Perfect. It's a sparse numpy array because it's essentially a matrix of zeros, w
 
 
 ```python
+from scipy.sparse import csr_matrix
+
 def save_sparse_csr(filename,array):
     np.savez(filename,data = array.data ,indices=array.indices,
              indptr =array.indptr, shape=array.shape )
@@ -316,6 +439,10 @@ def load_sparse_csr(filename):
     return csr_matrix((loader['data'], loader['indices'], loader['indptr']),
                          shape = loader['shape'])
 
+```
+
+
+```python
 save_sparse_csr(data_path + 'laws_tf_idf.npz', tfs)
 ```
 
@@ -400,6 +527,490 @@ print_nearest_neighbors(tfs[bill_id], clean_bills_dictionary, model_tf_idf, k=5)
     
 
 
-Pretty good! Remember, we didn't use the title of the laws in the corpus. So these rankings are just based on the textual similarity.
+Pretty good! Remember, we didn't use the title of the laws in the analysis. These rankings are just based on the textual similarity. Since the nearest neighbors seem to be decent, let's try some k-means clustering.
 
-## What's Next?
+## Clustering with K-Means
+With the groundwork already in place, all we have to do is implement the k-means model. Ideally, we'd choose the number of clusters based on domain knowledge. We could also use one of a variety of techniques to find a "good" number of clusters such as using the Gap Statistic or the Elbow Method. For simplicity, I'll just set `k = 50`. If the data were evenly distributed across clusters, each cluster would have 2% of the data, which seems fine to me for this blog post.
+
+
+```python
+tfs = load_sparse_csr(data_path + 'laws_tf_idf.npz')
+```
+
+To implement k-means, we initialize the `KMeans` class from `sklearn.cluster` as `km` and fit our tf-idf matrix `tfs` to the KMeans instance.
+
+
+```python
+from sklearn.cluster import KMeans
+
+k = 50
+km = KMeans(n_clusters=k, init='k-means++', max_iter=100, n_init=5,
+                verbose=1)
+km.fit(tfs)
+```
+
+    Initialization complete
+    Iteration  0, inertia 4627.378
+    Iteration  1, inertia 2772.718
+    Iteration  2, inertia 2740.741
+    Iteration  3, inertia 2727.465
+    Iteration  4, inertia 2719.431
+    Iteration  5, inertia 2712.857
+    Iteration  6, inertia 2707.826
+    Iteration  7, inertia 2704.319
+    Iteration  8, inertia 2702.306
+    Iteration  9, inertia 2700.195
+    Iteration 10, inertia 2698.325
+    Iteration 11, inertia 2696.734
+    Iteration 12, inertia 2696.002
+    Iteration 13, inertia 2695.693
+    Iteration 14, inertia 2695.298
+    Iteration 15, inertia 2695.016
+    Iteration 16, inertia 2694.730
+    Iteration 17, inertia 2694.279
+    Iteration 18, inertia 2693.847
+    Iteration 19, inertia 2693.421
+    Iteration 20, inertia 2692.685
+    Iteration 21, inertia 2691.712
+    Iteration 22, inertia 2690.647
+    Iteration 23, inertia 2690.048
+    Iteration 24, inertia 2689.891
+    Iteration 25, inertia 2689.750
+    Iteration 26, inertia 2689.693
+    Iteration 27, inertia 2689.634
+    Iteration 28, inertia 2689.605
+    Iteration 29, inertia 2689.587
+    Iteration 30, inertia 2689.578
+    Iteration 31, inertia 2689.564
+    Converged at iteration 31
+    Initialization complete
+    Iteration  0, inertia 4581.523
+    Iteration  1, inertia 2748.013
+    Iteration  2, inertia 2710.909
+    Iteration  3, inertia 2696.998
+    Iteration  4, inertia 2690.226
+    Iteration  5, inertia 2686.583
+    Iteration  6, inertia 2684.223
+    Iteration  7, inertia 2682.624
+    Iteration  8, inertia 2680.348
+    Iteration  9, inertia 2677.303
+    Iteration 10, inertia 2674.520
+    Iteration 11, inertia 2669.464
+    Iteration 12, inertia 2667.554
+    Iteration 13, inertia 2666.939
+    Iteration 14, inertia 2666.647
+    Iteration 15, inertia 2666.434
+    Iteration 16, inertia 2666.325
+    Iteration 17, inertia 2666.193
+    Iteration 18, inertia 2666.081
+    Iteration 19, inertia 2665.912
+    Iteration 20, inertia 2665.860
+    Iteration 21, inertia 2665.832
+    Iteration 22, inertia 2665.826
+    Iteration 23, inertia 2665.814
+    Converged at iteration 23
+    Initialization complete
+    Iteration  0, inertia 4582.919
+    Iteration  1, inertia 2766.878
+    Iteration  2, inertia 2719.702
+    Iteration  3, inertia 2695.132
+    Iteration  4, inertia 2685.396
+    Iteration  5, inertia 2681.390
+    Iteration  6, inertia 2679.849
+    Iteration  7, inertia 2678.990
+    Iteration  8, inertia 2678.086
+    Iteration  9, inertia 2676.490
+    Iteration 10, inertia 2675.432
+    Iteration 11, inertia 2674.773
+    Iteration 12, inertia 2674.592
+    Iteration 13, inertia 2674.523
+    Iteration 14, inertia 2674.449
+    Iteration 15, inertia 2674.360
+    Iteration 16, inertia 2674.293
+    Iteration 17, inertia 2674.227
+    Iteration 18, inertia 2674.192
+    Iteration 19, inertia 2674.173
+    Iteration 20, inertia 2674.169
+    Converged at iteration 20
+    Initialization complete
+    Iteration  0, inertia 4645.185
+    Iteration  1, inertia 2738.634
+    Iteration  2, inertia 2684.899
+    Iteration  3, inertia 2670.680
+    Iteration  4, inertia 2666.306
+    Iteration  5, inertia 2664.454
+    Iteration  6, inertia 2663.425
+    Iteration  7, inertia 2662.689
+    Iteration  8, inertia 2662.023
+    Iteration  9, inertia 2661.681
+    Iteration 10, inertia 2661.474
+    Iteration 11, inertia 2661.153
+    Iteration 12, inertia 2660.639
+    Iteration 13, inertia 2660.069
+    Iteration 14, inertia 2659.613
+    Iteration 15, inertia 2659.267
+    Iteration 16, inertia 2659.134
+    Iteration 17, inertia 2658.837
+    Iteration 18, inertia 2658.611
+    Converged at iteration 18
+    Initialization complete
+    Iteration  0, inertia 4576.125
+    Iteration  1, inertia 2748.762
+    Iteration  2, inertia 2709.963
+    Iteration  3, inertia 2692.937
+    Iteration  4, inertia 2686.237
+    Iteration  5, inertia 2682.840
+    Iteration  6, inertia 2680.848
+    Iteration  7, inertia 2679.440
+    Iteration  8, inertia 2678.999
+    Iteration  9, inertia 2678.751
+    Iteration 10, inertia 2678.511
+    Iteration 11, inertia 2678.312
+    Iteration 12, inertia 2678.134
+    Iteration 13, inertia 2678.020
+    Iteration 14, inertia 2677.936
+    Iteration 15, inertia 2677.868
+    Iteration 16, inertia 2677.823
+    Iteration 17, inertia 2677.799
+    Iteration 18, inertia 2677.767
+    Iteration 19, inertia 2677.744
+    Iteration 20, inertia 2677.728
+    Iteration 21, inertia 2677.719
+    Iteration 22, inertia 2677.715
+    Iteration 23, inertia 2677.702
+    Iteration 24, inertia 2677.654
+    Iteration 25, inertia 2677.610
+    Converged at iteration 25
+
+
+
+
+
+    KMeans(copy_x=True, init='k-means++', max_iter=100, n_clusters=50, n_init=5,
+        n_jobs=1, precompute_distances='auto', random_state=None, tol=0.0001,
+        verbose=1)
+
+
+
+Let's look at the cluster assignments. What's the distribution of cluster assignments?
+
+
+```python
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+plt.hist(km.labels_, bins=k)
+plt.show()
+```
+
+
+![png](output_35_0.png)
+
+
+So it's not uniformly distributed (which makes sense), but it's not a disaster. Good enough to push forward. Let's take assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws assigned to their respective clusters as values.
+
+
+```python
+with open(data_path + 'bills_dictionary_clean.pickle', 'r') as handle:
+    clean_bills_dictionary = pickle.load(handle)
+
+```
+
+
+```python
+cluster_assignments_dict = {}
+
+for i in set(km.labels_):
+    #print i
+    current_cluster_bills = [clean_bills_dictionary.keys()[x] for x in np.where(km.labels_ == i)[0]]
+    cluster_assignments_dict[i] = current_cluster_bills
+
+```
+
+Let's take a look at a couple random clusters.
+
+
+```python
+cluster_pick = np.random.choice(len(set(km.labels_)))
+print 'Cluster {0}'.format(cluster_pick)
+cluster_assignments_dict[cluster_pick]
+```
+
+    Cluster 41
+
+
+
+
+
+    ['H.R.2719 - Transportation Security Acquisition Reform Act',
+     'H.R.1626 - DHS IT Duplication Reduction Act of 2015',
+     'H.R.1801 - Risk-Based Security Screening for Members of the Armed Forces Act',
+     'S.2516 - Kendell Frederick Citizenship Assistance Act',
+     'H.R.3068 - Federal Protective Service Guard Contracting Reform Act of 2008',
+     'H.R.3978 - First Responder Anti-Terrorism Training Resources Act',
+     'H.R.3801 - Ultralight Aircraft Smuggling Prevention Act of 2012',
+     'S.3542 - No-Hassle Flying Act of 2012',
+     'S.1638 - Department of Homeland Security Headquarters Consolidation Accountability Act of 2015',
+     'H.R.3210 - Pay Our Military Act',
+     'H.R.915 - Jaime Zapata Border Enforcement Security Task Force Act',
+     'H.R.2952 - Cybersecurity Workforce Assessment Act',
+     'H.R.4954 - SAFE Port Act',
+     'H.R.615 - DHS Interoperable Communications Act',
+     'H.R.553 - Reducing Over-Classification Act',
+     'S.1447 - Aviation and Transportation Security Act',
+     'S.2519 - National Cybersecurity Protection Act of 2014',
+     'H.R.4259 - Department of Homeland Security Financial Accountability Act',
+     'H.R.4007 - Protecting and Securing Chemical Facilities from Terrorist Attacks Act of 2014',
+     'H.R.4748 - Northern Border Counternarcotics Strategy Act of 2010',
+     'H.R.3116 - Quarterly Financial Report Reauthorization Act',
+     'S.1487 - Asia-Pacific Economic Cooperation Business Travel Cards Act of 2011',
+     'H.R.1204 - Aviation Security Stakeholder Participation Act of 2014',
+     'S.1691 - Border Patrol Agent Pay Reform Act of 2014',
+     'H.R.2835 - Border Jobs for Veterans Act of 2015',
+     'S.2440 - Airport Security Improvement Act of 2000',
+     'S.2816 - A bill to provide for the appointment of the Chief Human Capital Officer of the Department of Homeland Security by the Secretary of Homeland Security.',
+     'H.R.4119 - Border Tunnel Prevention Act of 2012',
+     'S.1998 - DART Act',
+     'H.R.6080 - Making emergency supplemental appropriations for border security for the fiscal year ending September 30, 2010, and for other purposes.',
+     'S.3243 - Anti-Border Corruption Act of 2010',
+     'H.R.3606 - Jumpstart Our Business Startups',
+     'S.2521 - Federal Information Security Modernization Act of 2014',
+     'H.R.1 - Implementing Recommendations of the 9/11 Commission Act of 2007',
+     'H.R.720 - Gerardo Hernandez Airport Security Act of 2015',
+     'H.R.623 - DHS Social Media Improvement Act of 2015',
+     'H.R.6098 - PRICE of Homeland Security Act',
+     'H.R.6061 - Secure Fence Act of 2006']
+
+
+
+Okay, so cluster 41 seems to have mostly laws about US security. Let's pick another random cluster
+
+
+```python
+cluster_pick = np.random.choice(len(set(km.labels_)))
+print 'Cluster {0}'.format(cluster_pick)
+cluster_assignments_dict[cluster_pick]
+```
+
+    Cluster 27
+
+
+
+
+
+    ['S.3397 - Secure and Responsible Drug Disposal Act of 2010',
+     'H.R.1321 - Microbead-Free Waters Act of 2015',
+     'S.3560 - QI Program Supplemental Funding Act of 2008',
+     'H.R.1132 - National All Schedules Prescription Electronic Reporting Act of 2005',
+     'H.R.2751 - FDA Food Safety Modernization Act',
+     'H.R.4679 - Antimicrobial Regulation Technical Corrections Act of 1998',
+     'S.313 - Animal Drug User Fee Act of 2003',
+     'H.R.3204 - Drug Quality and Security Act',
+     'H.R.5651 - Medical Device User Fee and Modernization Act of 2002',
+     'S.3187 - Food and Drug Administration Safety and Innovation Act',
+     'S.3546 - Dietary Supplement and Nonprescription Drug Consumer Protection Act',
+     'S.650 - Pediatric Research Equity Act of 2003',
+     'H.R.3633 - Controlled Substances Trafficking Prohibition Act',
+     'H.R.4771 - Designer Anabolic Steroid Control Act of 2014',
+     'S.1395 - Controlled Substances Export Reform Act of 2005',
+     'S.524 - Comprehensive Addiction and Recovery Act of 2016',
+     'H.R.1256 - Family Smoking Prevention and Tobacco Control Act',
+     'S.1789 - Best Pharmaceuticals for Children Act',
+     'H.R.2291 - To extend the authorization of the Drug-Free Communities Support Program for an additional 5 years, to authorize a National Community Antidrug Coalition Institute, and for other purposes.',
+     'H.R.639 - Improving Regulatory Transparency for New Medical Therapies Act',
+     'H.R.3423 - Medical Device User Fee Stabilization Act of 2005',
+     'H.R.6432 - To amend the Federal Food, Drug, and Cosmetic Act to revise and extend the animal drug user fee program, to establish a program of fees relating to generic new animal drugs, to make certain technical corrections to the Food and Drug Administration Amendments Act of 2007, and for other purposes.',
+     'H.R.2130 - Hillory J. Farias and Samantha Reid Date-Rape Drug Prohibition Act of 2000',
+     'H.R.6433 - FDA User Fee Corrections Act of 2012',
+     'H.R.2576 - Frank R. Lautenberg Chemical Safety for the 21st Century Act',
+     'H.R.6353 - Ryan Haight Online Pharmacy Consumer Protection Act of 2008',
+     'S.3552 - Pesticide Registration Improvement Extension Act of 2012',
+     'S.32 - Transnational Drug Trafficking Act of 2015',
+     'S.741 - Minor Use and Minor Species Animal Health Act of 2003  ',
+     'S.764 - A bill to reauthorize and amend the National Sea Grant College Program Act, and for other purposes.',
+     'S.2141 - Sunscreen Innovation Act',
+     'S.1789 - Fair Sentencing Act of 2010',
+     'H.R.3580 - Food and Drug Administration Amendments Act of 2007',
+     'S.622 - Animal Drug and Animal Generic Drug User Fee Reauthorization Act of 2013',
+     'H.R.4014 - Rare Diseases Orphan Product Development Act of 2002',
+     'H.R.6344 - Office of National Drug Control Policy Reauthorization Act of 2006',
+     'S.172 - A bill to amend the Federal Food, Drug, and Cosmetic Act to provide for the regulation of all contact lenses as medical devices, and for other purposes.',
+     'S.483 - Ensuring Patient Access and Effective Drug Enforcement Act of 2016']
+
+
+
+Cluster 27 looks pretty tight also - lots of bills about food, drugs, and medicine. Nice! We've got some decent clusters, and we try to figure out the themes by looking at the titles of the laws. But can we do better than just looking at the titles?
+
+## Determining Cluster Themes with TF-IDF
+What if we reverse engineered the cluster "themes" from the text of the laws by employing tf-idf again? Within any single cluster, we have a set of laws. If we calculate the inverse document frequencies for all of the words in the cluster's corpus, we'll know which words should provide the least weight. Essentially, the lowest idf-weight words should correspond to the general themes present in most of the documents.
+
+Since so many laws have `United States` in them, we'll add those words to the set of stopwords. Then we can just clean each cluster's laws again, estimate the idf vectors for the cluster, and see if the lowest weighted terms show any general themes. Since apparently I can't stop using dictionaries, we'll store the bottom 5 words in the dictionary `cluster_thems_dict`.
+
+
+```python
+stemmer = PorterStemmer()
+
+def stem_words(words_list, stemmer):
+    return [stemmer.stem(word) for word in words_list]
+
+def tokenize(text):
+    tokens = nltk.word_tokenize(text)
+    stems = stem_words(tokens, stemmer)
+    return stems
+
+def clean_bill(raw_bill):
+    letters_only = re.sub('[^a-zA-Z]', ' ', raw_bill)
+    words = letters_only.lower().split()
+    stopwords_eng = set(stopwords.words("english"))
+    stopwords_updated = stopwords_eng.add(u'united')
+    stopwords_updated = stopwords_eng.add(u'states')
+    useful_words = [x for x in words if not x in stopwords_eng]
+    
+    # Combine words into a paragraph again
+    useful_words_string = ' '.join(useful_words)
+    return(useful_words_string)
+
+```
+
+
+```python
+cluster_themes_dict = {}
+
+for key in cluster_assignments_dict.keys():
+    current_tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words='english')
+    current_tfidf = TfidfVectorizer(stop_words='english')
+    current_tfs = current_tfidf.fit_transform(map(clean_bill, cluster_assignments_dict[key]))
+    
+    current_tf_idfs = dict(zip(current_tfidf.get_feature_names(), current_tfidf.idf_))
+    tf_idfs_tuples = current_tf_idfs.items()
+    cluster_themes_dict[key] = sorted(tf_idfs_tuples, key = lambda x: x[1])[:5]    
+```
+
+Sweet. Let's look at clusters 27 and 41 again.
+
+
+```python
+print 'Cluster 27 key words: {0}'.format([x[0] for x in cluster_themes_dict[27]])
+print 'Cluster 41 key words: {0}'.format([x[0] for x in cluster_themes_dict[41]])
+```
+
+    Cluster 27 key words: [u'act', u'drug', u'fee', u'user', u'food']
+    Cluster 41 key words: [u'act', u'security', u'border', u'homeland', u'reform']
+
+
+Those looks great! The laws in cluster 27 are generally about food and drugs, and the ones in cluster 41 are about security. The laws in these clusters appear linearly separable in this 30894-dimensional space. Looks like using inverse document frequency to recover cluster themes might be pretty effective. But do we really believe we can create 50 well separated clusters in this space?
+
+### Visualizing the Laws as TF-IDF Vectors using t-SNE
+How can we "squeeze" the information contained in the high dimensional space down to an array in R<sup>2</sup>, which we can visualize easily with a scatter plot. One way is Principal Components Analysis. Another way is t-SNE, or t-distributed Stochastic Neighbor Embedding. t-SNE is an extension of SNE. So what is SNE?
+
+In their [t-SNE paper](http://www.cs.toronto.edu/~hinton/absps/tsne.pdf), van der Maaten and Hinton describe the core of stochastic neighbor embedding as:
+
+1) "estimating the similarity of datapoint x<sub>j</sub> to datapoint x<sub>i</sub> is the conditional probability, p<sub>j|i</sub>, that x<sub>i</sub> would pick x<sub>j</sub> as its neighbor if neighbors were picked in proportion to their probability density under a Gaussian centered at x<sub>i</sub>."
+
+2) "For the low-dimensional counterparts y<sub>i</sub> and y<sub>j</sub> of the high-dimensional datapoints x<sub>i</sub> and x<sub>j</sub>, it is possible to compute a similar conditional probability, which we denote by q<sub>j|i</sub>."
+
+3) "Find a low-dimensional data representation that minimizes the mismatch between p<sub>j|i</sub> and q<sub>j|i</sub>."
+
+So we're essentially minimizing a cost function with gradient descent to find a low dimensional data representation that keeps "close" points together in the new dimensions. Cool. Let's do it.
+
+First we'll decompose our tf-idf matrix `tfs` into a lower dimensional space since most our space is sparse.
+
+
+```python
+from sklearn.manifold import TSNE
+from sklearn.decomposition import TruncatedSVD
+```
+
+
+```python
+k = 50
+tfs_reduced = TruncatedSVD(n_components=k, random_state=0).fit_transform(tfs)
+```
+
+Let's take a look at the first law's representation in both spaces.
+
+
+```python
+print tfs[0].A
+print '\n'
+print tfs_reduced[0]
+```
+
+    [[ 0.  0.  0. ...,  0.  0.  0.]]
+    
+    
+    [  4.38423875e-01  -3.00248418e-03   2.33335259e-01  -1.37438286e-01
+       2.84206786e-01   2.66262552e-01  -2.12074337e-02   4.12346062e-02
+       7.49885919e-02   6.55497460e-02  -9.97137039e-03  -5.88120140e-02
+       2.51327455e-02   4.93963103e-02  -1.73767695e-01   3.58991616e-02
+      -5.78711078e-02  -1.38381766e-02   9.32298684e-05   1.16180873e-01
+       1.92899842e-02   8.03687428e-02  -8.54831822e-02  -6.23085873e-02
+       3.07540318e-03  -3.27680837e-02  -7.40418560e-02  -1.64382083e-02
+      -6.36221396e-02  -1.26110346e-01   5.17822091e-02  -7.73297134e-03
+      -1.19039336e-01  -2.34091646e-02  -5.07190226e-02  -2.28139221e-02
+       5.15173022e-02  -7.54591685e-03   4.34970059e-02   1.01454832e-01
+      -5.86684190e-02  -5.62348273e-02  -1.63426764e-02   2.02803569e-02
+      -1.08796287e-01  -1.11800341e-01   4.79279500e-02  -5.37942841e-02
+      -3.69779039e-02   1.05691593e-01]
+
+
+Next, we'll find a 2-D representation of our 50-dimensional tensor using t-SNE.
+
+
+```python
+tfs_embedded = TSNE(n_components=2, perplexity=40, verbose=2).fit_transform(tfs_reduced)
+print tfs_embedded.shape
+```
+
+    [t-SNE] Computing pairwise distances...
+    [t-SNE] Computing 121 nearest neighbors...
+    [t-SNE] Computed conditional probabilities for sample 1000 / 3725
+    [t-SNE] Computed conditional probabilities for sample 2000 / 3725
+    [t-SNE] Computed conditional probabilities for sample 3000 / 3725
+    [t-SNE] Computed conditional probabilities for sample 3725 / 3725
+    [t-SNE] Mean sigma: 0.092009
+    [t-SNE] Iteration 25: error = 1.7617760, gradient norm = 0.0080711
+    [t-SNE] Iteration 50: error = 1.6578789, gradient norm = 0.0055832
+    [t-SNE] Iteration 75: error = 1.3032191, gradient norm = 0.0022066
+    [t-SNE] Iteration 100: error = 1.2346758, gradient norm = 0.0018688
+    [t-SNE] Error after 100 iterations with early exaggeration: 1.234676
+    [t-SNE] Iteration 125: error = 1.1260014, gradient norm = 0.0014051
+    [t-SNE] Iteration 150: error = 1.0931615, gradient norm = 0.0012835
+    [t-SNE] Iteration 175: error = 1.0850121, gradient norm = 0.0012593
+    [t-SNE] Iteration 200: error = 1.0827918, gradient norm = 0.0012533
+    [t-SNE] Iteration 225: error = 1.0821831, gradient norm = 0.0012516
+    [t-SNE] Iteration 250: error = 1.0820014, gradient norm = 0.0012511
+    [t-SNE] Iteration 275: error = 1.0819577, gradient norm = 0.0012510
+    [t-SNE] Iteration 300: error = 1.0819440, gradient norm = 0.0012509
+    [t-SNE] Iteration 325: error = 1.0819411, gradient norm = 0.0012509
+    [t-SNE] Iteration 350: error = 1.0819398, gradient norm = 0.0012509
+    [t-SNE] Iteration 375: error = 1.0819392, gradient norm = 0.0012509
+    [t-SNE] Iteration 375: error difference 0.000000. Finished.
+    [t-SNE] Error after 375 iterations: 1.081939
+    (3725, 2)
+
+
+With our vector embeddings in hand, let's plot the laws colored according to their k-means cluster assignment.
+
+
+```python
+fig = plt.figure(figsize=(10, 10))
+ax = plt.axes(frameon=False)
+plt.setp(ax, xticks=(), yticks=())
+plt.subplots_adjust(left=0.0, bottom=0.0, right=1.0, top=0.9,
+                wspace=0.0, hspace=0.0)
+plt.scatter(tfs_embedded[:, 0], tfs_embedded[:, 1], marker="x", c = km.labels_)
+plt.show()
+```
+
+
+![png](output_59_0.png)
+
+
+Not too bad! We can see some clusters are mostly on their own, while some are intermingled with other clusters. Considering we picked `k = 50` arbitrarily, I'd say this is a pretty good result.
+
+## Data Repository
+I was pretty surprised this textual data wasn't easily accessible, so I put it in a Github repository. You can find it on my [Github page](https://github.com/beckernick).

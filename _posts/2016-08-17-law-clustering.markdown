@@ -69,119 +69,7 @@ with open(data_path + 'law_links.txt', 'w') as handle:
 ```
 
     Page 1
-
-
-
-    ---------------------------------------------------------------------------
-
-    KeyboardInterrupt                         Traceback (most recent call last)
-
-    <ipython-input-2-fc45dae313ad> in <module>()
-          7     print 'Page {0}'.format(i)
-          8 
-    ----> 9     response = urllib2.urlopen(base_law_url + str(i))
-         10     html = response.read()
-         11     soup = bs4.BeautifulSoup(html)
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in urlopen(url, data, timeout, cafile, capath, cadefault, context)
-        152     else:
-        153         opener = _opener
-    --> 154     return opener.open(url, data, timeout)
-        155 
-        156 def install_opener(opener):
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in open(self, fullurl, data, timeout)
-        427             req = meth(req)
-        428 
-    --> 429         response = self._open(req, data)
-        430 
-        431         # post-process response
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in _open(self, req, data)
-        445         protocol = req.get_type()
-        446         result = self._call_chain(self.handle_open, protocol, protocol +
-    --> 447                                   '_open', req)
-        448         if result:
-        449             return result
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in _call_chain(self, chain, kind, meth_name, *args)
-        405             func = getattr(handler, meth_name)
-        406 
-    --> 407             result = func(*args)
-        408             if result is not None:
-        409                 return result
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in https_open(self, req)
-       1239         def https_open(self, req):
-       1240             return self.do_open(httplib.HTTPSConnection, req,
-    -> 1241                 context=self._context)
-       1242 
-       1243         https_request = AbstractHTTPHandler.do_request_
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/urllib2.pyc in do_open(self, http_class, req, **http_conn_args)
-       1199         else:
-       1200             try:
-    -> 1201                 r = h.getresponse(buffering=True)
-       1202             except TypeError: # buffering kw not supported
-       1203                 r = h.getresponse()
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in getresponse(self, buffering)
-       1134 
-       1135         try:
-    -> 1136             response.begin()
-       1137             assert response.will_close != _UNKNOWN
-       1138             self.__state = _CS_IDLE
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in begin(self)
-        451         # read until we get a non-100 response
-        452         while True:
-    --> 453             version, status, reason = self._read_status()
-        454             if status != CONTINUE:
-        455                 break
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/httplib.pyc in _read_status(self)
-        407     def _read_status(self):
-        408         # Initialize with Simple-Response defaults
-    --> 409         line = self.fp.readline(_MAXLINE + 1)
-        410         if len(line) > _MAXLINE:
-        411             raise LineTooLong("header line")
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/socket.pyc in readline(self, size)
-        478             while True:
-        479                 try:
-    --> 480                     data = self._sock.recv(self._rbufsize)
-        481                 except error, e:
-        482                     if e.args[0] == EINTR:
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/ssl.pyc in recv(self, buflen, flags)
-        754                     "non-zero flags not allowed in calls to recv() on %s" %
-        755                     self.__class__)
-    --> 756             return self.read(buflen)
-        757         else:
-        758             return self._sock.recv(buflen, flags)
-
-
-    /Users/nickbecker/anaconda/lib/python2.7/ssl.pyc in read(self, len, buffer)
-        641                 v = self._sslobj.read(len, buffer)
-        642             else:
-    --> 643                 v = self._sslobj.read(len)
-        644             return v
-        645         except SSLError as x:
-
-
-    KeyboardInterrupt: 
-
+    [..]
 
 With the hyperlinks to few thousand enacted bills in relevant_links, I next need to download the actual bills. By looking at a few of the pages, I noticed that access to the text version of the bills (instead of the PDF) is controlled by the URL ending ```/text?format=txt```. On each page, the text stored in a ```<pre>``` tag with id ```billTextContainer```.
 
@@ -552,134 +440,29 @@ km.fit(tfs)
     Initialization complete
     Iteration  0, inertia 4627.378
     Iteration  1, inertia 2772.718
-    Iteration  2, inertia 2740.741
-    Iteration  3, inertia 2727.465
-    Iteration  4, inertia 2719.431
-    Iteration  5, inertia 2712.857
-    Iteration  6, inertia 2707.826
-    Iteration  7, inertia 2704.319
-    Iteration  8, inertia 2702.306
-    Iteration  9, inertia 2700.195
-    Iteration 10, inertia 2698.325
-    Iteration 11, inertia 2696.734
-    Iteration 12, inertia 2696.002
-    Iteration 13, inertia 2695.693
-    Iteration 14, inertia 2695.298
-    Iteration 15, inertia 2695.016
-    Iteration 16, inertia 2694.730
-    Iteration 17, inertia 2694.279
-    Iteration 18, inertia 2693.847
-    Iteration 19, inertia 2693.421
-    Iteration 20, inertia 2692.685
-    Iteration 21, inertia 2691.712
-    Iteration 22, inertia 2690.647
-    Iteration 23, inertia 2690.048
-    Iteration 24, inertia 2689.891
-    Iteration 25, inertia 2689.750
-    Iteration 26, inertia 2689.693
-    Iteration 27, inertia 2689.634
-    Iteration 28, inertia 2689.605
-    Iteration 29, inertia 2689.587
-    Iteration 30, inertia 2689.578
-    Iteration 31, inertia 2689.564
+    [...]
     Converged at iteration 31
     Initialization complete
     Iteration  0, inertia 4581.523
-    Iteration  1, inertia 2748.013
-    Iteration  2, inertia 2710.909
-    Iteration  3, inertia 2696.998
-    Iteration  4, inertia 2690.226
-    Iteration  5, inertia 2686.583
-    Iteration  6, inertia 2684.223
-    Iteration  7, inertia 2682.624
-    Iteration  8, inertia 2680.348
-    Iteration  9, inertia 2677.303
-    Iteration 10, inertia 2674.520
-    Iteration 11, inertia 2669.464
-    Iteration 12, inertia 2667.554
-    Iteration 13, inertia 2666.939
-    Iteration 14, inertia 2666.647
-    Iteration 15, inertia 2666.434
-    Iteration 16, inertia 2666.325
-    Iteration 17, inertia 2666.193
-    Iteration 18, inertia 2666.081
-    Iteration 19, inertia 2665.912
-    Iteration 20, inertia 2665.860
-    Iteration 21, inertia 2665.832
-    Iteration 22, inertia 2665.826
-    Iteration 23, inertia 2665.814
+    [...]
     Converged at iteration 23
     Initialization complete
     Iteration  0, inertia 4582.919
     Iteration  1, inertia 2766.878
     Iteration  2, inertia 2719.702
-    Iteration  3, inertia 2695.132
-    Iteration  4, inertia 2685.396
-    Iteration  5, inertia 2681.390
-    Iteration  6, inertia 2679.849
-    Iteration  7, inertia 2678.990
-    Iteration  8, inertia 2678.086
-    Iteration  9, inertia 2676.490
-    Iteration 10, inertia 2675.432
-    Iteration 11, inertia 2674.773
-    Iteration 12, inertia 2674.592
-    Iteration 13, inertia 2674.523
-    Iteration 14, inertia 2674.449
-    Iteration 15, inertia 2674.360
-    Iteration 16, inertia 2674.293
-    Iteration 17, inertia 2674.227
-    Iteration 18, inertia 2674.192
-    Iteration 19, inertia 2674.173
-    Iteration 20, inertia 2674.169
+    [...]
     Converged at iteration 20
     Initialization complete
     Iteration  0, inertia 4645.185
     Iteration  1, inertia 2738.634
     Iteration  2, inertia 2684.899
-    Iteration  3, inertia 2670.680
-    Iteration  4, inertia 2666.306
-    Iteration  5, inertia 2664.454
-    Iteration  6, inertia 2663.425
-    Iteration  7, inertia 2662.689
-    Iteration  8, inertia 2662.023
-    Iteration  9, inertia 2661.681
-    Iteration 10, inertia 2661.474
-    Iteration 11, inertia 2661.153
-    Iteration 12, inertia 2660.639
-    Iteration 13, inertia 2660.069
-    Iteration 14, inertia 2659.613
-    Iteration 15, inertia 2659.267
-    Iteration 16, inertia 2659.134
-    Iteration 17, inertia 2658.837
-    Iteration 18, inertia 2658.611
+    [...]
     Converged at iteration 18
     Initialization complete
     Iteration  0, inertia 4576.125
     Iteration  1, inertia 2748.762
     Iteration  2, inertia 2709.963
-    Iteration  3, inertia 2692.937
-    Iteration  4, inertia 2686.237
-    Iteration  5, inertia 2682.840
-    Iteration  6, inertia 2680.848
-    Iteration  7, inertia 2679.440
-    Iteration  8, inertia 2678.999
-    Iteration  9, inertia 2678.751
-    Iteration 10, inertia 2678.511
-    Iteration 11, inertia 2678.312
-    Iteration 12, inertia 2678.134
-    Iteration 13, inertia 2678.020
-    Iteration 14, inertia 2677.936
-    Iteration 15, inertia 2677.868
-    Iteration 16, inertia 2677.823
-    Iteration 17, inertia 2677.799
-    Iteration 18, inertia 2677.767
-    Iteration 19, inertia 2677.744
-    Iteration 20, inertia 2677.728
-    Iteration 21, inertia 2677.719
-    Iteration 22, inertia 2677.715
-    Iteration 23, inertia 2677.702
-    Iteration 24, inertia 2677.654
-    Iteration 25, inertia 2677.610
+    [...]
     Converged at iteration 25
 
 
@@ -1006,7 +789,7 @@ plt.scatter(tfs_embedded[:, 0], tfs_embedded[:, 1], marker="x", c = km.labels_)
 plt.show()
 ```
 
-![alt text](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/tsne_scatter.png)
+![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/tsne_scatter.png)
 
 
 Not too bad! We can see some clusters are mostly on their own, while some are intermingled with other clusters. Considering we picked `k = 50` arbitrarily, I'd say this is a pretty good result.

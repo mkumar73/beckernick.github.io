@@ -1006,7 +1006,8 @@ plt.scatter(tfs_embedded[:, 0], tfs_embedded[:, 1], marker="x", c = km.labels_)
 plt.show()
 ```
 
-![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/tsne_scatter.png)
+Inline-style:
+![alt text](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/tsne_scatter.png)
 
 
 Not too bad! We can see some clusters are mostly on their own, while some are intermingled with other clusters. Considering we picked `k = 50` arbitrarily, I'd say this is a pretty good result.

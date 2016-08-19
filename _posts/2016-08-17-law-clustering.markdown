@@ -461,7 +461,7 @@ plt.show()
 ![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/clusters_histogram.png)
 
 
-So it's not uniformly distributed (which makes sense), but it's not a complete trainwreck. Good enough to push forward. Let's take assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws assigned to their respective clusters as values.
+So it's not uniformly distributed (which makes sense), but it's not a complete trainwreck. Good enough to push forward. Let's assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws as values assigned to their respective clusters.
 
 
 
@@ -583,7 +583,7 @@ Cluster 27 looks pretty tight also - lots of bills about food, drugs, and medici
 ## Determining Cluster Themes with TF-IDF
 What if we reverse engineered the cluster "themes" from the text of the laws by employing tf-idf again? Within any single cluster, we have a set of laws. If we calculate the inverse document frequencies for all of the words in the cluster's corpus, we'll know which words should provide the least weight. Essentially, the lowest idf-weight words should correspond to the general themes present in most of the documents.
 
-Since so many laws have `United States` in them, we'll add those words to the set of stopwords. Then we can just clean each cluster's laws again, estimate the idf vectors for the cluster, and see if the lowest weighted terms show any general themes. Since apparently I can't stop using dictionaries, we'll store the bottom 5 words in the dictionary `cluster_thems_dict`.
+Since so many laws have `United States` in them, we'll add those words to the set of stopwords. Then we can just clean each cluster's laws again, estimate the idf vectors for the cluster, and see if the lowest weighted terms show any general themes. Since apparently I can't stop using dictionaries, we'll store the bottom 5 words in the dictionary `cluster_themes_dict`.
 
 
 ```python

@@ -1006,7 +1006,6 @@ plt.scatter(tfs_embedded[:, 0], tfs_embedded[:, 1], marker="x", c = km.labels_)
 plt.show()
 ```
 
-Inline-style:
 ![alt text](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/tsne_scatter.png)
 
 

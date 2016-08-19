@@ -4,7 +4,7 @@ permalink: /about/
 tags: [about]
 header:
   image: "niagara_falls.jpg"
-  caption: "Photo credit: Nick Becker"
+  caption: "Photo credit: [**Politico**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
 
 ---
 

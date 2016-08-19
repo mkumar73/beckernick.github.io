@@ -6,7 +6,6 @@ tags: [data science, natural langauge processing]
 header:
   image: "congress_edge_detection.jpg"
   caption: "Photo credit: [**Politico**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
-  overlay_filter: rgba(255, 0, 0, 0.5)
 
 #excerpt: "data science, US laws, natural language processing, tf-idf, and k-nearest neighbors."
 ---

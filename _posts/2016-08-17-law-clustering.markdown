@@ -109,7 +109,7 @@ with open(data_path + 'bills_dictionary.pickle', 'wb') as handle:
     pickle.dump(bills_clean_dictionary, handle)
 ```
 
-### Cleaning the bills
+## Cleaning the bills
 Let's take a look at the text of one of the bills:
 
 ```python
@@ -254,7 +254,7 @@ print clean_bills_dictionary['H.R.1000 - William Howard Taft National Historic S
 
 Perfect! Way harder to read, but way more useful for finding textual similarities
 
-### Calculating TF-IDF Vectors
+## Calculating TF-IDF Vectors
 
 So we've got a dictionary of laws and their text. Now it's time to calculate the tf-idf vectors. We'll initialize a stemmer from NLTK to treat words like ```incredible``` and ```incredibly``` as the same token. Then we'll initialize a TfidfVectorizer from ```sklearn``` and fit our corpus to the vectorizer. Since our corpus is all the values of the dictionary ```clean_bills_dictionary```, we'll pass ```clean_bills_dictionary.values()``` to the vectorizer.
 
@@ -306,7 +306,7 @@ def load_sparse_csr(filename):
 save_sparse_csr(data_path + 'laws_tf_idf.npz', tfs)
 ```
 
-### Finding a Law's Nearest Neighbors with Cosine Distance
+## Finding a Law's Nearest Neighbors with Cosine Distance
 
 Finally, we can find similar laws! We'll initialize a NearestNeighbors class and fit our tf-idf matrix to it. Since we want to use cosine distance as our distance metric, I'll initialize it with ```metric='cosine'```.
 
@@ -632,7 +632,7 @@ print 'Cluster 41 key words: {0}'.format([x[0] for x in cluster_themes_dict[41]]
 
 Those looks great! The laws in cluster 27 are generally about food and drugs, and the ones in cluster 41 are about security. The laws in these clusters appear linearly separable in this 30894-dimensional space. Looks like using inverse document frequency to recover cluster themes might be pretty effective. But do we really believe we can create 50 well separated clusters in this space?
 
-### Visualizing the Laws as TF-IDF Vectors using t-SNE
+## Visualizing the Laws as TF-IDF Vectors using t-SNE
 How can we "squeeze" the information contained in the high dimensional space down to an array in R<sup>2</sup>, which we can visualize easily with a scatter plot. One way is Principal Components Analysis. Another way is t-SNE, or t-distributed Stochastic Neighbor Embedding. t-SNE is an extension of SNE. So what is SNE?
 
 In their [t-SNE paper](http://www.cs.toronto.edu/~hinton/absps/tsne.pdf), van der Maaten and Hinton describe the core of stochastic neighbor embedding as:

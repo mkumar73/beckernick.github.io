@@ -1,5 +1,5 @@
 ---
-title:  "Clustering Similar US Laws using TF-IDF, K-Nearest Neighbors, and K-Means"
+title:  "Clustering US Laws using TF-IDF, K-Nearest Neighbors, and K-Means"
 date:   2016-08-18
 tags: [data science, natural langauge processing]
 
@@ -10,11 +10,10 @@ header:
 #excerpt: "data science, US laws, natural language processing, tf-idf, and k-nearest neighbors."
 ---
 
-It's 100 degrees in the nation's capitol (and it feels like 114), so what else is there to do but drink beer, listen to Spotify's Discover Weekly, and write code? [Golden Monkey in hand](https://www.beeradvocate.com/beer/profile/345/1003/), I sat down on my couch and promptly watched the Olympics for three hours with my roommates.
+Hello, World!
 
-Eventually, I got to work.
 
-Since I'm doing some natural language processing at work, I figured I might as well write a post about NLP in Python. Inspired by the view of The Capitol from my apartment's window, I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov).
+Since I'm doing some natural language processing at work, I figured I might as well write my first blog post about NLP in Python. Inspired by the view of The Capitol from my apartment's window (and fueled by Spotify and a couple of [Golden Monkeys](https://www.beeradvocate.com/beer/profile/345/1003/)), I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov).
 
 
 

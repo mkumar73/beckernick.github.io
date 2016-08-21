@@ -460,7 +460,7 @@ plt.show()
 ![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/clusters_histogram.png)
 
 
-So it's not uniformly distributed (which makes sense), but it's not a complete trainwreck. Good enough to push forward. Let's assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws as values assigned to their respective clusters.
+So it's not uniformly distributed (which makes sense), but it's not a **_complete_** trainwreck. Good enough to push forward. Let's assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws as values assigned to their respective clusters.
 
 
 

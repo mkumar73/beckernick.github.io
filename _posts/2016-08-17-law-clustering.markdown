@@ -13,7 +13,7 @@ excerpt: "natural language processing, tf-idf, and k-nearest neighbors."
 Hello, World.
 
 
-Since I'm doing some natural language processing at work, I figured I might as well write my first blog post about NLP in Python. Inspired by the view of The Capitol from my apartment's window (and fueled by Spotify and a couple of [Golden Monkeys](https://www.beeradvocate.com/beer/profile/345/1003/)), I decided to use US laws for this post. Unfortunately, I couldn't find a repository with the text of every US law -- so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov). I was pretty surprised this textual data wasn't available, so I uploaded it to Google Drive. You can find it on my [Github repository](https://github.com/beckernick/clustering_us_laws) for this post.
+Since I'm doing some natural language processing at work, I figured I might as well write my first blog post about NLP in Python. Inspired by the view of The Capitol from my apartment's window (and fueled by Spotify and a couple of [Golden Monkeys](https://www.beeradvocate.com/beer/profile/345/1003/)), I decided to use US laws for this post. Unfortunately, I couldn't find a repository with the text of every US law -- so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov). Anyone can download it from the [Github repository](https://github.com/beckernick/clustering_us_laws) for this post.
 
 
 

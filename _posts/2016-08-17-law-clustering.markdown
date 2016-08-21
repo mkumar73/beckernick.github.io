@@ -10,7 +10,7 @@ header:
 #excerpt: "data science, US laws, natural language processing, tf-idf, and k-nearest neighbors."
 ---
 
-Hello, World!
+Hello, World.
 
 
 Since I'm doing some natural language processing at work, I figured I might as well write my first blog post about NLP in Python. Inspired by the view of The Capitol from my apartment's window (and fueled by Spotify and a couple of [Golden Monkeys](https://www.beeradvocate.com/beer/profile/345/1003/)), I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov).

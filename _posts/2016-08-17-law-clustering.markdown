@@ -7,13 +7,13 @@ header:
   image: "congress_edge_detection.jpg"
   caption: "Photo credit: [**Original Photo: Politico, Edited by Nick Becker**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
 
-#excerpt: "data science, US laws, natural language processing, tf-idf, and k-nearest neighbors."
+excerpt: "natural language processing, tf-idf, and k-nearest neighbors."
 ---
 
 Hello, World.
 
 
-Since I'm doing some natural language processing at work, I figured I might as well write my first blog post about NLP in Python. Inspired by the view of The Capitol from my apartment's window (and fueled by Spotify and a couple of [Golden Monkeys](https://www.beeradvocate.com/beer/profile/345/1003/)), I decided to use US laws for this post. Unfortuantely, I couldn't find a repository with the text of every US law, so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov).
+Since I'm doing some natural language processing at work, I figured I might as well write my first blog post about NLP in Python. Inspired by the view of The Capitol from my apartment's window (and fueled by Spotify and a couple of [Golden Monkeys](https://www.beeradvocate.com/beer/profile/345/1003/)), I decided to use US laws for this post. Unfortunately, I couldn't find a repository with the text of every US law -- so I decided to create one myself by scraping laws from [www.congress.gov](https://www.congress.gov). I was pretty surprised this textual data wasn't available, so I uploaded it to Google Drive. You can find it on my [Github repository](https://github.com/beckernick/clustering_us_laws) for this post.
 
 
 
@@ -726,5 +726,3 @@ plt.show()
 
 Not too bad! We can see some clusters are mostly on their own, while some are intermingled with other clusters. Considering we picked `k = 50` arbitrarily, I'd say this is a pretty good result.
 
-## Data Repository
-I was pretty surprised this textual data wasn't easily accessible, so I put it in a Github repository. You can find it on my [Github page](https://github.com/beckernick).

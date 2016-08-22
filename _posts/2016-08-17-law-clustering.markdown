@@ -715,8 +715,6 @@ With our vector embeddings in hand, let's plot the laws colored according to the
 fig = plt.figure(figsize=(10, 10))
 ax = plt.axes(frameon=False)
 plt.setp(ax, xticks=(), yticks=())
-plt.subplots_adjust(left=0.0, bottom=0.0, right=1.0, top=0.9,
-                wspace=0.0, hspace=0.0)
 plt.scatter(tfs_embedded[:, 0], tfs_embedded[:, 1], marker="x", c = km.labels_)
 plt.show()
 ```

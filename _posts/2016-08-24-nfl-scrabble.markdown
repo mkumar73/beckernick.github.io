@@ -12,21 +12,12 @@ excerpt: "pandas, web scraping, scrabble, and the nfl"
 
 
 
-
-```python
-from __future__ import division
-import bs4
-import urllib2
-import pandas as pd
-```
-
-
 ## Getting the Data
 
 Like last time, I have to scrape this data. Luckily, Fox Sports posts a [list](http://www.foxsports.com/nfl/players) of every 2016 NFL player online and it's pretty easy to access.
 
 This is what the players pages look like:
-![](images/fox_sports_images/fox_sports_players_raw.png?raw=true)
+![](fox_sports_images/fox_sports_players_raw.png?raw=true)
 
 Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages, `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
 
@@ -35,6 +26,13 @@ To get the player names and teams out of the page we need to dive into the sourc
 
 All the data we want is in a `table` with `class=wisbb_standardTable tablesorter`. Every row in the table is a `tr` tag, and the player and team names are in separate `td` tags with their own `classes`. We can use BeautifulSoup to extract them and store them in a list.
 
+
+```python
+from __future__ import division
+import bs4
+import urllib2
+import pandas as pd
+```
 
 ```python
 fox_nfl_url = 'http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page='
@@ -71,14 +69,6 @@ for i in range(1, 168):
     players_list += names_list
     full_teams_list += teams_list
 ```
-
-    http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=1
-    http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=2
-    http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=3
-    [..]
-    http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=166
-    http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=167
-
 
 Let's see what the data look like
 
@@ -171,7 +161,6 @@ letter_points_dictionary = {
     'x': 8,
     'q': 10,
     'z': 10
-
 }
 
 def scrabble_score(name):
@@ -202,7 +191,6 @@ for name in names_teams_tuples:
     tup = first_name, last_name, team, first_points, last_points, first_points + last_points
     #print tup
     scrabble_nfl_list.append(tup)
-
 ```
 
 
@@ -295,7 +283,6 @@ team_df.to_csv('nfl_team_scrabble_score.csv', index = False)
 # Load the team scores from the file
 nfl_team_scores_df = pd.read_csv('nfl_team_scrabble_score.csv')
 ```
-
 
 
 ```python

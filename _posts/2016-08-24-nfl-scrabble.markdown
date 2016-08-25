@@ -17,7 +17,7 @@ test
 Like last time, I have to scrape this data. Luckily, Fox Sports posts a [list](http://www.foxsports.com/nfl/players) of every 2016 NFL player online and it's pretty easy to access.
 
 This is what the players pages look like:
-![](fox_sports_players_raw.png?raw=true)
+![](/images/fox_sports_players_raw.png?raw=true)
 
 Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages, `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
 
@@ -255,7 +255,7 @@ plt.title('Highest NFL Player Name Scrabble Scores', size = 20)
 
 
 
-![](images/fox_sports_images/top_player_scores.png?raw=true)
+![](/images/fox_sports_images/top_player_scores.png?raw=true)
 
 
 These are some high scores. _**Strong**_ performances by Jacquizz Rodgers, Kyle Juszcyzk, and Al-Hajj Shabazz due to the two `z`'s in their names.
@@ -306,7 +306,7 @@ plt.title('Total Scrabble Score by NFL Team')
 
 
 
-![](images/fox_sports_images/team_scores.png?raw=true)
+![](/images/fox_sports_images/team_scores.png?raw=true)
 
 
 Not a bad showing by the Washington Redskins (8th), except for the fact that the Dallas Cowboys and New York Giants came in 3rd and 4th, respectively. Still, I think most Redskins fans would be happy if they made the Divisional Round of the NFL Playoffs (quarterfinals).

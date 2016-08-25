@@ -12,7 +12,9 @@ excerpt: "pandas, web scraping, scrabble, and the nfl"
 
 Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/thedanpnolan/) did, and we decided to find out as best we could. I calculated the Scrabble point value for every player's name in the NFL to find out which teams have the highest combined scores. 
 
+***
 
+First, let's look at the top 25 NFL players by Scrabble point value of their names.
 
 ![](/images/fox_sports_images/top_player_scores.png?raw=true)
 
@@ -28,8 +30,7 @@ Not a bad showing by the Washington Redskins (8th), except for the fact that the
 
 ***
 
-
-For those interested, the code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the Github repository for this post. 
+For those interested, the code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github] repository for this post. 
 
 
 

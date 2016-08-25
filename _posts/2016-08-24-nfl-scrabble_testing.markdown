@@ -19,18 +19,20 @@ First, let's look at the top 25 NFL players by Scrabble point value of their nam
 ![](/images/fox_sports_images/top_player_scores.png?raw=true)
 
 
-These are some high scores. _**Strong**_ performances by Jacquizz Rodgers, Kyle Juszcyzk, and Al-Hajj Shabazz due to the `j` and two `z`'s in their names. Now for the NFL team rankings.
+These are some high scores. _**Strong**_ performances by Jacquizz Rodgers, Kyle Juszcyzk, and Al-Hajj Shabazz due to the `j`s and `z`s in their names. Now for the NFL team rankings.
 
 
 
 ![](/images/fox_sports_images/team_scores.png?raw=true)
 
-Not a bad showing by the Washington Redskins (8th), except for the fact that the Dallas Cowboys and New York Giants came in 3rd and 4th, respectively. Still, I think most Redskins fans would be happy if they made the Divisional Round of the NFL Playoffs (quarterfinals).
+And the Colts beat the Steelers in the Scrabble Super Bowl! Congratulations!
+
+Not a bad showing by the home-team Washington Redskins (8th), except for the fact that the Dallas Cowboys and New York Giants came in 3rd and 4th, respectively. Still, I think most Redskins fans would be happy if they made the Divisional Round of the NFL Playoffs (quarterfinals) this season.
 
 
 ***
 
-For those interested, the code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github repository](https://github.com/beckernick/scrabble_score_nfl) for this post. 
+For those interested, the Jupyter Nobteook with code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github repository](https://github.com/beckernick/scrabble_score_nfl) for this post. 
 
 
 

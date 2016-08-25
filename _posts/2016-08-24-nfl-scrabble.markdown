@@ -10,6 +10,7 @@ header:
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
+temporary placeholder
 
 ## Getting the Data
 

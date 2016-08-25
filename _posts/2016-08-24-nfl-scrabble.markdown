@@ -12,7 +12,7 @@ excerpt: "pandas, web scraping, scrabble, and the nfl"
 
 Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/thedanpnolan/) did, and we decided to find out as best we could. I calculated the Scrabble Score for every player's name in the NFL to find out which teams have the highest combined scores. 
 
-## Getting the Data
+## Getting a List of every NFL Player
 
 Fox Sports posts a [list](http://www.foxsports.com/nfl/players) of every 2016 NFL player online and it's pretty easy to access. With a few lines of code we should be able to scrape the data we need from their site.
 

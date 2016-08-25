@@ -10,7 +10,7 @@ header:
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
-Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/thedanpnolan/) did, and we decided to find out as best we could. I calculated the Scrabble Score for every player's name in the NFL to find out which teams have the highest combined scores. 
+Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/thedanpnolan/) did, and we decided to find out as best we could. I calculated the Scrabble point value for every player's name in the NFL to find out which teams have the highest combined scores. 
 
 ## Getting a List of every NFL Player
 
@@ -79,7 +79,7 @@ print full_teams_list[:5]
     ['TEN', 'GB', 'TEN', 'MIA', 'DET']
 
 
-Looks good. Let's split them into first and last names so we can score by first or last name only if we want. I use the `if else` statements to avoid losing the full names of players such as Brian de la Puente (with multiple spaces).
+Looks good. Let's split them into first and last names so we can score by first or last name only if we want. Because some players have names with multiple spaces (such as Brian de la Puente), I use the `if else` statements to avoid losing the full names during the split.
 
 
 ```python
@@ -124,7 +124,7 @@ names_teams_tuples[:5]
 
 ## Scrabble Scoring the Players
 
-First I define a function that takes a string as input and returns the scrabble point value of the string.
+To get the scrabble scores of the NFL players' names, I define a function that takes a string as input and returns the scrabble point value of the string.
 
 
 ```python

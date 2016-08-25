@@ -20,9 +20,9 @@ This is what one page of the Fox Sports list of players looks like:
 
 ![](/images/fox_sports_images/fox_sports_players_raw.png?raw=true)
 
-Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages: `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
+Clicking on any one of the 167 pages gets the base URL we need to scrape all the pages: `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
 
-To get the player names and teams out of the page we need to dive into the source code. Inspecting one of the names returns:
+To get the player names and teams out of the page we need to find where they are in the source code. Inspecting one of the names returns:
 
 ![](/images/fox_sports_images/fox_sports_player_html.png?raw=true)
 
@@ -120,32 +120,11 @@ To get the scrabble scores of the NFL players' names, I define a function that t
 import string
 
 letter_points_dictionary = {
-    'a': 1,
-    'e': 1,
-    'i': 1,
-    'o': 1,
-    'u': 1,
-    'l': 1,
-    'n': 1,
-    's': 1,
-    't': 1,
-    'r': 1,
-    'd': 2,
-    'g': 2,
-    'b': 3,
-    'c': 3,
-    'm': 3,
-    'p': 3,
-    'f': 4,
-    'h': 4,
-    'v': 4,
-    'w': 4,
-    'y': 4,
-    'k': 5,
-    'j': 8,
-    'x': 8,
-    'q': 10,
-    'z': 10
+    'a': 1, 'e': 1, 'i': 1, 'o': 1, u': 1,
+    'l': 1, 'n': 1, 's': 1, 't': 1, 'r': 1,
+    'd': 2, 'g': 2, 'b': 3, 'c': 3, 'm': 3, 'p': 3,
+    'f': 4, 'h': 4, 'v': 4, 'w': 4, 'y': 4,
+    'k': 5, 'j': 8, 'x': 8, 'q': 10, 'z': 10
 }
 
 def scrabble_score(name):

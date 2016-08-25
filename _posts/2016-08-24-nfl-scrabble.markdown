@@ -4,8 +4,8 @@ date:   2016-08-24
 tags: [data science]
 
 header:
-  image: "https://img0.etsystatic.com/024/0/5452236/il_214x170.552772206_119p.jpg"
-  caption: "Photo credit: [**Etsy**](https://img0.etsystatic.com/024/0/5452236/il_214x170.552772206_119p.jpg)"
+  image: "fox_sports_images/scrabble_tile_holder.jpg"
+  caption: "Photo credit: [**Etsy**](https://img0.etsystatic.com/007/0/7176622/il_570xN.376562392_f99r.jpg)"
 
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---

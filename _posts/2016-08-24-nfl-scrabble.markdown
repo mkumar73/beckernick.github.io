@@ -10,7 +10,7 @@ header:
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
-Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/dan.p.nolan.92?ref=br_rs) did, and we decided to find out as best we could. I calculated the Scrabble Score for every player's name in the NFL to find out which teams have the highest scores. 
+Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/dan.p.nolan.92) did, and we decided to find out as best we could. I calculated the Scrabble Score for every player's name in the NFL to find out which teams have the highest scores. 
 
 ## Getting the Data
 

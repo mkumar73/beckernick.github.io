@@ -30,7 +30,6 @@ All the data we want is in a `table` with `class=wisbb_standardTable tablesorter
 
 
 ```python
-from __future__ import division
 import bs4
 import urllib2
 import pandas as pd
@@ -79,7 +78,7 @@ print full_teams_list[:5]
     ['TEN', 'GB', 'TEN', 'MIA', 'DET']
 
 
-Looks good. Let's split them into first and last names so we can score by first or last name only if we want. Because some players have names with multiple spaces (such as Brian de la Puente), I use the `if else` statements to avoid losing the full names during the split.
+Looks good. Let's split them into first and last names so we can score by first or last name only if we want. Because some players have names with multiple spaces (such as Brian de la Puente), I use `join` and the `if else` statements to avoid losing the full names during the split. Then I can zip the players and teams into tuples, and store them in a list
 
 
 ```python
@@ -100,20 +99,10 @@ for each in last_names:
         fixed_last_names.append(joined_last_name)
     else:
         fixed_last_names.append(each)
-```
 
-
-Now I'll zip the players and teams into a tuple, and store them in a list
-
-
-```python
 names_teams_tuples = zip(fixed_first_names, fixed_last_names, full_teams_list)
-names_teams_tuples[:5]
 ```
-
-
-
-
+    names_teams_tuples[:5]
     [('Isaako', 'Aaitui', 'TEN'),
      ('Jared', 'Abbrederis', 'GB'),
      ('Mehdi', 'Abdesmad', 'TEN'),

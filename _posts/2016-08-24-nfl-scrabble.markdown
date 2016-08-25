@@ -10,7 +10,7 @@ header:
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
-
+test
 
 ## Getting the Data
 
@@ -22,7 +22,7 @@ This is what the players pages look like:
 Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages, `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
 
 To get the player names and teams out of the page we need to dive into the source code. Inspecting one of the names returns:
-![](images/fox_sports_images/fox_sports_player_html.png?raw=true)
+![](/images/fox_sports_images/fox_sports_player_html.png?raw=true)
 
 All the data we want is in a `table` with `class=wisbb_standardTable tablesorter`. Every row in the table is a `tr` tag, and the player and team names are in separate `td` tags with their own `classes`. We can use BeautifulSoup to extract them and store them in a list.
 

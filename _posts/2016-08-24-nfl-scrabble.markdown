@@ -7,7 +7,7 @@ header:
   image: "fox_sports_images/scrabble_tile_holder.jpg"
   caption: "Photo credit: [**Etsy**](https://img0.etsystatic.com/007/0/7176622/il_570xN.376562392_f99r.jpg)"
 
-excerpt: "pandas, web scraping, scrabble, and the nfl"
+excerpt: "Code Light. Scrabble and the NFL"
 ---
 
 Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/thedanpnolan/) did, and we decided to find out as best we could. I calculated the Scrabble point value for every player's name in the NFL to find out which teams have the highest combined scores. 

@@ -10,14 +10,13 @@ header:
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
-test
 
 ## Getting the Data
 
 Like last time, I have to scrape this data. Luckily, Fox Sports posts a [list](http://www.foxsports.com/nfl/players) of every 2016 NFL player online and it's pretty easy to access.
 
 This is what the players pages look like:
-![](/images/fox_sports_players_raw.png?raw=true)
+![](/images/fox_sports_images/fox_sports_players_raw.png?raw=true)
 
 Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages, `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
 

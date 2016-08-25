@@ -30,7 +30,7 @@ Not a bad showing by the Washington Redskins (8th), except for the fact that the
 
 ***
 
-For those interested, the code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github] repository for this post. 
+For those interested, the code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github repository](https://github.com/beckernick/scrabble_score_nfl) for this post. 
 
 
 

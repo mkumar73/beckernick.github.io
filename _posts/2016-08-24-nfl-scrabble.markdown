@@ -4,8 +4,8 @@ date:   2016-08-24
 tags: [data science]
 
 header:
-  image: "congress_edge_detection.jpg"
-  caption: "Photo credit: [**Original Photo: Politico, Edited by Nick Becker**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
+  image: "https://img0.etsystatic.com/024/0/5452236/il_214x170.552772206_119p.jpg"
+  caption: "Photo credit: [**Etsy**](https://img0.etsystatic.com/024/0/5452236/il_214x170.552772206_119p.jpg)"
 
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---

@@ -1,13 +1,13 @@
 ---
-title:  "Clustering US Laws using TF-IDF, K-Nearest Neighbors, and K-Means"
-date:   2016-08-18
-tags: [data science, natural langauge processing]
+title:  "Which NFL Team Would Win in Scrabble?"
+date:   2016-08-24
+tags: [data science]
 
 header:
   image: "congress_edge_detection.jpg"
   caption: "Photo credit: [**Original Photo: Politico, Edited by Nick Becker**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
 
-excerpt: "natural language processing, tf-idf, and k-nearest neighbors."
+excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
 
@@ -18,18 +18,8 @@ from __future__ import division
 import bs4
 import urllib2
 import pandas as pd
-import scrabble_points_name
 ```
 
-
-```python
-
-```
-
-
-```python
-
-```
 
 ## Getting the Data
 

@@ -10,18 +10,20 @@ header:
 excerpt: "pandas, web scraping, scrabble, and the nfl"
 ---
 
-temporary placeholder
+Has anyone ever wondered which NFL team would win in Scrabble? Well, my roommate [Dan Nolan](https://www.facebook.com/dan.p.nolan.92?ref=br_rs) did, and we decided to find out as best we could. I calculated the Scrabble Score for every player's name in the NFL to find out which teams have the highest scores. 
 
 ## Getting the Data
 
-Like last time, I have to scrape this data. Luckily, Fox Sports posts a [list](http://www.foxsports.com/nfl/players) of every 2016 NFL player online and it's pretty easy to access.
+Fox Sports posts a [list](http://www.foxsports.com/nfl/players) of every 2016 NFL player online and it's pretty easy to access. With a few lines of code we should be able to scrape the data we need from their site.
 
-This is what the players pages look like:
+This is what one page of the Fox Sports list of players looks like:
+
 ![](/images/fox_sports_images/fox_sports_players_raw.png?raw=true)
 
-Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages, `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
+Clicking on any one of the 167 pages illustrates base URL we need to scrape all the pages: `http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page=`. We'll just put the numbers 1 to 167 into the url after `page=` when we want that particular page.
 
 To get the player names and teams out of the page we need to dive into the source code. Inspecting one of the names returns:
+
 ![](/images/fox_sports_images/fox_sports_player_html.png?raw=true)
 
 All the data we want is in a `table` with `class=wisbb_standardTable tablesorter`. Every row in the table is a `tr` tag, and the player and team names are in separate `td` tags with their own `classes`. We can use BeautifulSoup to extract them and store them in a list.
@@ -32,18 +34,13 @@ from __future__ import division
 import bs4
 import urllib2
 import pandas as pd
-```
 
-```python
 fox_nfl_url = 'http://www.foxsports.com/nfl/players?teamId=0&season=2016&position=0&page='
-
 players_list = []
 full_teams_list = []
 
 for i in range(1, 168):
-    link = fox_nfl_url + str(i)
-    print link
-    
+    link = fox_nfl_url + str(i)    
     response = urllib2.urlopen(link)
     html = response.read()
     soup = bs4.BeautifulSoup(html)
@@ -134,7 +131,6 @@ First I define a function that takes a string as input and returns the scrabble 
 import string
 
 letter_points_dictionary = {
-    
     'a': 1,
     'e': 1,
     'i': 1,
@@ -181,7 +177,6 @@ Now I can score the players names and put them into a pandas dataframe and sort 
 scrabble_nfl_list = []
 
 for name in names_teams_tuples:
-    #print name
     first_name = name[0]
     last_name = name[1]
     team = name[2]
@@ -189,15 +184,10 @@ for name in names_teams_tuples:
     first_points = scrabble_points_name.scrabble_score(first_name)
     last_points = scrabble_points_name.scrabble_score(last_name)
     tup = first_name, last_name, team, first_points, last_points, first_points + last_points
-    #print tup
     scrabble_nfl_list.append(tup)
-```
 
-
-```python
 nfl_scores_df = pd.DataFrame(scrabble_nfl_list, columns = ['first_name', 'last_name', 'team', 'first_name_score', 'last_name_score', 'combined_score'])
 nfl_scores_df.sort_values('combined_score', ascending=False, inplace = True)
-nfl_scores_df.head()
 ```
 
 
@@ -209,11 +199,6 @@ nfl_scores_df['full_name'] = (nfl_scores_df['first_name'].
                                      str.cat(nfl_scores_df['last_name'], sep = ' ').
                                      str.cat(nfl_scores_df['team'], sep = ', ')
                                      )
-```
-
-
-```python
-nfl_scores_df.to_csv('nfl_scrabble_score.csv', index = False)
 ```
 
 # Plotting the Best Individual Player Scores
@@ -230,11 +215,8 @@ Let's plot just the top 25 players using `matplotlib` and `seaborn` for the them
 
 
 ```python
-top_players = nfl_player_scores_df.head(25)
-```
+top_players = nfl_scores_df.head(25)
 
-
-```python
 f = plt.figure(figsize = (8, 12))
 ax = plt.axes()
 sns.set(font_scale = 1.25)
@@ -246,14 +228,6 @@ ax.xaxis.set_label_position('bottom')
 sns.despine(left = True, bottom = True)
 plt.title('Highest NFL Player Name Scrabble Scores', size = 20)
 ```
-
-
-
-
-    <matplotlib.text.Text at 0x131b6ac90>
-
-
-
 
 ![](/images/fox_sports_images/top_player_scores.png?raw=true)
 
@@ -274,37 +248,20 @@ team_df =  (nfl_player_scores_df.
        reset_index().
        sort_values('combined_score', ascending = False)
        )
-
-team_df.to_csv('nfl_team_scrabble_score.csv', index = False)
 ```
-
-
-```python
-# Load the team scores from the file
-nfl_team_scores_df = pd.read_csv('nfl_team_scrabble_score.csv')
-```
-
 
 ```python
 f = plt.figure(figsize = (6, 12))
 ax = plt.axes()
 sns.set(font_scale = 1.5)
 sns.set_color_codes('pastel')
-sns.barplot(x = 'combined_score', y = 'team', data = nfl_team_scores_df, color = 'g')
+sns.barplot(x = 'combined_score', y = 'team', data = team_df, color = 'g')
 ax.xaxis.set_label_position('bottom')
 sns.despine(left = True, bottom = True)
 plt.xlabel('Scrabble Score', size = 15)
 plt.ylabel('Nfl Team', size = 15)
 plt.title('Total Scrabble Score by NFL Team')
 ```
-
-
-
-
-    <matplotlib.text.Text at 0x122936e90>
-
-
-
 
 ![](/images/fox_sports_images/team_scores.png?raw=true)
 

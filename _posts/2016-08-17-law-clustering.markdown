@@ -684,7 +684,7 @@ print tfs_reduced[0]
       -3.69779039e-02   1.05691593e-01]
 
 
-Next, we'll find a 2-D representation of our 50-dimensional tensor using t-SNE.
+Next, we'll find a 2-D representation of our 50-dimensional data using t-SNE.
 
 
 ```python

@@ -300,10 +300,6 @@ def load_sparse_csr(filename):
     return csr_matrix((loader['data'], loader['indices'], loader['indptr']),
                          shape = loader['shape'])
 
-```
-
-
-```python
 save_sparse_csr(data_path + 'laws_tf_idf.npz', tfs)
 ```
 
@@ -318,14 +314,6 @@ from sklearn.neighbors import NearestNeighbors
 model_tf_idf = NearestNeighbors(metric='cosine', algorithm='brute')
 model_tf_idf.fit(tfs)
 ```
-
-
-
-
-    NearestNeighbors(algorithm='brute', leaf_size=30, metric='cosine',
-             metric_params=None, n_jobs=1, n_neighbors=5, p=2, radius=1.0)
-
-
 
 Let's define a function to print the k nearest neighbors for any query law. Since we have our corpus stored as a dictionary, we'll define the function to take the dictionary as an input.
 
@@ -410,27 +398,13 @@ km = KMeans(n_clusters=k, init='k-means++', max_iter=100, n_init=5,
 km.fit(tfs)
 ```
 
-    Initialization complete
-    Iteration  0, inertia 4627.378
-    Iteration  1, inertia 2772.718
-    [...]
-
-    KMeans(copy_x=True, init='k-means++', max_iter=100, n_clusters=50, n_init=5,
-        n_jobs=1, precompute_distances='auto', random_state=None, tol=0.0001,
-        verbose=1)
-
-
-
 Let's look at the cluster assignments. What's the distribution of cluster assignments?
 
 
 ```python
 import matplotlib.pyplot as plt
 %matplotlib inline
-```
 
-
-```python
 plt.hist(km.labels_, bins=k)
 plt.show()
 ```
@@ -564,7 +538,6 @@ Since so many laws have `United States` in them, we'll add those words to the se
 
 
 ```python
-
 def clean_bill(raw_bill):
     """
     Function to clean bill text to keep only letters and remove stopwords
@@ -623,7 +596,7 @@ In their [t-SNE paper](http://www.cs.toronto.edu/~hinton/absps/tsne.pdf), van de
 
 So we're essentially minimizing a cost function with gradient descent to find a low dimensional data representation that keeps "close" points together in the new dimensions. Cool. Let's do it.
 
-First we'll decompose our tf-idf matrix `tfs` into a lower dimensional space since most our space is sparse.
+First we'll decompose our tf-idf matrix `tfs` into a lower dimensional space since most of our space is empty.
 
 
 ```python
@@ -637,31 +610,6 @@ k = 50
 tfs_reduced = TruncatedSVD(n_components=k, random_state=0).fit_transform(tfs)
 ```
 
-Let's take a look at the first law's representation in both spaces.
-
-
-```python
-print tfs[0].A
-print tfs_reduced[0]
-```
-
-    [[ 0.  0.  0. ...,  0.  0.  0.]]
-
-    [  4.38423875e-01  -3.00248418e-03   2.33335259e-01  -1.37438286e-01
-       2.84206786e-01   2.66262552e-01  -2.12074337e-02   4.12346062e-02
-       7.49885919e-02   6.55497460e-02  -9.97137039e-03  -5.88120140e-02
-       2.51327455e-02   4.93963103e-02  -1.73767695e-01   3.58991616e-02
-      -5.78711078e-02  -1.38381766e-02   9.32298684e-05   1.16180873e-01
-       1.92899842e-02   8.03687428e-02  -8.54831822e-02  -6.23085873e-02
-       3.07540318e-03  -3.27680837e-02  -7.40418560e-02  -1.64382083e-02
-      -6.36221396e-02  -1.26110346e-01   5.17822091e-02  -7.73297134e-03
-      -1.19039336e-01  -2.34091646e-02  -5.07190226e-02  -2.28139221e-02
-       5.15173022e-02  -7.54591685e-03   4.34970059e-02   1.01454832e-01
-      -5.86684190e-02  -5.62348273e-02  -1.63426764e-02   2.02803569e-02
-      -1.08796287e-01  -1.11800341e-01   4.79279500e-02  -5.37942841e-02
-      -3.69779039e-02   1.05691593e-01]
-
-
 Next, we'll find a 2-D representation of our 50-dimensional data using t-SNE.
 
 
@@ -669,13 +617,7 @@ Next, we'll find a 2-D representation of our 50-dimensional data using t-SNE.
 tfs_embedded = TSNE(n_components=2, perplexity=40, verbose=2).fit_transform(tfs_reduced)
 ```
 
-    [t-SNE] Computing pairwise distances...
-    [...]
-    [t-SNE] Error after 375 iterations: 1.081939
-
-
 With our vector embeddings in hand, let's plot the laws colored according to their k-means cluster assignment.
-
 
 ```python
 fig = plt.figure(figsize = (10, 10))

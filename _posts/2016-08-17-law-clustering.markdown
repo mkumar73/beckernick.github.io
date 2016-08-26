@@ -7,7 +7,7 @@ header:
   image: "congress_edge_detection.jpg"
   caption: "Photo credit: [**Original Photo: Politico, Edited by Nick Becker**](http://www.politico.com/story/2011/09/poll-congress-sinks-even-lower-063679)"
 
-excerpt: "**Code Intensive**. Natural Language Processing, TF-IDF, and K-Means Clustering"
+excerpt: "Code Intensive. Natural Language Processing, TF-IDF, and K-Means Clustering"
 ---
 
 Hello, World.

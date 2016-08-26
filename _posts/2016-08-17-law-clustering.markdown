@@ -19,7 +19,7 @@ Since I'm doing some natural language processing at work, I figured I might as w
 
 
 ## Scraping www.congress.gov with BeautifulSoup
-First, I needed to scrape https://www.congress.gov/legislation to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
+First, I needed to scrape the [legislation page](https://www.congress.gov/legislation) to get the links for each bill. Each page has 25 bills on it, among other things. The URL ending of ```?q=%7B"bill-status"%3A"law"%7D``` filters the results to only be enacted bills (bills that became law). By looking at a few of the pages, I noticed that the hyperlinks I need are essentially in the same place on every page (inside ```<h2>``` within an ```<ol>``` tag of class ```results_list```).
 
 So I can scrape all the hyperlinks with a nested loop. The outer loop grabs the data in the table on each page, and the inner loop extracts the hyperlinks for bills. Out of respect for www.congress.gov's servers, I store the links in a list and write the list to a text file so I don't have to scrape them again.
 
@@ -413,29 +413,6 @@ km.fit(tfs)
     Iteration  0, inertia 4627.378
     Iteration  1, inertia 2772.718
     [...]
-    Converged at iteration 31
-    Initialization complete
-    Iteration  0, inertia 4581.523
-    [...]
-    Converged at iteration 23
-    Initialization complete
-    Iteration  0, inertia 4582.919
-    Iteration  1, inertia 2766.878
-    Iteration  2, inertia 2719.702
-    [...]
-    Converged at iteration 20
-    Initialization complete
-    Iteration  0, inertia 4645.185
-    Iteration  1, inertia 2738.634
-    Iteration  2, inertia 2684.899
-    [...]
-    Converged at iteration 18
-    Initialization complete
-    Iteration  0, inertia 4576.125
-    Iteration  1, inertia 2748.762
-    Iteration  2, inertia 2709.963
-    [...]
-    Converged at iteration 25
 
     KMeans(copy_x=True, init='k-means++', max_iter=100, n_clusters=50, n_init=5,
         n_jobs=1, precompute_distances='auto', random_state=None, tol=0.0001,
@@ -692,18 +669,6 @@ tfs_embedded = TSNE(n_components=2, perplexity=40, verbose=2).fit_transform(tfs_
 ```
 
     [t-SNE] Computing pairwise distances...
-    [t-SNE] Computing 121 nearest neighbors...
-    [t-SNE] Computed conditional probabilities for sample 1000 / 3725
-    [t-SNE] Computed conditional probabilities for sample 2000 / 3725
-    [t-SNE] Computed conditional probabilities for sample 3000 / 3725
-    [t-SNE] Computed conditional probabilities for sample 3725 / 3725
-    [t-SNE] Mean sigma: 0.092009
-    [t-SNE] Iteration 25: error = 1.7617760, gradient norm = 0.0080711
-    [t-SNE] Iteration 50: error = 1.6578789, gradient norm = 0.0055832
-    [t-SNE] Iteration 75: error = 1.3032191, gradient norm = 0.0022066
-    [t-SNE] Iteration 100: error = 1.2346758, gradient norm = 0.0018688
-    [t-SNE] Error after 100 iterations with early exaggeration: 1.234676
-    [t-SNE] Iteration 125: error = 1.1260014, gradient norm = 0.0014051
     [...]
     [t-SNE] Error after 375 iterations: 1.081939
 

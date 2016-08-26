@@ -32,7 +32,7 @@ Not a bad showing by the home-team Washington Redskins (8th), except for the fac
 
 ***
 
-For those interested, the Jupyter Nobteook with code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github repository](https://github.com/beckernick/scrabble_score_nfl) for this post. 
+For those interested, the Jupyter Notebook with code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github repository](https://github.com/beckernick/scrabble_score_nfl) for this post. 
 
 
 

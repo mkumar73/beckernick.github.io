@@ -559,7 +559,7 @@ Cluster 27 looks pretty tight also - lots of bills about food, drugs, and medici
 ## Determining Cluster Themes with TF-IDF
 What if we reverse engineered the cluster "themes" from the text of the laws by employing tf-idf again? Within any single cluster, we have a set of laws. If we calculate the inverse document frequencies for all of the words in the cluster's corpus, we'll know which words should provide the least weight. Essentially, the lowest idf-weight words should correspond to the general themes present in most of the documents.
 
-Since so many laws have `United States` in them, we'll add those words to the set of stopwords. Then we can just clean each cluster's laws again, estimate the idf vectors for the cluster, and see if the lowest weighted terms show any general themes. Since apparently I can't stop using dictionaries, we'll store the bottom 5 words in the dictionary `cluster_themes_dict`.
+Since so many laws have `United States` in them, we'll add those words to the set of stopwords. Then we can just clean each cluster's laws again, estimate the idf weights for the cluster, and see if the lowest weighted terms show any general themes. Since apparently I can't stop using dictionaries, we'll store the bottom 5 words in the dictionary `cluster_themes_dict`.
 
 
 ```python

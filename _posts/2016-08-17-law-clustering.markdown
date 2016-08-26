@@ -1,7 +1,7 @@
 ---
 title:  "Clustering US Laws using TF-IDF, K-Nearest Neighbors, and K-Means"
 date:   2016-08-18
-tags: [data science, natural langauge processing]
+tags: [data science]
 
 header:
   image: "congress_edge_detection.jpg"

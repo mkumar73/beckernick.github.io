@@ -258,6 +258,7 @@ Perfect! Way harder to read, but way more useful for finding textual similaritie
 
 So we've got a dictionary of laws and their text. Now it's time to calculate the tf-idf vectors. We'll initialize a stemmer from NLTK to treat words like ```incredible``` and ```incredibly``` as the same token. Then we'll initialize a TfidfVectorizer from ```sklearn``` and fit our corpus to the vectorizer. Since our corpus is all the values of the dictionary ```clean_bills_dictionary```, we'll pass ```clean_bills_dictionary.values()``` to the vectorizer.
 
+```python
 stemmer = PorterStemmer()
 
 def stem_words(words_list, stemmer):

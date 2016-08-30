@@ -10,4 +10,4 @@ header:
 excerpt: "Code Intensive. Artist recommender, collaborative filtering, k-nearest neighbor"
 ---
 
-image
+image2

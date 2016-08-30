@@ -1,5 +1,5 @@
 ---
-title:  "Music Recommender with Collaborative Filtering and K-Nearest Neighbors"
+title:  "Music Recommendations with Collaborative Filtering and K-Nearest Neighbors"
 date:   2016-08-30
 tags: [data science]
 

@@ -1,5 +1,5 @@
 ---
-title:  "Clustering US Laws using TF-IDF, K-Nearest Neighbors, and K-Means"
+title:  "Clustering US Laws using TF-IDF and K-Means"
 date:   2016-08-18
 tags: [data science]
 

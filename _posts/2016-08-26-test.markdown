@@ -10,5 +10,8 @@ header:
 excerpt: "Code Light. Speech Visualizations"
 ---
 
+In the spirit of the U.S. presidential election (and me switching my voter registeration from North Carolina to Washington, D.C.), I put together a wordcloud for every State of the Union address since I was born. While there are definitely better ways to visualize data, these wordclouds do a pretty good job of highlighting the key themes in the speeches.
+
+***
 
 ![](/images/sotu_wordcloud_1993_2016.gif?raw=true)

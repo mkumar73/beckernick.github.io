@@ -7,7 +7,7 @@ header:
   image: "last_fm_spotify_edited.png"
   caption: "Photo credit: [**Slash Gear**](http://www.slashgear.com/last-fm-and-spotify-team-up-to-give-better-music-recommendations-29315027/)"
 
-excerpt: "Code Focused. Music Recommender, Collaborative Filtering, K-earest Neighbors"
+excerpt: "Code Focused. Music Recommender, Collaborative Filtering, K-Nearest Neighbors"
 ---
 
 

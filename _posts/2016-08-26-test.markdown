@@ -1,2 +1,14 @@
+---
+title:  "Visualizing the State of the Union"
+date:   2016-08-26
+tags: [data science]
+
+header:
+  image: "sotu_usa_today_edited.jpg"
+  caption: "Photo credit: [**USA Today**](http://www.usatoday.com/story/news/politics/onpolitics/2016/01/11/state-of-union-bipartisan-seating-stunt-fizzles/78624490/)"
+
+excerpt: "Code Light. Speech Visualizations"
+---
+
 
 ![](/images/sotu_wordcloud_1993_2016.gif?raw=true)

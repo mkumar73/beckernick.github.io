@@ -726,13 +726,13 @@ To be brief, these are fantastic.
 
 ## Future Ideas
 
-#### Scaling up to Massive Datasets
+### Scaling up to Massive Datasets
 
 Since we're using K-Nearest Neighbors, we have to calculate the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we make a query. If our data is fairly small (like in this post), this isn't an issue.
 
 If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time. Fortunately, there's been great work done on Approximate Nearest Neighbor Search techniques such as [locality sensitive hashing](http://www.mit.edu/~andoni/LSH/). These techniques sacrifice the **guarantee** of finding the nearest neighbors for  increases in computational efficiency, and work extremely well with high dimensional data. The [Machine Learning: Clustering & Retrieval](https://www.coursera.org/learn/ml-clustering-and-retrieval) course on Coursera has a great walk-through of LSH for those curious.
 
-#### Recommending less popular artists
+### Recommending less popular artists
 
 While our recommendation engine is doing a great job, it's only recommending popular artists (by design). A really cool alternative recommender might recommend us unknown artists given a query artist so we can discover new music. 
 

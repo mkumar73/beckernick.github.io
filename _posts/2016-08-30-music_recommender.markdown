@@ -286,7 +286,7 @@ print artist_plays['total_artist_plays'].describe()
     Name: total_artist_plays, dtype: float64
 
 
-As expected, 150,000 of the artists have only been played about 200 times. Let's take a look at the top of the distribution.
+As expected, the median artist has only been played about 200 times. Let's take a look at the top of the distribution.
 
 
 ```python

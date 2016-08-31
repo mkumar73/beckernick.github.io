@@ -1,3 +1,3 @@
 
 80 second gif
-![](/images/sotu_wordcloud.gif?raw=true)
+![](/images/sotu_wordcloud_1993_2016.gif?raw=true)

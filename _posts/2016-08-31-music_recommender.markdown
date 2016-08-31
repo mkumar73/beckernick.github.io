@@ -1,6 +1,6 @@
 ---
 title:  "Music Recommendations with Collaborative Filtering and K-Nearest Neighbors"
-date:   2016-08-30
+date:   2016-08-31
 tags: [data science]
 
 header:
@@ -417,8 +417,7 @@ So there are about 9000 artists with more than 40,000 listens. This is by design
 
 ## Filtering to US Users Only
 
-Since I'm in Washington, D.C., I'll limit the user data to just those from the United States.
-
+Since I'm in Washington, D.C., I'll limit the user data to just those from the United States. First, I'll merge in the user profile data that has the user's country. Then I'll filter the data to only users in the United States.
 
 ```python
 combined = user_data_popular_artists.merge(user_profiles, left_on = 'users', right_on = 'users', how = 'left')

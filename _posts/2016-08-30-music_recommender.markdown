@@ -413,7 +413,7 @@ print len(unique_popular_artist)
     9300
 
 
-So there are 2900 artists above with more than 200,000 listens. This is by design, since we just took roughly 1% of about 300,000 artists
+So there are about 9000 artists with more than 40,000 listens. This is by design, since we just took roughly 3% of about 300,000 artists
 
 ## Filtering to US Users Only
 

@@ -16,7 +16,7 @@ Intro goes here
 
 ## Loading the Last.fm Data
 
-The Last.fm [data](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/index.html) come from the [Music Technology Group](http://mtg.upf.edu/) at the Universitat Pompeu Fabra in Barcela, Spain. The data were scraped by Òscar Celma using the Last.fm API, and they are available free of charge. So, thank you Òscar!
+The Last.fm [data](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/index.html) come from the [Music Technology Group](http://mtg.upf.edu/) at the Universitat Pompeu Fabra in Barcelona, Spain. The data were scraped by Òscar Celma using the Last.fm API, and they are available free of charge. So, thank you Òscar!
 
 The Last.fm data are broken into two parts: the activity data and the profile data. The activity data is comprised of about 360,000 individual user's Last.fm artist listening information. It details how many times a Last.fm user played songs by various artists. The profile data contains each user's country of residence. We'll use `read.table` from `pandas` to read in the tab-delimited files.
 

@@ -15,3 +15,9 @@ In the spirit of the U.S. presidential election (and me switching my voter regis
 ***
 
 ![](/images/sotu_wordcloud_1993_2016.gif?raw=true)
+
+
+***
+
+For those interested, the Jupyter Notebook with code to scrape the speeches, clean the text, and make the wordclouds can be found in the [Github repository](https://github.com/beckernick/) for this post. 
+

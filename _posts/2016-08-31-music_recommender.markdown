@@ -736,5 +736,5 @@ If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy a
 
 While our recommendation engine is doing a great job, it's only recommending popular artists (by design). A really cool alternative recommender might recommend us unknown artists given a query artist so we can discover new music. 
 
-Recommending lesser known artists is a huge challenge that does fit well with collaborative filtering, so we might want to incorporate feature based recommendations into such a system.
+Recommending lesser known artists is a huge challenge that doesn't fit as well with standard collaborative filtering, so we might want to incorporate feature based recommendations into such a system.
 

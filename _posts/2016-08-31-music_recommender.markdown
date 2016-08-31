@@ -37,15 +37,12 @@ user_data = pd.read_table('/users/nickbecker/Downloads/lastfm-dataset-360K/users
                           header = None, nrows = 2e7,
                           names = ['users', 'musicbrainz-artist-id', 'artist-name', 'plays'],
                           usecols = ['users', 'artist-name', 'plays'])
-```
-
-
-```python
 user_profiles = pd.read_table('/users/nickbecker/Downloads/lastfm-dataset-360K/usersha1-profile.tsv',
                           header = None,
                           names = ['users', 'gender', 'age', 'country', 'signup'],
                           usecols = ['users', 'country'])
 ```
+
 
 Let's take a quick look at the two datasets.
 
@@ -157,7 +154,7 @@ With the datasets loaded in memory, we can start doing some data cleaning and ev
 
 ## Filtering to Only Popular Artists
 
-Since we're going to be doing item-based collaborative filtering, our recommendations will be based on user patterns in listening to artists. Lesser known artists will have views from fewer viewers, making the pattern more noisy. This would probably result in bad recommendations (or at least ones highly sensitive to an individual person who _**loves**_ one artist. To avoid this problem, we'll just look at the popular artists.
+Since we're going to be doing item-based collaborative filtering, our recommendations will be based on user patterns in listening to artists. Lesser known artists will have views from fewer viewers, making the pattern more noisy. This would probably result in bad recommendations (or at least ones highly sensitive to an individual person who _**loves**_ one obsscure artist. To avoid this problem, we'll just look at the popular artists.
 
 To find out which artists are popular, we need to know the total play count of every artist. Since our user play count data has one row per artist per user, we need to aggregate it up to the artist level. With `pandas`, we can group by the artist name and then calculate the sum of the `plays` column for every artist. If the `artist-name` variable is missing, our future reshaping and analysis won't work. So I'll start by removing rows where the artist name is missing just to be safe.
 
@@ -176,14 +173,8 @@ artist_plays = (user_data.
      rename(columns = {'plays': 'total_artist_plays'})
      [['artist-name', 'total_artist_plays']]
     )
-```
-
-
-```python
 artist_plays.head()
 ```
-
-
 
 
 <div>
@@ -232,10 +223,6 @@ Now we can merge the total play count data into the user activity data, giving u
 
 ```python
 user_data_with_artist_plays = user_data.merge(artist_plays, left_on = 'artist-name', right_on = 'artist-name', how = 'left')
-```
-
-
-```python
 user_data_with_artist_plays.head()
 ```
 
@@ -508,22 +495,6 @@ wide_artist_data_sparse = csr_matrix(wide_artist_data.values)
 ```
 
 
-```python
-# save the model for future 
-from scipy.sparse import csr_matrix
-
-def save_sparse_csr(filename,array):
-    np.savez(filename,data = array.data ,indices=array.indices,
-             indptr =array.indptr, shape=array.shape )
-
-def load_sparse_csr(filename):
-    loader = np.load(filename)
-    return csr_matrix((loader['data'], loader['indices'], loader['indptr']),
-                         shape = loader['shape'])
-
-save_sparse_csr('/users/nickbecker/Python_Projects/lastfm_sparse_artist_matrix.npz', wide_artist_data_sparse)
-```
-
 #### Fitting the Model
 
 Time to implement the model. We'll initialize the `NearestNeighbors` class as `model_knn` and `fit` our sparse matrix to the instance. By specifying the `metric = cosine`, the model will measure similarity bectween artist vectors by using cosine similarity.
@@ -537,13 +508,6 @@ model_knn.fit(wide_artist_data_sparse)
 ```
 
 
-
-
-    NearestNeighbors(algorithm='brute', leaf_size=30, metric='cosine',
-             metric_params=None, n_jobs=1, n_neighbors=5, p=2, radius=1.0)
-
-
-
 #### Making Recommendations
 
 And we're finally ready to make some recommendations!
@@ -551,7 +515,6 @@ And we're finally ready to make some recommendations!
 
 ```python
 query_index = np.random.choice(wide_data.shape[0])
-print query_index
 distances, indices = model_knn.kneighbors(wide_artist_data.iloc[query_index, :].reshape(1, -1), n_neighbors = 6)
 
 for i in range(0, len(distances.flatten())):
@@ -561,7 +524,6 @@ for i in range(0, len(distances.flatten())):
         print '{0}: {1}, with distance of {2}:'.format(i, wide_artist_data.index[indices.flatten()[i]], distances.flatten()[i])
 ```
 
-    8374
     Recommendations for tony bennett:
     
     1: frank sinatra, with distance of 0.226917809755:
@@ -571,7 +533,7 @@ for i in range(0, len(distances.flatten())):
     5: cherry poppin daddies, with distance of 0.4908909547:
 
 
-Pretty good! Frank Sinatra and Andy Williams are obviously good recommendations. I'd never heard of [Keiko Matsui](https://www.youtube.com/watch?v=XzqsWxau_gI) or [Cherry Poppin Daddies](https://www.youtube.com/watch?v=1IqH3uliwJY), but they both seem like good recommendations after listening to their music. [Chic](https://www.youtube.com/watch?v=eKl6EZShaaw), though, doesn't seem as similar to me as the other artists (they sound a little more disco).
+Pretty good! Frank Sinatra and Andy Williams are obviously good recommendations for Tony Bennett. I'd never heard of [Keiko Matsui](https://www.youtube.com/watch?v=XzqsWxau_gI) or [Cherry Poppin Daddies](https://www.youtube.com/watch?v=1IqH3uliwJY), but they both seem like good recommendations after listening to their music. [Chic](https://www.youtube.com/watch?v=eKl6EZShaaw), though, doesn't seem as similar to me as the other artists (they sound a little more disco).
 
 Why would our model recommend Chic? Since we're doing item-based collaborative filtering with K-Nearest Neighbors on the actual play count data, outliers can have a big influence. If a few users listened to Tony Bennett and Chic a _**ton**_, our distance metric between vectors will be heavily influenced by those individual observations.
 
@@ -595,20 +557,10 @@ model_nn_binary = NearestNeighbors(metric='cosine', algorithm='brute')
 model_nn_binary.fit(wide_artist_data_zero_one_sparse)
 ```
 
-
-
-
-    NearestNeighbors(algorithm='brute', leaf_size=30, metric='cosine',
-             metric_params=None, n_jobs=1, n_neighbors=5, p=2, radius=1.0)
-
-
-
 Let's make a quick comparison. Which recommendations for Tony Bennett look better?
 
 
 ```python
-query_index = np.random.choice(wide_artist_data_zero_one.shape[0])
-#print query_index
 distances, indices = model_nn_binary.kneighbors(wide_artist_data_zero_one.iloc[query_index, :].reshape(1, -1), n_neighbors = 6)
 
 for i in range(0, len(distances.flatten())):
@@ -627,7 +579,9 @@ for i in range(0, len(distances.flatten())):
     5: doris day, with distance of 0.81859043384:
 
 
-These are great, too. At least for Tony Bennett, the binary data representation recommendations looks just as good. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function. Again, it's not obvious which method is better. Since ultimately it's the listeners's future actions that indicate which recommender system is better, it's a perfect candidate for A/B Testing. For now, I'll stick with the binary data representation model.
+These are great, too. At least for Tony Bennett, the binary data representation recommendations looks just as good. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function.
+
+Again, it's not obvious which method is better. Since ultimately it's the users's future actions that indicate which recommender system is better, it's a perfect candidate for A/B Testing. For now, I'll stick with the binary data representation model.
 
 ### Recommending Artists with Fuzzy Matching
 

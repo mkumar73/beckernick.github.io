@@ -11,9 +11,14 @@ excerpt: "Code Focused. Music Recommender, Collaborative Filtering, K-Nearest Ne
 ---
 
 
+Intro goes here
 
 
-# Last-FM 360K data
+## Loading the Last.fm Data
+
+The Last.fm data come from the [Music Technology Group](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/index.html) at the [Universitat Pompeu Fabra](http://mtg.upf.edu/) in Barcela, Spain. The data were scraped by Òscar Celma using the Last.fm API, and they are available free of charge. So, thank you Òscar!
+
+The Last.fm data are broken into two parts: the activity data and the profile data. The activity data is comprised of about 360,000 individual user's Last.fm artist listening information. It details how many times a Last.fm user played songs by various artists. The profile data contains each user's country of residence. We'll use `read.table` from `pandas` to read in the tab-delimited files.
 
 
 ```python
@@ -36,12 +41,18 @@ user_data = pd.read_table('/users/nickbecker/Downloads/lastfm-dataset-360K/users
 
 
 ```python
-print user_data.shape
-user_data.head()
+user_profiles = pd.read_table('/users/nickbecker/Downloads/lastfm-dataset-360K/usersha1-profile.tsv',
+                          header = None,
+                          names = ['users', 'gender', 'age', 'country', 'signup'],
+                          usecols = ['users', 'country'])
 ```
 
-    (17535655, 3)
+Let's take a quick look at the two datasets.
 
+
+```python
+user_data.head()
+```
 
 
 
@@ -93,35 +104,10 @@ user_data.head()
 
 
 
-Are any artist names NaN? If so, remove rows where the artist name is missing
-
 
 ```python
-print user_data['artist-name'].isnull().sum()
-user_data = user_data.dropna(axis = 0, subset = ['artist-name'])
-```
-
-    2
-
-
-User profile data
-
-
-```python
-user_profiles = pd.read_table('/users/nickbecker/Downloads/lastfm-dataset-360K/usersha1-profile.tsv',
-                          header = None,
-                          names = ['users', 'gender', 'age', 'country', 'signup'],
-                          usecols = ['users', 'country'])
-```
-
-
-```python
-print user_profiles.shape
 user_profiles.head()
 ```
-
-    (359347, 2)
-
 
 
 
@@ -167,7 +153,19 @@ user_profiles.head()
 
 
 
-## Popular artists only
+With the datasets loaded in memory, we can start doing some data cleaning and eventually make recommendations.
+
+## Filtering to Only Popular Artists
+
+Since we're going to be doing item-based collaborative filtering, our recommendations will be based on user patterns in listening to artists. Lesser known artists will have views from fewer viewers, making the pattern more noisy. This would probably result in bad recommendations (or at least ones highly sensitive to an individual person who _**loves**_ one artist. To avoid this problem, we'll just look at the popular artists.
+
+To find out which artists are popular, we need to know the total play count of every artist. Since our user play count data has one row per artist per user, we need to aggregate it up to the artist level. With `pandas`, we can group by the artist name and then calculate the sum of the `plays` column for every artist. If the `artist-name` variable is missing, our future reshaping and analysis won't work. So I'll start by removing rows where the artist name is missing just to be safe.
+
+
+```python
+if user_data['artist-name'].isnull().sum() > 0:
+    user_data = user_data.dropna(axis = 0, subset = ['artist-name'])
+```
 
 
 ```python
@@ -178,23 +176,58 @@ artist_plays = (user_data.
      rename(columns = {'plays': 'total_artist_plays'})
      [['artist-name', 'total_artist_plays']]
     )
-
 ```
 
 
 ```python
-print artist_plays.shape[0]
-print artist_plays.head()
+artist_plays.head()
 ```
 
-    292364
-                                     artist-name  total_artist_plays
-    0                                       04)]                   6
-    1                                         2                 1606
-    2                                  58725ab=>                  23
-    3   80lİ yillarin tÜrkÇe sÖzlÜ aŞk Şarkilari                  70
-    4                              amy winehouse                  23
 
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>artist-name</th>
+      <th>total_artist_plays</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>04)]</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1606</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>58725ab=&gt;</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>80lİ yillarin tÜrkÇe sÖzlÜ aŞk Şarkilari</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>amy winehouse</td>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Now we can merge the total play count data into the user activity data, giving us exactly what we need to filter out the lesser known artists.
 
 
 ```python
@@ -203,12 +236,8 @@ user_data_with_artist_plays = user_data.merge(artist_plays, left_on = 'artist-na
 
 
 ```python
-print user_data_with_artist_plays.shape
 user_data_with_artist_plays.head()
 ```
-
-    (17535653, 4)
-
 
 
 
@@ -266,7 +295,7 @@ user_data_with_artist_plays.head()
 
 
 
-## Picking a threshold for popular artists
+#### Picking a threshold for popular artists
 
 With nearly 300,000 different artists, it's almost a guarantee most artists have been played only a few times. Let's look at the descriptive statistics.
 
@@ -290,19 +319,6 @@ As expected, the median artist has only been played about 200 times. Let's take 
 
 
 ```python
-print artist_plays['total_artist_plays'].quantile(np.arange(.75, 1, .05))
-```
-
-    0.750    1048.000
-    0.800    1651.000
-    0.850    2909.000
-    0.900    6138.000
-    0.950   19964.250
-    Name: total_artist_plays, dtype: float64
-
-
-
-```python
 print artist_plays['total_artist_plays'].quantile(np.arange(.9, 1, .01)), 
 ```
 
@@ -319,30 +335,11 @@ print artist_plays['total_artist_plays'].quantile(np.arange(.9, 1, .01)),
     Name: total_artist_plays, dtype: float64
 
 
-
-```python
-print artist_plays['total_artist_plays'].quantile(np.arange(.9, 1, .01))
-```
-
-    0.900     6138.000
-    0.910     7410.000
-    0.920     9102.960
-    0.930    11475.590
-    0.940    14898.440
-    0.950    19964.250
-    0.960    28419.880
-    0.970    43541.330
-    0.980    79403.440
-    0.990   198482.590
-    Name: total_artist_plays, dtype: float64
-
-
-So about 1% of artists have roughly 200,000 or more listens, 2% have 80,000 or more, and 3% have 40,000 or more. Since we have so many artists, we'll limit it to the top 3%. We won't be able to recommend lesser known artists, but the computational burden will decrease significantly. Besides, roughly 9000 artists is a pretty good number anyway.
+So about 1% of artists have roughly 200,000 or more plays, 2% have 80,000 or more, and 3% have 40,000 or more. Since we have so many artists, we'll limit it to the top 3%. This is arbitrary threshold for popularity, but it gives us about 9000 different artists. It seems to me that including more than that might push us into the problem of noisy listening patterns we're trying to avoid.
 
 
 ```python
 popularity_threshold = 40000
-
 user_data_popular_artists = user_data_with_artist_plays.query('total_artist_plays >= @popularity_threshold')
 user_data_popular_artists.head()
 ```
@@ -403,95 +400,15 @@ user_data_popular_artists.head()
 
 
 
-
-```python
-# print the unique popular artists
-unique_popular_artist = sorted(set(user_data_popular_artists['artist-name'].tolist()))
-print len(unique_popular_artist)
-```
-
-    9300
-
-
-So there are about 9000 artists with more than 40,000 listens. This is by design, since we just took roughly 3% of about 300,000 artists
-
 ## Filtering to US Users Only
 
-Since I'm in Washington, D.C., I'll limit the user data to just those from the United States. First, I'll merge in the user profile data that has the user's country. Then I'll filter the data to only users in the United States.
+Since I'm in Washington, D.C., I'll limit the user data to just those from the United States. This will reduce the number of users and artists considerably, improving the computational efficiency significantly.
+
+First, I'll merge in the user profile data that has the user's country. Then I'll filter the data to only users in the United States.
+
 
 ```python
 combined = user_data_popular_artists.merge(user_profiles, left_on = 'users', right_on = 'users', how = 'left')
-```
-
-
-```python
-combined.head()
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>users</th>
-      <th>artist-name</th>
-      <th>plays</th>
-      <th>total_artist_plays</th>
-      <th>country</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>00000c289a1829a808ac09c00daf10bc3c4e223b</td>
-      <td>die Ärzte</td>
-      <td>1099</td>
-      <td>3704875</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>00000c289a1829a808ac09c00daf10bc3c4e223b</td>
-      <td>melissa etheridge</td>
-      <td>897</td>
-      <td>180391</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>00000c289a1829a808ac09c00daf10bc3c4e223b</td>
-      <td>elvenking</td>
-      <td>717</td>
-      <td>410725</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>00000c289a1829a808ac09c00daf10bc3c4e223b</td>
-      <td>juliette &amp; the licks</td>
-      <td>706</td>
-      <td>90498</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>00000c289a1829a808ac09c00daf10bc3c4e223b</td>
-      <td>red hot chili peppers</td>
-      <td>691</td>
-      <td>13547741</td>
-      <td>Germany</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
 usa_data = combined.query('country == \'United States\'')
 usa_data.head()
 ```
@@ -562,8 +479,6 @@ Before doing any analysis, we should make sure dataset is internally consistent.
 
 
 ```python
-# Make sure there are no duplicate user/artist rows with different playcounts
-
 if not usa_data[usa_data.duplicated(['users', 'artist-name'])].empty:
     initial_rows = usa_data.shape[0]
     
@@ -577,12 +492,14 @@ if not usa_data[usa_data.duplicated(['users', 'artist-name'])].empty:
 
     Initial dataframe shape (2788019, 5)
     New dataframe shape (2788013, 5)
-    Removed 6
+    Removed 6 rows
 
 
-## Reshaping the data for K-Nearest Neighbors
+## Implemeting the Nearest Neighbor Model
 
-For K-Nearest Neighbors, we want the data to be in an `(artist, user)` array, where each row is an artist and each column is a user. To reshape the dataframe, we'll `pivot` the dataframe to a wide format. Then we'll fill the missing observations with `0`s since we're going to be performing linear algebra operations (calculating distances between vectors). Finally, we transform the values of the dataframe into a scipy sparse matrix for more efficient calculations.
+#### Reshaping the Data
+
+For K-Nearest Neighbors, we want the data to be in an `(artist, user)` array, where each row is an artist and each column is a different user. To reshape the dataframe, we'll `pivot` the dataframe to the wide format with artists as rows and users as columns. Then we'll fill the missing observations with `0`s since we're going to be performing linear algebra operations (calculating distances between vectors). Finally, we transform the values of the dataframe into a scipy sparse matrix for more efficient calculations.
 
 
 ```python
@@ -592,15 +509,22 @@ wide_artist_data_sparse = csr_matrix(wide_artist_data.values)
 
 
 ```python
-print type(wide_artist_data_sparse)
-print wide_artist_data_sparse.shape
+# save the model for future 
+from scipy.sparse import csr_matrix
+
+def save_sparse_csr(filename,array):
+    np.savez(filename,data = array.data ,indices=array.indices,
+             indptr =array.indptr, shape=array.shape )
+
+def load_sparse_csr(filename):
+    loader = np.load(filename)
+    return csr_matrix((loader['data'], loader['indices'], loader['indptr']),
+                         shape = loader['shape'])
+
+save_sparse_csr('/users/nickbecker/Python_Projects/lastfm_sparse_artist_matrix.npz', wide_artist_data_sparse)
 ```
 
-    <class 'scipy.sparse.csr.csr_matrix'>
-    (9127, 66913)
-
-
-## Implemeting the Nearest Neighbor Model
+#### Fitting the Model
 
 Time to implement the model. We'll initialize the `NearestNeighbors` class as `model_knn` and `fit` our sparse matrix to the instance. By specifying the `metric = cosine`, the model will measure similarity bectween artist vectors by using cosine similarity.
 
@@ -620,20 +544,21 @@ model_knn.fit(wide_artist_data_sparse)
 
 
 
-And we're ready to make some recommendations!
+#### Making Recommendations
+
+And we're finally ready to make some recommendations!
 
 
 ```python
 query_index = np.random.choice(wide_data.shape[0])
 print query_index
-
-distances, indices = model_knn.kneighbors(wide_data.iloc[query_index, :].reshape(1, -1), n_neighbors = 6)
+distances, indices = model_knn.kneighbors(wide_artist_data.iloc[query_index, :].reshape(1, -1), n_neighbors = 6)
 
 for i in range(0, len(distances.flatten())):
     if i == 0:
-        print 'Recommendations for {0}:\n'.format(wide_data.index[query_index])
+        print 'Recommendations for {0}:\n'.format(wide_artist_data.index[query_index])
     else:
-        print '{0}: {1}, with distance of {2}:'.format(i, wide_data.index[indices.flatten()[i]], distances.flatten()[i])
+        print '{0}: {1}, with distance of {2}:'.format(i, wide_artist_data.index[indices.flatten()[i]], distances.flatten()[i])
 ```
 
     8374
@@ -650,7 +575,7 @@ Pretty good! Frank Sinatra and Andy Williams are obviously good recommendations.
 
 Why would our model recommend Chic? Since we're doing item-based collaborative filtering with K-Nearest Neighbors on the actual play count data, outliers can have a big influence. If a few users listened to Tony Bennett and Chic a _**ton**_, our distance metric between vectors will be heavily influenced by those individual observations.
 
-So is this good? Maybe. Depending on our goal, we might want **super-users** to have disproportionate weight in the distance calculation. But could we represent the data differently to avoid this feature?
+So is this good? Maybe. Depending on our goal, we might want **super-fans** to have disproportionate weight in the distance calculation. But could we represent the data differently to avoid this feature?
 
 ## Binary Play Count Data
 
@@ -658,14 +583,16 @@ Previously, we used the actual play counts as values in our artist vectors. Anot
 
 
 ```python
-wide_data_zero_one = wide_data.apply(np.sign)
-wide_data_zero_one_sparse = csr_matrix(wide_data_zero_one.values)
+wide_artist_data_zero_one = wide_artist_data.apply(np.sign)
+wide_artist_data_zero_one_sparse = csr_matrix(wide_artist_data_zero_one.values)
+
+save_sparse_csr('/users/nickbecker/Python_Projects/lastfm_sparse_artist_matrix_binary.npz', wide_artist_data_zero_one_sparse)
 ```
 
 
 ```python
 model_nn_binary = NearestNeighbors(metric='cosine', algorithm='brute')
-model_nn_binary.fit(wide_data_zero_one_sparse)
+model_nn_binary.fit(wide_artist_data_zero_one_sparse)
 ```
 
 
@@ -680,18 +607,15 @@ Let's make a quick comparison. Which recommendations for Tony Bennett look bette
 
 
 ```python
-query_index = np.random.choice(wide_data_zero_one.shape[0])
-query_index = 8374 # tony bennett
-
-distances, indices = model_nn_binary.kneighbors(wide_data_zero_one.iloc[query_index, :].reshape(1, -1), n_neighbors = 6)
-
+query_index = np.random.choice(wide_artist_data_zero_one.shape[0])
 #print query_index
+distances, indices = model_nn_binary.kneighbors(wide_artist_data_zero_one.iloc[query_index, :].reshape(1, -1), n_neighbors = 6)
 
 for i in range(0, len(distances.flatten())):
     if i == 0:
-        print 'Recommendations with binary play data for {0}:\n'.format(wide_data_zero_one.index[query_index])
+        print 'Recommendations with binary play data for {0}:\n'.format(wide_artist_data_zero_one.index[query_index])
     else:
-        print '{0}: {1}, with distance of {2}:'.format(i, wide_data_zero_one.index[indices.flatten()[i]], distances.flatten()[i])
+        print '{0}: {1}, with distance of {2}:'.format(i, wide_artist_data_zero_one.index[indices.flatten()[i]], distances.flatten()[i])
 ```
 
     Recommendations with binary play data for tony bennett:
@@ -703,7 +627,7 @@ for i in range(0, len(distances.flatten())):
     5: doris day, with distance of 0.81859043384:
 
 
-These are great, too. At least for Tony Bennett, the binary data representation recommendations looks just as good. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function. Again, it's not obvious which method is better. Since ultimately it's the listeners's future actions that indicate which recommender system is better, it's a great candidate for A/B Testing. For now, I'll stick with the binary data representation model.
+These are great, too. At least for Tony Bennett, the binary data representation recommendations looks just as good. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function. Again, it's not obvious which method is better. Since ultimately it's the listeners's future actions that indicate which recommender system is better, it's a perfect candidate for A/B Testing. For now, I'll stick with the binary data representation model.
 
 ### Recommending Artists with Fuzzy Matching
 
@@ -723,16 +647,13 @@ def print_artist_recommendations(query_artist, artist_plays_matrix, knn_model, k
     """
     Inputs:
     query_artist: query artist name
-    artist_plays_matrix: artist play count dataframe (not the sparse one, our previously fitted model)
-    knn_model: a  previously fitted sklearn knn model
+    artist_plays_matrix: artist play count dataframe (not the sparse one, the pandas dataframe)
+    knn_model: our previously fitted sklearn knn model
     k: the number of nearest neighbors.
     
     Prints: Artist recommendations for the query artist
     Returns: None
     """
-    
-    from operator import itemgetter
-
     query_index = None
     ratio_tuples = []
     
@@ -761,11 +682,11 @@ def print_artist_recommendations(query_artist, artist_plays_matrix, knn_model, k
     return None
 ```
 
-Time to try a few sample bands
+Time to try a few sample bands and get some recommendations for music I might like.
 
 
 ```python
-print_artist_recommendations('red hot chili peppers', wide_data_zero_one, model_nn_binary, k = 10)
+print_artist_recommendations('red hot chili peppers', wide_artist_data_zero_one, model_nn_binary, k = 10)
 ```
 
     Possible matches: [('red hot chili peppers', 100)]
@@ -786,7 +707,7 @@ print_artist_recommendations('red hot chili peppers', wide_data_zero_one, model_
 
 
 ```python
-print_artist_recommendations('arctic monkeys', wide_data_zero_one, model_nn_binary, k = 10)
+print_artist_recommendations('arctic monkeys', wide_artist_data_zero_one, model_nn_binary, k = 10)
 ```
 
     Possible matches: [('arctic monkeys', 100)]
@@ -807,7 +728,7 @@ print_artist_recommendations('arctic monkeys', wide_data_zero_one, model_nn_bina
 
 
 ```python
-print_artist_recommendations('u2', wide_data_zero_one, model_nn_binary, k = 10)
+print_artist_recommendations('u2', wide_artist_data_zero_one, model_nn_binary, k = 10)
 ```
 
     Possible matches: [('u2', 100)]
@@ -828,7 +749,7 @@ print_artist_recommendations('u2', wide_data_zero_one, model_nn_binary, k = 10)
 
 
 ```python
-print_artist_recommendations('dispatch', wide_data_zero_one, model_nn_binary, k = 10)
+print_artist_recommendations('dispatch', wide_artist_data_zero_one, model_nn_binary, k = 10)
 ```
 
     Possible matches: [('dispatch', 100)]
@@ -847,27 +768,6 @@ print_artist_recommendations('dispatch', wide_data_zero_one, model_nn_binary, k 
     10: sublime, with distance of 0.846795058358:
 
 
-
-```python
-print_artist_recommendations('pearl jam', wide_data_zero_one, model_nn_binary, k = 10)
-```
-
-    Possible matches: [('pearl jam', 100)]
-    
-    Recommendations for pearl jam:
-    
-    1: stone temple pilots, with distance of 0.706407198885:
-    2: alice in chains, with distance of 0.714291500864:
-    3: nirvana, with distance of 0.724837631157:
-    4: soundgarden, with distance of 0.728456327455:
-    5: foo fighters, with distance of 0.741056843206:
-    6: the smashing pumpkins, with distance of 0.751413106905:
-    7: red hot chili peppers, with distance of 0.759106030065:
-    8: led zeppelin, with distance of 0.76954203648:
-    9: u2, with distance of 0.778566201394:
-    10: radiohead, with distance of 0.793734608023:
-
-
 To be brief, these are fantastic. 
 
 ## Future Ideas
@@ -883,3 +783,4 @@ If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy a
 While our recommendation engine is doing a great job, it's only recommending popular artists (by design). A really cool alternative recommender might recommend us unknown artists given a query artist so we can discover new music. 
 
 Recommending lesser known artists is a huge challenge that does fit well with collaborative filtering, so we might want to incorporate feature based recommendations into such a system.
+

@@ -869,7 +869,7 @@ print_artist_recommendations('pearl jam', wide_data_zero_one, model_nn_binary, k
     10: radiohead, with distance of 0.793734608023:
 
 
-These are fantastic. 
+To be brief, these are fantastic. 
 
 ## Future Ideas
 

@@ -19,5 +19,5 @@ In the spirit of the U.S. presidential election (and me switching my voter regis
 
 ***
 
-For those interested, the Jupyter Notebook with code to scrape the speeches, clean the text, and make the wordclouds can be found in the [Github repository](https://github.com/beckernick/) for this post. 
+For those interested, the Jupyter Notebook with code to scrape the speeches, clean the text, and make the wordclouds can be found in the [Github repository](https://github.com/beckernick/visualizations/tree/master/State_of_the_Union_Wordcloud) for this post. 
 

@@ -493,7 +493,7 @@ if not usa_data[usa_data.duplicated(['users', 'artist-name'])].empty:
 
 ## Implemeting the Nearest Neighbor Model
 
-#### Reshaping the Data
+### Reshaping the Data
 
 For K-Nearest Neighbors, we want the data to be in an `m x n` array, where `m` is the number of artists and `n` is the number of users. To reshape the dataframe, we'll `pivot` the dataframe to the wide format with artists as rows and users as columns. Then we'll fill the missing observations with `0`s since we're going to be performing linear algebra operations (calculating distances between vectors). Finally, we transform the values of the dataframe into a scipy sparse matrix for more efficient calculations.
 
@@ -504,7 +504,7 @@ wide_artist_data_sparse = csr_matrix(wide_artist_data.values)
 ```
 
 
-#### Fitting the Model
+### Fitting the Model
 
 Time to implement the model. We'll initialize the `NearestNeighbors` class as `model_knn` and `fit` our sparse matrix to the instance. By specifying the `metric = cosine`, the model will measure similarity bectween artist vectors by using cosine similarity.
 
@@ -517,7 +517,7 @@ model_knn.fit(wide_artist_data_sparse)
 ```
 
 
-#### Making Recommendations
+### Making Recommendations
 
 And we're finally ready to make some recommendations!
 

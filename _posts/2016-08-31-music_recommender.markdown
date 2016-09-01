@@ -27,7 +27,7 @@ While googling around for a good dataset, I stumbled upon a [page](https://gist.
 
 The Last.fm [data](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/index.html) are from the [Music Technology Group](http://mtg.upf.edu/) at the Universitat Pompeu Fabra in Barcelona, Spain. The data were scraped by Òscar Celma using the Last.fm API, and they are available free of charge for non-commercial use. So, thank you Òscar!
 
-The Last.fm data are broken into two parts: the activity data and the profile data. The activity data comprises about 360,000 individual user's Last.fm artist listening information. It details how many times a Last.fm user played songs by various artists. The profile data contains each user's country of residence. We'll use `read.table` from `pandas` to read in the tab-delimited files.
+The Last.fm data are broken into two parts: the activity data and the profile data. The activity data comprises about 360,000 individual users's Last.fm artist listening information. It details how many times a Last.fm user played songs by various artists. The profile data contains each user's country of residence. We'll use `read.table` from `pandas` to read in the tab-delimited files.
 
 
 ```python
@@ -291,7 +291,7 @@ user_data_with_artist_plays.head()
 
 
 
-#### Picking a threshold for popular artists
+### Picking a threshold for popular artists
 
 With nearly 300,000 different artists, it's almost a guarantee most artists have been played only a few times. Let's look at the descriptive statistics.
 
@@ -331,7 +331,7 @@ print artist_plays['total_artist_plays'].quantile(np.arange(.9, 1, .01)),
     Name: total_artist_plays, dtype: float64
 
 
-So about 1% of artists have roughly 200,000 or more plays, 2% have 80,000 or more, and 3% have 40,000 or more. Since we have so many artists, we'll limit it to the top 3%. This is arbitrary threshold for popularity, but it gives us about 9000 different artists. It seems to me that including more than that might push us into the problem of noisy listening patterns we're trying to avoid.
+So about 1% of artists have roughly 200,000 or more plays, 2% have 80,000 or more, and 3% have 40,000 or more. Since we have so many artists, we'll limit it to the top 3%. This is an arbitrary threshold for popularity, but it gives us about 9000 different artists. It seems to me that including more than that might push us into the problem of noisy listening patterns we're trying to avoid.
 
 
 ```python
@@ -600,12 +600,8 @@ So we can do this anytime we want, we'll define a function `print_artist_recomme
 
 
 ```python
-import string
 from fuzzywuzzy import fuzz
-```
 
-
-```python
 def print_artist_recommendations(query_artist, artist_plays_matrix, knn_model, k):
     """
     Inputs:
@@ -737,9 +733,13 @@ To be brief, these are fantastic.
 
 ### Scaling up to Massive Datasets
 
-Since we're using K-Nearest Neighbors, we have to calculate the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we make a query. If our data is fairly small (like in this post), this isn't an issue.
+Since we're using K-Nearest Neighbors, we're calculating the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we make a query. If our data is fairly small (like in this post), this isn't an issue. If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time.
 
-If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time. Fortunately, there's been great work done on Approximate Nearest Neighbor Search techniques such as [locality sensitive hashing](http://www.mit.edu/~andoni/LSH/). These techniques sacrifice the **guarantee** of finding the nearest neighbors for  increases in computational efficiency, and work extremely well with high dimensional data. The [Machine Learning: Clustering & Retrieval](https://www.coursera.org/learn/ml-clustering-and-retrieval) course on Coursera has a great walk-through of LSH for those curious.
+Fortunately, we can pretty much avoid this issue. Since we're doing item based collaborative filtering, we're just analyzing item vectors. These item vectors change, of course, as users listen to more songs. But, in general, they are pretty static. If we pre-computed an item-item similarity matrix (in our case, every cell would be the similar between artist `i` and artist `j`), we could just look up the similarity values at query time. This is way faster, and scales extremely well to massive datasets.
+
+If we were doing user based collaboartive filtering, we'd probably need to do more frequent computations since user activity fluctuates so much. If we wanted real-time recommendations based on immediate past behavior, we'd be totally bottlenecked.
+
+Fortunately, there's been great work done on Approximate Nearest Neighbor Search techniques such as [locality sensitive hashing](http://www.mit.edu/~andoni/LSH/). These techniques sacrifice the **guarantee** of finding the nearest neighbors for  increases in computational efficiency, and work extremely well with high dimensional data. The [Machine Learning: Clustering & Retrieval](https://www.coursera.org/learn/ml-clustering-and-retrieval) course on Coursera has a great walk-through of LSH for those curious.
 
 ### Recommending less popular artists
 

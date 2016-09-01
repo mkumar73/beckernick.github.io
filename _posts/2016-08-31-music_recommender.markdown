@@ -17,7 +17,7 @@ I've been using a lot of products with recommendation engines lately, so I decid
 
 **Collaborative filtering based systems** use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to choose what to recommend to me. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this_ item).
 
-I'm going to do item based collaborative filtering in this post, as I'm more interested in seeing recommendations for items I like than for what anonymous user might like.
+For this post, I'm going to build item based collaborative filtering system, as I'm more interested in seeing recommendations for items I like than for what anonymous user might like.
 
 
 ## Finding a Dataset for Recommendations

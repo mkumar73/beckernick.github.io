@@ -11,13 +11,14 @@ excerpt: "Code Focused. Music Recommender, Collaborative Filtering, K-Nearest Ne
 ---
 
 
-I've been using a lot of products with recommendation engines lately, so I decided it would be cool to build one myself. Recommender systems can be loosely broken down into three categories: **content based systems**, **collaborative filtering systems**, and **hybrid systems**.
+I've been using a lot of products with recommendation engines lately, so I decided it would be cool to build one myself. Recommender systems can be loosely broken down into three categories: **content based systems**, **collaborative filtering systems**, and **hybrid systems** (which use a combination of the other two).
 
 Content based recommender systems use the features of items to recommend other similar items. For example, if I'm browsing for solid colored t-shirts on Amazon, a content based recommender might recommend me other t-shirts or solid colored sweatshirts because they have similar features (sleeves, single color, shirt, etc.).
 
 Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to recommend me a product. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this other_ item).
 
-For this post, I'm going to build an item based collaborative filtering system, as I'm more interested in seeing recommendations for items I like than for what an anonymous user might like.
+
+For this post, I'm going to build an item based collaborative filtering system, as I'm more interested in seeing recommendations for items I like than for what an anonymous user in the data might like.
 
 
 ## Finding a Dataset for Recommendations

@@ -737,7 +737,7 @@ Since we're calling `model_nn_binary` every query, we're calculating the distanc
 
 Because we're doing item based collaborative filtering, we can actually avoid this issue. The item vectors change, of course, as users listen to more songs. But, in general, they are pretty static. If we pre-computed an item-item similarity matrix (in our case, every cell would be the cosine-distance between artist `i` and artist `j`), we could just look up the similarity values at query time. This is way faster, and scales extremely well to massive datasets.
 
-If we were doing user based collaboartive filtering, we'd probably need to do more frequent computations since user activity fluctuates so much. If we wanted real-time recommendations based on immediate past behavior (such as recent browsing history), we'd be totally bottlenecked.
+If we were doing user based collaboartive filtering, we'd probably need to do more frequent computations since user activity fluctuates so much. If we wanted real-time recommendations based on user similarities behavior (including things like recent browsing history or recent actions), we'd be totally bottlenecked.
 
 Fortunately, there's been great work done on Approximate Nearest Neighbor Search techniques such as [locality sensitive hashing](http://www.mit.edu/~andoni/LSH/). These techniques sacrifice the **guarantee** of finding the nearest neighbors for  increases in computational efficiency, and work extremely well with high dimensional data. The [Machine Learning: Clustering & Retrieval](https://www.coursera.org/learn/ml-clustering-and-retrieval) course on Coursera has a great walk-through of LSH for those curious.
 

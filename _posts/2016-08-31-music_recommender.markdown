@@ -15,7 +15,7 @@ I've been using a lot of products with recommendation engines lately, so I decid
 
 Content based recommender systems use the features of items to recommend other similar items. For example, if I'm browsing for solid colored t-shirts on Amazon, a content based recommender might recommend me other t-shirts or solid colored sweatshirts because they have similar features (sleeves, single color, shirt, etc.).
 
-Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to recommend me a product. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this other_ item).
+Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to recommend a product. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this other_ item).
 
 
 For this post, I'm going to build an item based collaborative filtering system, as I'm more interested in seeing recommendations for items I like than for what an anonymous user in the data might like.
@@ -471,7 +471,7 @@ usa_data.head()
 
 
 
-Before doing any analysis, we should make sure dataset is internally consistent. Every user should only have a play count variable once for each artist. So we'll check for instances where rows have the same `users` and `artist-name` values.
+Before doing any analysis, we should make sure the dataset is internally consistent. Every user should only have a play count variable once for each artist. So we'll check for instances where rows have the same `users` and `artist-name` values.
 
 
 ```python
@@ -495,7 +495,7 @@ if not usa_data[usa_data.duplicated(['users', 'artist-name'])].empty:
 
 #### Reshaping the Data
 
-For K-Nearest Neighbors, we want the data to be in an `(artist, user)` array, where each row is an artist and each column is a different user. To reshape the dataframe, we'll `pivot` the dataframe to the wide format with artists as rows and users as columns. Then we'll fill the missing observations with `0`s since we're going to be performing linear algebra operations (calculating distances between vectors). Finally, we transform the values of the dataframe into a scipy sparse matrix for more efficient calculations.
+For K-Nearest Neighbors, we want the data to be in an `m x n` array, where `m` is the number of artists and `n` is the number of users. To reshape the dataframe, we'll `pivot` the dataframe to the wide format with artists as rows and users as columns. Then we'll fill the missing observations with `0`s since we're going to be performing linear algebra operations (calculating distances between vectors). Finally, we transform the values of the dataframe into a scipy sparse matrix for more efficient calculations.
 
 
 ```python
@@ -542,7 +542,7 @@ for i in range(0, len(distances.flatten())):
     5: cherry poppin daddies, with distance of 0.4908909547:
 
 
-Pretty good! Frank Sinatra and Andy Williams are obviously good recommendations for Tony Bennett. I'd never heard of [Keiko Matsui](https://www.youtube.com/watch?v=XzqsWxau_gI) or [Cherry Poppin Daddies](https://www.youtube.com/watch?v=1IqH3uliwJY), but they both seem like good recommendations after listening to their music. [Chic](https://www.youtube.com/watch?v=eKl6EZShaaw), though, doesn't seem as similar to me as the other artists (they sound a little more disco).
+Pretty good! Frank Sinatra and Andy Williams are obviously good recommendations for Tony Bennett. I'd never heard of [Keiko Matsui](https://www.youtube.com/watch?v=XzqsWxau_gI) or [Cherry Poppin Daddies](https://www.youtube.com/watch?v=1IqH3uliwJY), but they both seem like good recommendations after listening to their music. [Chic](https://www.youtube.com/watch?v=eKl6EZShaaw), though, doesn't seem as similar to me as the other artists do (Chic sounds a little more disco-y).
 
 Why would our model recommend Chic? Since we're doing item-based collaborative filtering with K-Nearest Neighbors on the actual play count data, outliers can have a big influence. If a few users listened to Tony Bennett and Chic a _**ton**_, our distance metric between vectors will be heavily influenced by those individual observations.
 
@@ -588,11 +588,11 @@ for i in range(0, len(distances.flatten())):
     5: doris day, with distance of 0.81859043384:
 
 
-These are great, too. At least for Tony Bennett, the binary data representation recommendations look just as good or better. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function.
+These are great, too. At least for Tony Bennett, the binary data representation recommendations look just as good if not better. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function.
 
 Again, it's not obvious which method is better. Since ultimately it's the users's future actions that indicate which recommender system is better, it's a perfect candidate for A/B Testing. For now, I'll stick with the binary data representation model.
 
-### Recommending Artists with Fuzzy Matching
+### Recommending Artists on Command with Fuzzy Matching
 
 Previously we picked query artists at random. But really, we want to make recommendations for a specific artist on command. Since some artists's names are ambiguous or commonly mispelled, we'll include fuzzy matching part in the process so we don't need exact name matches.
 

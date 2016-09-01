@@ -733,9 +733,9 @@ To be brief, these are fantastic.
 
 ### Scaling up to Massive Datasets
 
-Since we're using K-Nearest Neighbors, we're calculating the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we make a query. If our data is fairly small (like in this post), this isn't an issue. If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time.
+Since we're calling `model_nn_binary` every query, we're calculating the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we make a query. If our data is fairly small (like in this post), this isn't an issue. If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time.
 
-Since we're doing item based collaborative filtering, we can actually mostly avoid this issue. The item vectors change, of course, as users listen to more songs. But, in general, they are pretty static. If we pre-computed an item-item similarity matrix (in our case, every cell would be the cosine-distance between artist `i` and artist `j`), we could just look up the similarity values at query time. This is way faster, and scales extremely well to massive datasets.
+Because we're doing item based collaborative filtering, we can actually avoid this issue. The item vectors change, of course, as users listen to more songs. But, in general, they are pretty static. If we pre-computed an item-item similarity matrix (in our case, every cell would be the cosine-distance between artist `i` and artist `j`), we could just look up the similarity values at query time. This is way faster, and scales extremely well to massive datasets.
 
 If we were doing user based collaboartive filtering, we'd probably need to do more frequent computations since user activity fluctuates so much. If we wanted real-time recommendations based on immediate past behavior (such as recent browsing history), we'd be totally bottlenecked.
 

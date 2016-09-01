@@ -11,12 +11,20 @@ excerpt: "Code Focused. Music Recommender, Collaborative Filtering, K-Nearest Ne
 ---
 
 
-Intro goes here
+I've been using a lot of products with recommendation engines lately, so I decided it would be cool to build one myself. Recommender systems can be loosely broken down into two categories: content based systems and collaborative filtering systems.
+
+**Content based recommender systems** use the features of items to recommend other similar items. For example, if I'm browsing for solid colored t-shirts on Amazon, a content based recommender might recommend me other t-shirts or solid colored sweatshirts because they have similar features (sleeves, single color, shirt, etc.).
+
+**Collaborative filtering based systems** use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to choose what to recommend to me. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this_ item).
+
+I'm going to do item based collaborative filtering in this post, as I'm more interested in seeing recommendations for items I like than for what anonymous user might like.
 
 
-## Loading the Last.fm Data
+## Finding a Dataset for Recommendations
 
-The Last.fm [data](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/index.html) come from the [Music Technology Group](http://mtg.upf.edu/) at the Universitat Pompeu Fabra in Barcelona, Spain. The data were scraped by Òscar Celma using the Last.fm API, and they are available free of charge. So, thank you Òscar!
+While googling around for a good dataset, I stumbled upon a [page](https://gist.github.com/entaroadun/1653794) from 2011 with a bunch of cool datasets. Since I use Spotify and Pandora all the time, I figured I'd choose a music dataset.
+
+The Last.fm [data](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/index.html) are from the [Music Technology Group](http://mtg.upf.edu/) at the Universitat Pompeu Fabra in Barcelona, Spain. The data were scraped by Òscar Celma using the Last.fm API, and they are available free of charge for non-commercial use. So, thank you Òscar!
 
 The Last.fm data are broken into two parts: the activity data and the profile data. The activity data is comprised of about 360,000 individual user's Last.fm artist listening information. It details how many times a Last.fm user played songs by various artists. The profile data contains each user's country of residence. We'll use `read.table` from `pandas` to read in the tab-delimited files.
 
@@ -150,7 +158,7 @@ user_profiles.head()
 
 
 
-With the datasets loaded in memory, we can start doing some data cleaning and eventually make recommendations.
+With the datasets loaded in memory, we can start doing some data work and eventually make recommendations.
 
 ## Filtering to Only Popular Artists
 
@@ -468,7 +476,7 @@ Before doing any analysis, we should make sure dataset is internally consistent.
 ```python
 if not usa_data[usa_data.duplicated(['users', 'artist-name'])].empty:
     initial_rows = usa_data.shape[0]
-    
+
     print 'Initial dataframe shape {0}'.format(usa_data.shape)
     usa_data = usa_data.drop_duplicates(['users', 'artist-name'])
     current_rows = usa_data.shape[0]
@@ -579,7 +587,7 @@ for i in range(0, len(distances.flatten())):
     5: doris day, with distance of 0.81859043384:
 
 
-These are great, too. At least for Tony Bennett, the binary data representation recommendations looks just as good. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function.
+These are great, too. At least for Tony Bennett, the binary data representation recommendations look just as good or better. Someone who likes Tony Bennett might also like Nat King Cole or Frank Sinatra. The distances are higher, but that's due to squashing the data by using the sign function.
 
 Again, it's not obvious which method is better. Since ultimately it's the users's future actions that indicate which recommender system is better, it's a perfect candidate for A/B Testing. For now, I'll stick with the binary data representation model.
 

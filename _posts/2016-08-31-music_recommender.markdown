@@ -1,5 +1,5 @@
 ---
-title:  "Music Recommendations with Collaborative Filtering and K-Nearest Neighbors"
+title:  "Music Recommendations with Collaborative Filtering and Cosine Distnace"
 date:   2016-08-31
 tags: [data science]
 
@@ -7,7 +7,7 @@ header:
   image: "last_fm_spotify_edited.png"
   caption: "Photo credit: [**Slash Gear**](http://www.slashgear.com/last-fm-and-spotify-team-up-to-give-better-music-recommendations-29315027/)"
 
-excerpt: "Code Focused. Music Recommender, Collaborative Filtering, K-Nearest Neighbors"
+excerpt: "Code Focused. Music Recommender, Collaborative Filtering, Cosine Distance"
 ---
 
 
@@ -18,8 +18,7 @@ Content based recommender systems use the features of items to recommend other s
 Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to recommend a product. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this other_ item).
 
 
-For this post, I'm going to build an item based collaborative filtering system, as I'm more interested in seeing recommendations for items I like than for what an anonymous user in the data might like.
-
+For this post, I'm going to build an item based collaborative filtering system. I'll leave the user based collaborative filtering recommender for another post.
 
 ## Finding a Dataset for Recommendations
 
@@ -32,7 +31,6 @@ The Last.fm data are broken into two parts: the activity data and the profile da
 
 ```python
 import pandas as pd
-from scipy.spatial.distance import cosine
 import numpy as np
 from scipy.sparse import csr_matrix
 
@@ -733,9 +731,9 @@ To be brief, these are fantastic.
 
 ### Scaling up to Massive Datasets
 
-Since we're calling `model_nn_binary` every query, we're calculating the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we make a query. If our data is fairly small (like in this post), this isn't an issue. If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time.
+Since we're calling `model_nn_binary` every query, we're calculating the distance of each artist vector in our `wide_artist_data_sparse` array to the query artist vector every time we want recommendations. If our data is fairly small (like in this post), this isn't an issue. If we had the entirety of Last.fm's user data, we'd be bottlenecked like crazy at query time.
 
-Because we're doing item based collaborative filtering, we can actually avoid this issue. The item vectors change, of course, as users listen to more songs. But, in general, they are pretty static. If we pre-computed an item-item similarity matrix (in our case, every cell would be the cosine-distance between artist `i` and artist `j`), we could just look up the similarity values at query time. This is way faster, and scales extremely well to massive datasets.
+Because we're doing item based collaborative filtering, we can actually avoid this issue. The item vectors change, of course, as users listen to more artistsq. But, in general, they are pretty static. If we pre-computed an item-item similarity matrix (in our case, every cell would be the cosine-distance between artist `i` and artist `j`), we could just look up the similarity values at query time. This is way faster, and scales extremely well to massive datasets.
 
 If we were doing user based collaboartive filtering, we'd probably need to do more frequent computations since user activity fluctuates so much. If we wanted real-time recommendations based on user similarities behavior (including things like recent browsing history or recent actions), we'd be totally bottlenecked.
 

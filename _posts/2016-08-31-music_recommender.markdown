@@ -15,7 +15,7 @@ I've been using a lot of products with recommendation engines lately, so I decid
 
 Content based recommender systems use the features of items to recommend other similar items. For example, if I'm browsing for solid colored t-shirts on Amazon, a content based recommender might recommend me other t-shirts or solid colored sweatshirts because they have similar features (sleeves, single color, shirt, etc.).
 
-Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to recommend a product. Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (essentially, users who looked at my item also looked at _this other_ item).
+Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to recommend a product (users like me also looked at _these other_ items). Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (users who looked at my item also looked at _these other_ items).
 
 
 For this post, I'm going to build an item based collaborative filtering system. I'll leave the user based collaborative filtering recommender for another post.

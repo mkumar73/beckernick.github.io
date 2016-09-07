@@ -12,11 +12,11 @@ excerpt: "Code Focused. Human Activity Classification, Accelerometers, Support V
 
 Intro
 
-The Human Activity Data come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download it from its [page](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions) in the UCI Machine Learning Repository.
+The Human Activity Data come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download the data from [the UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions).
 
 # Loading the Accelerometer and Gyroscope Data
 
-The data are pre-split into training and test sets, so we'll read them in separately. To get the feature names and the activity labels, we have to read separate files too. There are 561 features created by the SmartLab researchers from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.). Let's load the data and take a quick look.
+The data are pre-split into training and test sets, so we'll read them in separately. To get the feature names and the activity labels, we have to read separate files too. Let's load the data and take a quick look.
 
 ```python
 import pandas as pd
@@ -31,7 +31,6 @@ import matplotlib.pyplot as plt
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 ```
 
-
 ```python
 with open('/Users/nickbecker/Downloads/HAPT Data Set/features.txt') as handle:
     features = handle.readlines()
@@ -45,7 +44,6 @@ activity_df = pd.DataFrame(activity_df[0].str.split(' ').tolist(),
                            columns = ['activity_id', 'activity_label'])
 activity_df
 ```
-
 
 <div>
 <table border="1" class="dataframe">
@@ -121,7 +119,7 @@ activity_df
 </table>
 </div>
 
-
+So we have 12 activities, ranging from sitting down to walking up the stairs. The SmartLab researchers created 561 features from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.).
 
 
 ```python
@@ -218,14 +216,11 @@ x_train.iloc[:10, :10].head()
 </div>
 
 
-
-
 ```python
 y_train = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Train/y_train.txt',
              header = None, sep = " ", names = ['activity_id'])
 y_train.head()
 ```
-
 
 <div>
 <table border="1" class="dataframe">
@@ -261,14 +256,11 @@ y_train.head()
 </div>
 
 
-
 ```python
 x_test = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Test/X_test.txt',
              header = None, sep = " ", names = features)
 x_test.iloc[:10, :10].head()
 ```
-
-
 
 <div>
 <table border="1" class="dataframe">
@@ -358,52 +350,14 @@ x_test.iloc[:10, :10].head()
 </div>
 
 
-
 ```python
 y_test = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Test/y_test.txt',
              header = None, sep = " ", names = ['activity_id'])
-y_test.head()
 ```
 
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>activity_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
+Now that we've got the train and test data loaded into memory, we can start building a model to predict the activity from the acceleration and angular velocity features.
 
 # Building a Human Activity Classifier
-
-Now that we've got the train and test data loaded into memory, we can start building a model to predict the activity from the acceleration and angular velocity features.
 
 Let's build a model and plot the cross-validation accuracy curves for the training data. We'll split `x_train` and `y_train` into training and validation sets since we only want to predict on the test set once. We'll use 5-fold cross validation to get a good sense of the model's accuracy at different values of C. To plot the curves, we'll use the `validation_curve` function from sklearn.
 

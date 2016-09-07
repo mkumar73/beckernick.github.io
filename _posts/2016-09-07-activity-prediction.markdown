@@ -39,6 +39,7 @@ with open('/Users/nickbecker/Downloads/HAPT Data Set/features.txt') as handle:
 with open('/Users/nickbecker/Downloads/HAPT Data Set/activity_labels.txt') as handle:
     activity_labels = handle.readlines()
     activity_labels = map(lambda x: x.strip(), activity_labels)
+
 activity_df = pd.DataFrame(activity_labels)
 activity_df = pd.DataFrame(activity_df[0].str.split(' ').tolist(),
                            columns = ['activity_id', 'activity_label'])
@@ -406,7 +407,7 @@ plt.show()
 ```
 
 
-![png](output_12_0.png)
+![png](learning_curves.png)
 
 
 From the graph, it looks like the best value of C is at 10<sup>-1</sup>. The validation accuracy begins slowly decreasing after that 10<sup>-1</sup>, indicating we are overfitting. The validation curve looks great, but we only optimized on C. We don't have to use a linear kernel. We could do a grid search on different kernels and C values. With a larger search space, we might get a different set of optimal parameters.

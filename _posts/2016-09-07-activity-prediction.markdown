@@ -1,5 +1,5 @@
 ---
-title:  "Predicting Human Activity from Smartphone Accelerometer Data"
+title:  "Predicting Human Activity from Smartphone Accelerometer and Gyroscope Data"
 date:   2016-09-07
 tags: [data science]
 
@@ -10,14 +10,13 @@ header:
 excerpt: "Code Focused. Human Activity Classification, Accelerometers, Support Vector Machines"
 ---
 
+Intro
 
-I've been using a lot of products with recommendation engines lately, so I decided it would be cool to build one myself. Recommender systems can be loosely broken down into three categories: **content based systems**, **collaborative filtering systems**, and **hybrid systems** (which use a combination of the other two).
+The Human Activity Data come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download it from its [page](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions) in the UCI Machine Learning Repository.
 
-Content based recommender systems use the features of items to recommend other similar items. For example, if I'm browsing for solid colored t-shirts on Amazon, a content based recommender might recommend me other t-shirts or solid colored sweatshirts because they have similar features (sleeves, single color, shirt, etc.).
+# Loading the Accelerometer and Gyroscope Data
 
-Collaborative filtering based systems use the actions of users to recommend other items. In general, they can either be user based or item based. User based collaborating filtering uses the patterns of users similar to me to recommend a product (users like me also looked at _these other_ items). Item based collaborative filtering uses the patterns of users who browsed the same item as me to recommend me a product (users who looked at my item also looked at _these other_ items).
-
-
+The data are pre-split into training and test sets, so we'll read them in separately. To get the feature names and the activity labels, we have to read separate files too. There are 561 features created by the SmartLab researchers from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.). Let's load the data and take a quick look.
 
 ```python
 import pandas as pd
@@ -28,7 +27,7 @@ from __future__ import division
 import matplotlib.pyplot as plt
 %matplotlib inline
 
-# display results to 3 decimal points, not in scientific notation
+# display pandas results to 3 decimal points, not in scientific notation
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 ```
 
@@ -37,24 +36,15 @@ pd.set_option('display.float_format', lambda x: '%.3f' % x)
 with open('/Users/nickbecker/Downloads/HAPT Data Set/features.txt') as handle:
     features = handle.readlines()
     features = map(lambda x: x.strip(), features)
-```
 
-
-```python
 with open('/Users/nickbecker/Downloads/HAPT Data Set/activity_labels.txt') as handle:
     activity_labels = handle.readlines()
     activity_labels = map(lambda x: x.strip(), activity_labels)
-```
-
-
-```python
 activity_df = pd.DataFrame(activity_labels)
 activity_df = pd.DataFrame(activity_df[0].str.split(' ').tolist(),
                            columns = ['activity_id', 'activity_label'])
 activity_df
 ```
-
-
 
 
 <div>
@@ -137,11 +127,8 @@ activity_df
 ```python
 x_train = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Train/X_train.txt',
              header = None, sep = " ", names = features)
-x_train.head()
+x_train.iloc[:10, :10].head()
 ```
-
-
-
 
 <div>
 <table border="1" class="dataframe">
@@ -158,17 +145,6 @@ x_train.head()
       <th>tBodyAcc-Mad-2</th>
       <th>tBodyAcc-Mad-3</th>
       <th>tBodyAcc-Max-1</th>
-      <th>...</th>
-      <th>fBodyGyroJerkMag-MeanFreq-1</th>
-      <th>fBodyGyroJerkMag-Skewness-1</th>
-      <th>fBodyGyroJerkMag-Kurtosis-1</th>
-      <th>tBodyAcc-AngleWRTGravity-1</th>
-      <th>tBodyAccJerk-AngleWRTGravity-1</th>
-      <th>tBodyGyro-AngleWRTGravity-1</th>
-      <th>tBodyGyroJerk-AngleWRTGravity-1</th>
-      <th>tXAxisAcc-AngleWRTGravity-1</th>
-      <th>tYAxisAcc-AngleWRTGravity-1</th>
-      <th>tZAxisAcc-AngleWRTGravity-1</th>
     </tr>
   </thead>
   <tbody>
@@ -184,17 +160,6 @@ x_train.head()
       <td>-0.989</td>
       <td>-0.953</td>
       <td>-0.795</td>
-      <td>...</td>
-      <td>-0.012</td>
-      <td>-0.315</td>
-      <td>-0.713</td>
-      <td>-0.113</td>
-      <td>0.030</td>
-      <td>-0.465</td>
-      <td>-0.018</td>
-      <td>-0.842</td>
-      <td>0.180</td>
-      <td>-0.052</td>
     </tr>
     <tr>
       <th>1</th>
@@ -208,17 +173,6 @@ x_train.head()
       <td>-0.983</td>
       <td>-0.974</td>
       <td>-0.803</td>
-      <td>...</td>
-      <td>0.203</td>
-      <td>-0.603</td>
-      <td>-0.861</td>
-      <td>0.053</td>
-      <td>-0.007</td>
-      <td>-0.733</td>
-      <td>0.704</td>
-      <td>-0.845</td>
-      <td>0.180</td>
-      <td>-0.047</td>
     </tr>
     <tr>
       <th>2</th>
@@ -232,17 +186,6 @@ x_train.head()
       <td>-0.976</td>
       <td>-0.986</td>
       <td>-0.798</td>
-      <td>...</td>
-      <td>0.440</td>
-      <td>-0.404</td>
-      <td>-0.762</td>
-      <td>-0.119</td>
-      <td>0.178</td>
-      <td>0.101</td>
-      <td>0.809</td>
-      <td>-0.849</td>
-      <td>0.181</td>
-      <td>-0.042</td>
     </tr>
     <tr>
       <th>3</th>
@@ -256,17 +199,6 @@ x_train.head()
       <td>-0.989</td>
       <td>-0.993</td>
       <td>-0.798</td>
-      <td>...</td>
-      <td>0.431</td>
-      <td>-0.138</td>
-      <td>-0.492</td>
-      <td>-0.037</td>
-      <td>-0.013</td>
-      <td>0.640</td>
-      <td>-0.485</td>
-      <td>-0.849</td>
-      <td>0.182</td>
-      <td>-0.041</td>
     </tr>
     <tr>
       <th>4</th>
@@ -280,21 +212,9 @@ x_train.head()
       <td>-0.986</td>
       <td>-0.994</td>
       <td>-0.802</td>
-      <td>...</td>
-      <td>0.138</td>
-      <td>-0.366</td>
-      <td>-0.702</td>
-      <td>0.123</td>
-      <td>0.123</td>
-      <td>0.694</td>
-      <td>-0.616</td>
-      <td>-0.848</td>
-      <td>0.185</td>
-      <td>-0.037</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 561 columns</p>
 </div>
 
 
@@ -305,8 +225,6 @@ y_train = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Train/y_train
              header = None, sep = " ", names = ['activity_id'])
 y_train.head()
 ```
-
-
 
 
 <div>
@@ -344,13 +262,11 @@ y_train.head()
 
 
 
-
 ```python
 x_test = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Test/X_test.txt',
              header = None, sep = " ", names = features)
-x_test.head()
+x_test.iloc[:10, :10].head()
 ```
-
 
 
 
@@ -369,17 +285,6 @@ x_test.head()
       <th>tBodyAcc-Mad-2</th>
       <th>tBodyAcc-Mad-3</th>
       <th>tBodyAcc-Max-1</th>
-      <th>...</th>
-      <th>fBodyGyroJerkMag-MeanFreq-1</th>
-      <th>fBodyGyroJerkMag-Skewness-1</th>
-      <th>fBodyGyroJerkMag-Kurtosis-1</th>
-      <th>tBodyAcc-AngleWRTGravity-1</th>
-      <th>tBodyAccJerk-AngleWRTGravity-1</th>
-      <th>tBodyGyro-AngleWRTGravity-1</th>
-      <th>tBodyGyroJerk-AngleWRTGravity-1</th>
-      <th>tXAxisAcc-AngleWRTGravity-1</th>
-      <th>tYAxisAcc-AngleWRTGravity-1</th>
-      <th>tZAxisAcc-AngleWRTGravity-1</th>
     </tr>
   </thead>
   <tbody>
@@ -395,17 +300,6 @@ x_test.head()
       <td>-0.950</td>
       <td>-0.802</td>
       <td>-0.757</td>
-      <td>...</td>
-      <td>0.123</td>
-      <td>-0.346</td>
-      <td>-0.709</td>
-      <td>0.006</td>
-      <td>0.163</td>
-      <td>-0.826</td>
-      <td>0.271</td>
-      <td>-0.721</td>
-      <td>0.277</td>
-      <td>-0.051</td>
     </tr>
     <tr>
       <th>1</th>
@@ -419,17 +313,6 @@ x_test.head()
       <td>-0.979</td>
       <td>-0.967</td>
       <td>-0.757</td>
-      <td>...</td>
-      <td>-0.315</td>
-      <td>-0.143</td>
-      <td>-0.601</td>
-      <td>-0.083</td>
-      <td>0.017</td>
-      <td>-0.434</td>
-      <td>0.921</td>
-      <td>-0.699</td>
-      <td>0.281</td>
-      <td>-0.077</td>
     </tr>
     <tr>
       <th>2</th>
@@ -443,17 +326,6 @@ x_test.head()
       <td>-0.981</td>
       <td>-0.978</td>
       <td>-0.799</td>
-      <td>...</td>
-      <td>0.115</td>
-      <td>-0.210</td>
-      <td>-0.645</td>
-      <td>-0.035</td>
-      <td>0.202</td>
-      <td>0.064</td>
-      <td>0.145</td>
-      <td>-0.703</td>
-      <td>0.280</td>
-      <td>-0.072</td>
     </tr>
     <tr>
       <th>3</th>
@@ -467,17 +339,6 @@ x_test.head()
       <td>-0.983</td>
       <td>-0.981</td>
       <td>-0.798</td>
-      <td>...</td>
-      <td>0.165</td>
-      <td>-0.359</td>
-      <td>-0.738</td>
-      <td>-0.017</td>
-      <td>0.154</td>
-      <td>0.340</td>
-      <td>0.296</td>
-      <td>-0.700</td>
-      <td>0.284</td>
-      <td>-0.070</td>
     </tr>
     <tr>
       <th>4</th>
@@ -491,23 +352,10 @@ x_test.head()
       <td>-0.977</td>
       <td>-0.986</td>
       <td>-0.798</td>
-      <td>...</td>
-      <td>-0.056</td>
-      <td>-0.544</td>
-      <td>-0.846</td>
-      <td>-0.002</td>
-      <td>-0.040</td>
-      <td>0.737</td>
-      <td>-0.119</td>
-      <td>-0.693</td>
-      <td>0.291</td>
-      <td>-0.067</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 561 columns</p>
 </div>
-
 
 
 
@@ -516,8 +364,6 @@ y_test = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Test/y_test.tx
              header = None, sep = " ", names = ['activity_id'])
 y_test.head()
 ```
-
-
 
 
 <div>
@@ -1156,11 +1002,11 @@ percentages_crosstab
 
 
 
-That makes it way more clear. The model struggles to classify those `activity_ids` because they are similar actions. 4 and 5 are both stationary (sitting and standing), 9 and 11 both involving lying down (sit-to-lie and stand-to-lie), and 10 and 12 both involve standing up from a resting position (lie-to-sit and lie_to_stand). It makes sense that accelerometer data on these actions would be similar.
+That makes it way more clear. The model struggles to classify those `activity_ids` because they are similar actions. 4 and 5 are both stationary (sitting and standing), 9 and 11 both involving lying down (sit-to-lie and stand-to-lie), and 10 and 12 both involve standing up from a resting position (lie-to-sit and lie_to_stand). It makes sense that accelerometer and gyroscope data on these actions would be similar.
 
 So with 94% accuracy in this activity classifier scenario, can we start a Fitbit competitor? Maybe.
 
-We don't necessarily need to distinguish between the 12 different activities themselves, only whether we should count it as walking. If we can predict whether someone is walking or not from the accelerometer with near perfect accuracy, we'd be in business.
+We don't necessarily need to distinguish between the 12 different activities themselves, only whether we should count it as walking. If we can predict whether someone is walking or not from the smartphone with near perfect accuracy, we'd be in business.
 
 ## Predicting Walking vs. Not Walking
 
@@ -1262,7 +1108,7 @@ crosstab_binary
 
 
 
-That's beautiful! We can almost perfectly distinguish walking from staying in place from smartphone accelerometer data. Now we just need to measure the distance traveled and we're ready to compete with Fitbit.
+That's beautiful! We can almost perfectly distinguish walking from staying in place from smartphone accelerometer and gyroscope data. Now we just need to measure the distance traveled and we're ready to compete with Fitbit.
 
 
 ```python

@@ -4,8 +4,8 @@ date:   2016-09-07
 tags: [data science]
 
 header:
-  image: "last_fm_spotify_edited.png"
-  caption: "Photo credit: [**Slash Gear**](http://www.slashgear.com/last-fm-and-spotify-team-up-to-give-better-music-recommendations-29315027/)"
+  image: "smartphone_accelerometer.jpg"
+  caption: "Photo credit: [**MathWorks**](http://www.mathworks.com/hardware-support/android-sensor.html)"
 
 excerpt: "Code Focused. Human Activity Classification, Accelerometers, Support Vector Machines"
 ---

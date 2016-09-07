@@ -407,7 +407,7 @@ plt.show()
 ```
 
 
-![png](learning_curves.png)
+![png](/images/learning_curves.png?raw=true)
 
 
 From the graph, it looks like the best value of C is at 10<sup>-1</sup>. The validation accuracy begins slowly decreasing after that 10<sup>-1</sup>, indicating we are overfitting. The validation curve looks great, but we only optimized on C. We don't have to use a linear kernel. We could do a grid search on different kernels and C values. With a larger search space, we might get a different set of optimal parameters.

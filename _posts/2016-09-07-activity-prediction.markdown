@@ -625,35 +625,11 @@ svc = SVC(random_state = 12)
 
 clf = GridSearchCV(estimator = svc, param_grid = parameters, cv = 5, n_jobs = -1)
 clf.fit(x_train.values, y_train.values.flatten())
-```
 
-
-    GridSearchCV(cv=5, error_score='raise',
-           estimator=SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-      decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
-      max_iter=-1, probability=False, random_state=12, shrinking=True,
-      tol=0.001, verbose=False),
-           fit_params={}, iid=True, n_jobs=-1,
-           param_grid=[{'kernel': ['rbf'], 'C': array([  1.00000e-06,   1.00000e-05,   1.00000e-04,   1.00000e-03,
-             1.00000e-02,   1.00000e-01,   1.00000e+00,   1.00000e+01,
-             1.00000e+02,   1.00000e+03])}, {'kernel': ['linear'], 'C': array([  1.00000e-06,   1.00000e-05,   1.00000e-04,   1.00000e-03,
-             1.00000e-02,   1.00000e-01,   1.00000e+00,   1.00000e+01,
-             1.00000e+02,   1.00000e+03])}],
-           pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
-
-
-
-
-```python
-print clf.best_estimator_
 print clf.best_params_
 print clf.best_score_
 ```
 
-    SVC(C=1000.0, cache_size=200, class_weight=None, coef0=0.0,
-      decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
-      max_iter=-1, probability=False, random_state=12, shrinking=True,
-      tol=0.001, verbose=False)
     {'kernel': 'rbf', 'C': 1000.0}
     0.925968842539
 
@@ -1210,35 +1186,12 @@ svc = SVC(random_state = 12)
 
 clf_binary = GridSearchCV(estimator = svc, param_grid = parameters, cv = 5, n_jobs = -1)
 clf_binary.fit(x_train.values, y_train.walking_flag.values.flatten())
-```
 
-
-    GridSearchCV(cv=5, error_score='raise',
-           estimator=SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-      decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
-      max_iter=-1, probability=False, random_state=12, shrinking=True,
-      tol=0.001, verbose=False),
-           fit_params={}, iid=True, n_jobs=-1,
-           param_grid=[{'kernel': ['rbf'], 'C': array([  1.00000e-06,   1.00000e-05,   1.00000e-04,   1.00000e-03,
-             1.00000e-02,   1.00000e-01,   1.00000e+00,   1.00000e+01,
-             1.00000e+02,   1.00000e+03])}, {'kernel': ['linear'], 'C': array([  1.00000e-06,   1.00000e-05,   1.00000e-04,   1.00000e-03,
-             1.00000e-02,   1.00000e-01,   1.00000e+00,   1.00000e+01,
-             1.00000e+02,   1.00000e+03])}],
-           pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
-
-
-
-
-```python
-print clf_binary.best_estimator_
 print clf_binary.best_params_
 print clf_binary.best_score_
 ```
 
-    SVC(C=0.10000000000000001, cache_size=200, class_weight=None, coef0=0.0,
-      decision_function_shape=None, degree=3, gamma='auto', kernel='linear',
-      max_iter=-1, probability=False, random_state=12, shrinking=True,
-      tol=0.001, verbose=False)
+
     {'kernel': 'linear', 'C': 0.10000000000000001}
     0.999098751127
 

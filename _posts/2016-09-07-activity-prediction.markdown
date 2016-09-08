@@ -703,7 +703,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>WALKING_UPSTAIRS</th>
+      <th>WALKING_<br>UPSTAIRS</th>
       <td>20</td>
       <td>449</td>
       <td>1</td>
@@ -718,7 +718,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>WALKING_DOWNSTAIRS</th>
+      <th>WALKING_<br>DOWNSTAIRS</th>
       <td>5</td>
       <td>16</td>
       <td>399</td>
@@ -778,7 +778,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>STAND_TO_SIT</th>
+      <th>STAND_<br>TO_SIT</th>
       <td>0</td>
       <td>1</td>
       <td>0</td>
@@ -793,7 +793,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>SIT_TO_STAND</th>
+      <th>SIT_<br>TO_STAND</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -808,7 +808,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>SIT_TO_LIE</th>
+      <th>SIT_<br>TO_LIE</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -823,7 +823,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>LIE_TO_SIT</th>
+      <th>LIE_<br>TO_SIT</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -838,7 +838,7 @@ crosstab_clean
       <td>6</td>
     </tr>
     <tr>
-      <th>STAND_TO_LIE</th>
+      <th>STAND_<br>TO_LIE</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -853,7 +853,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>LIE_TO_STAND</th>
+      <th>LIE_<br>TO_STAND</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>

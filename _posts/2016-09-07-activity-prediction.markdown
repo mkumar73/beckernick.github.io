@@ -14,13 +14,15 @@ How does my Fitbit track my steps? I always assumed it was pretty accurate, but 
 
 So I googled it.
 
-Fitbits use a 3-axial accelerometer to track my motion, according to the the company's [website](https://help.fitbit.com/articles/en_US/Help_article/1143). The tracker then uses an algorithm to determine whether I'm walking or running (as opposed to standing still or driving in a car).
+My Fitbit uses a 3-axial accelerometer to track my motion, according to the the company's [website](https://help.fitbit.com/articles/en_US/Help_article/1143). The tracker then uses an algorithm to determine whether I'm walking or running (as opposed to standing still or driving in a car).
 
-But how good is it at figuring out when I'm walking? I decided to find out how well I could design an algorithm to differentiate walking from staying still (as well as from other activities). After a quick google search, I found a dataset of 3-axial accelerometer from an academic experiment on the UC Irvine Machine Learning Repository. The data originally come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download the data [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions).
+But how good is it at figuring out when I'm walking? 95% accuracy? 99%? 99.9%?
+
+Since Fitbit probably won't release its code anytime soon, I decided to find out how well I could design an algorithm to differentiate walking from staying still (as well as from other activities). After a quick google search, I found a dataset of 3-axial accelerometer from an academic experiment on the UC Irvine Machine Learning Repository. The data originally come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download the data [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions).
 
 # Loading the Accelerometer and Gyroscope Data
 
-The data are pre-split into training and test sets, so we'll read them in separately. To get the feature names and the activity labels, we have to read separate files too. Let's load the data and take a quick look.
+The data are pre-split into training and test sets, so we'll read them in separately. To get the feature names and the activity labels, we have to read separate files too.
 
 ```python
 import pandas as pd
@@ -124,7 +126,7 @@ activity_df
 </table>
 </div>
 
-So we have 12 activities, ranging from sitting down to walking up the stairs. The SmartLab researchers created 561 features from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.). They also did some reasonable pre-processing which to de-noise and filter the sensor data (you can read about it [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions) -- it's not too extensive).
+So we have 12 activities, ranging from sitting down to walking up the stairs. The SmartLab researchers created 561 features from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.). They also did some reasonable pre-processing to de-noise and filter the sensor data (you can read about it [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions) -- it's pretty reasonable). Let's look at a few features.
 
 
 ```python

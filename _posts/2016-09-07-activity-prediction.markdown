@@ -650,21 +650,18 @@ crosstab
 
 
 
-We do really well for `activity_ids` 1-3, 5-6, and 8, but much worse for 4, 7 and 9-12. Why is that?
+We do really well for `activity_ids` 1-3, 5, 6, and 8, but much worse for 4, 7, and 9-12. Why is that?
 
-One possible answer is that we don't have enough data. The `All` column on the right side of the crosstab bears that out. We have way fewer observations for activities 7-12.
+One possible answer is that we don't have enough data. The `All` column on the right side of the crosstab indicates that we have way fewer observations for activities 7-12. Getting more data may improve the model, depending on whether it's a bias or variance issue.
 
 Additionally, it's clear the model seems to be systematically mistaking some activities for others (activities 4 and 5, 9 and 11, and 10 and 12 are confused for each other more than others). Maybe there's a reason for this. Let's put the labels on the `activity_ids` and see if we notice any patterns.
 
-I'll also convert the crosstab to percentages to make it a bit easier to interpret.
-
 
 ```python
-#percentages_crosstab = crosstab.iloc[:-1, :-1].apply(lambda x: x/x.sum(), axis = 1)
-percentages_crosstab = crosstab.iloc[:-1, :-1]
-percentages_crosstab.columns = activity_df.activity_label.values
-percentages_crosstab.index = activity_df.activity_label.values
-percentages_crosstab
+crosstab_clean = crosstab.iloc[:-1, :-1]
+crosstab_clean.columns = activity_df.activity_label.values
+crosstab_clean.index = activity_df.activity_label.values
+crosstab_clean
 ```
 
 

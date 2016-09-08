@@ -876,7 +876,7 @@ That makes it way more clear. The model struggles to classify those `activity_id
 
 So with 94% accuracy in this activity classifier scenario, can we start a $3 Billion dollar fitness tracker company? Maybe.
 
-For the simple Fitbit bracelet, we don't necessarily need to distinguish between the 12 different activities themselves, only whether the person is walking. If we can predict whether someone is walking or not from the smartphone with near perfect accuracy, we'd be in business.
+For the simple Fitbit bracelet, we don't really need to distinguish between the 12 different activities themselves--only whether or not the person is walking. If we could predict whether someone is walking or not from the smartphone with near perfect accuracy, we'd be in business.
 
 ## Predicting Walking vs. Not Walking
 

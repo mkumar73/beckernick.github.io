@@ -873,11 +873,11 @@ crosstab_clean
 
 
 
-That makes it way more clear. The model struggles to classify those `activity_ids` because they are similar actions. 4 and 5 are both stationary (sitting and standing), 9 and 11 both involving lying down (sit-to-lie and stand-to-lie), and 10 and 12 both involve standing up from a resting position (lie-to-sit and lie_to_stand). It makes sense that accelerometer and gyroscope data on these actions would be similar.
+That makes it way more clear. The model struggles to classify those `activity_ids` because they are similar actions. 4 and 5 are both stationary (sitting and standing), 9 and 11 both involving lying down (sit_to_lie and stand_to_lie), and 10 and 12 both involve standing up from a resting position (lie_to_sit and lie_to_stand). It makes sense that accelerometer and gyroscope data on these actions would be similar.
 
-So with 94% accuracy in this activity classifier scenario, can we start a Fitbit competitor? Maybe.
+So with 94% accuracy in this activity classifier scenario, can we start a $3 Billion dollar fitness tracker company? Maybe.
 
-We don't necessarily need to distinguish between the 12 different activities themselves, only whether we should count it as walking. If we can predict whether someone is walking or not from the smartphone with near perfect accuracy, we'd be in business.
+For the simple Fitbit bracelet, we don't necessarily need to distinguish between the 12 different activities themselves, only whether the person is walking. If we can predict whether someone is walking or not from the smartphone with near perfect accuracy, we'd be in business.
 
 ## Predicting Walking vs. Not Walking
 

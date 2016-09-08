@@ -10,9 +10,13 @@ header:
 excerpt: "Code Focused. Human Activity Classification, Accelerometers, Support Vector Machines"
 ---
 
-Intro
+How does my Fitbit track my steps? I always assumed it was pretty accurate, but I never actually knew how it worked.
 
-The Human Activity Data come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download the data from [the UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions).
+So I googled it.
+
+Fitbits use a 3-axial accelerometer to track my motion, according to the the company's [website](https://help.fitbit.com/articles/en_US/Help_article/1143). The tracker then uses an algorithm to determine whether I'm walking or running (as opposed to standing still or driving in a car).
+
+But how good is it at figuring out when I'm walking? I decided to find out how well I could design an algorithm to differentiate walking from staying still (as well as from other activities). After a quick google search, I found a dataset of 3-axial accelerometer from an academic experiment on the UC Irvine Machine Learning Repository. The data originally come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download the data [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions).
 
 # Loading the Accelerometer and Gyroscope Data
 
@@ -120,7 +124,7 @@ activity_df
 </table>
 </div>
 
-So we have 12 activities, ranging from sitting down to walking up the stairs. The SmartLab researchers created 561 features from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.).
+So we have 12 activities, ranging from sitting down to walking up the stairs. The SmartLab researchers created 561 features from 17 3-axial accelerometer and gyroscope signals from the smartphone. These features capture descriptive statistics and moments of the 17 signal distributions (mean, standard deviation, max, min, skewness, etc.). They also did some reasonable pre-processing which to de-noise and filter the sensor data (you can read about it [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions) -- it's not too extensive).
 
 
 ```python
@@ -407,7 +411,7 @@ plt.show()
 ```
 
 
-![png](/images/learning_curves.png?raw=true)
+![](/images/learning_curves.png?raw=true)
 
 
 From the graph, it looks like the best value of C is at 10<sup>-1</sup>. The validation accuracy begins slowly decreasing after that 10<sup>-1</sup>, indicating we are overfitting. The validation curve looks great, but we only optimized on C. We don't have to use a linear kernel. We could do a grid search on different kernels and C values. With a larger search space, we might get a different set of optimal parameters.

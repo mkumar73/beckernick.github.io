@@ -678,12 +678,12 @@ crosstab_clean
       <th>SITTING</th>
       <th>STANDING</th>
       <th>LAYING</th>
-      <th>STAND_TO_SIT</th>
-      <th>SIT_TO_STAND</th>
-      <th>SIT_TO_LIE</th>
-      <th>LIE_TO_SIT</th>
-      <th>STAND_TO_LIE</th>
-      <th>LIE_TO_STAND</th>
+      <th>STAND_<br>TO_SIT</th>
+      <th>SIT_<br>TO_STAND</th>
+      <th>SIT_<br>TO_LIE</th>
+      <th>LIE_<br>TO_SIT</th>
+      <th>STAND_<br>TO_LIE</th>
+      <th>LIE_<br>TO_STAND</th>
     </tr>
   </thead>
   <tbody>

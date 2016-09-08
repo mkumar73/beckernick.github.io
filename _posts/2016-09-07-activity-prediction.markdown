@@ -668,7 +668,7 @@ crosstab_clean
 
 
 <div>
-<table border="1" class="dataframe", width="50">
+<table border="1" class="dataframe" width="50">
   <thead>
     <tr style="text-align: right;">
       <th></th>

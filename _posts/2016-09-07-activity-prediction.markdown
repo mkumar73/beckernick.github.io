@@ -368,11 +368,11 @@ clf.score(x_test, y_test)
 
 
 
-94% accuracy. That seems pretty high. But how do know how good that actually is?
+94% accuracy. That seems pretty high. But how do we know how good that actually is?
 
 # Evaluating the Model
 
-How much better is it than the no-information rate? The no-information rate is the accuracy we'd get if we guessed the most common class for every observation. It's the best we could do with no features.
+How much better is the model than the no-information rate model? The no-information rate is the accuracy we'd get if we guessed the most common class for every observation. It's the best we could do with no features.
 
 
 ```python

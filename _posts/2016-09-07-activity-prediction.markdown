@@ -301,22 +301,29 @@ test_scores_std = np.std(test_scores, axis=1)
 
 
 ```python
-y_min = 0.5
-y_max = 1.1
+import seaborn as sns
 
+sns.set(font_scale = 1.25)
+sns.set_style("darkgrid")
+
+y_min = 0.5
+y_max = 1.0
+
+f = plt.figure(figsize = (6, 8))
+ax = plt.axes()
 plt.title("SVM Training and Validation Accuracy")
 plt.xlabel("C Value")
 plt.ylabel("Accuracy")
 plt.ylim(y_min, y_max)
-plt.yticks(np.arange(y_min, y_max, .1))
-plt.semilogx(C_params, train_scores_mean, label = "CV Training Accuracy", color = "r")
+plt.yticks(np.arange(y_min, y_max + .01, .05))
+plt.semilogx(C_params, train_scores_mean, label="CV Training Accuracy", color="red")
 plt.fill_between(C_params, train_scores_mean - train_scores_std,
-                 train_scores_mean + train_scores_std, alpha = 0.2, color = "r")
-plt.semilogx(C_params, test_scores_mean, label = "CV Validation Accuracy",
-             color = "b")
+                 train_scores_mean + train_scores_std, alpha=0.2, color="red")
+plt.semilogx(C_params, test_scores_mean, label="CV Validation Accuracy",
+             color="green")
 plt.fill_between(C_params, test_scores_mean - test_scores_std,
-                 test_scores_mean + test_scores_std, alpha = 0.2, color="b")
-plt.legend(loc = "best")
+                 test_scores_mean + test_scores_std, alpha=0.2, color="green")
+plt.legend(loc="best")
 plt.show()
 ```
 

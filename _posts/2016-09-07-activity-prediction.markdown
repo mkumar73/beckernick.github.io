@@ -14,7 +14,7 @@ How does my Fitbit track my steps? I always assumed it was pretty accurate, but 
 
 So I googled it.
 
-My Fitbit uses a 3-axial accelerometer to track my motion, according to the the company's [website](https://help.fitbit.com/articles/en_US/Help_article/1143). The tracker then uses an algorithm to determine whether I'm walking or running (as opposed to standing still or driving in a car).
+My Fitbit uses a 3-axial accelerometer to track my motion, according to the company's [website](https://help.fitbit.com/articles/en_US/Help_article/1143). The tracker then uses an algorithm to determine whether I'm walking or running (as opposed to standing still or driving in a car).
 
 But how good is it at figuring out when I'm walking?
 

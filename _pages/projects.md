@@ -5,6 +5,8 @@ title: "Posts by Tags"
 author_profile: true
 header:
   image: "japanese_arches.jpg"
+  caption: "Photo credit: Ginny Lehman"
+
 ---
 
 {% include base_path %}

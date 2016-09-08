@@ -309,7 +309,6 @@ sns.set_style("darkgrid")
 
 y_min = 0.5
 y_max = 1.0
-
 f = plt.figure(figsize = (12, 8))
 ax = plt.axes()
 plt.title("SVM Training and Validation Accuracy")

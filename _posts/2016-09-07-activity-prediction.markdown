@@ -668,11 +668,11 @@ crosstab_clean
 
 
 <div>
-<table border="1" class="dataframe" width="50">
+<table border="1" class="dataframe" width="100" height="100">
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>WALKING</th>
+      <th>WALKINGss</th>
       <th>WALKING<br>_UPSTAIRS</th>
       <th>WALKING<br>_DOWNSTAIRS</th>
       <th>SITTING</th>

@@ -978,6 +978,8 @@ crosstab_binary
 
 
 
+
+
 That's beautiful! We can almost perfectly tell when someone is walking from smartphone accelerometer and gyroscope data. Now we just need a second model to predict the distance traveled and we'll be ready to compete with Fitbit.
 
 

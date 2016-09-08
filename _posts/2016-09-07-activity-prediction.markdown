@@ -16,7 +16,7 @@ So I googled it.
 
 My Fitbit uses a 3-axial accelerometer to track my motion, according to the company's [website](https://help.fitbit.com/articles/en_US/Help_article/1143). The tracker then uses an algorithm to determine whether I'm walking or running (as opposed to standing still or driving in a car).
 
-But how good is it at figuring out when I'm walking?
+Cool. But how does it actually do that? And how good is it?
 
 Since Fitbit probably won't release its code anytime soon, I decided to find out how well I could design an algorithm to differentiate walking from staying still (as well as from other activities). After a quick google search, I found a dataset of 3-axial accelerometer from an academic experiment on the UC Irvine Machine Learning Repository. The data originally come from [SmartLab](www.smartlab.ws) at the University of Genova. You can download the data [here](https://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions).
 

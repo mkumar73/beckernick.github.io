@@ -266,8 +266,6 @@ y_train.head()
 ```python
 x_test = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Test/X_test.txt',
              header = None, sep = " ", names = features)
-x_test.iloc[:10, :10].head()
-
 y_test = pd.read_table('/Users/nickbecker/Downloads/HAPT Data Set/Test/y_test.txt',
              header = None, sep = " ", names = ['activity_id'])
 ```

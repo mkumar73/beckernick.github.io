@@ -274,7 +274,7 @@ Now that we've got the train and test data loaded into memory, we can start buil
 
 # Building a Human Activity Classifier
 
-Let's build a model and plot the cross-validation accuracy curves for the training data. We'll split `x_train` and `y_train` into training and validation sets since we only want to predict on the test set once. We'll use 5-fold cross validation to get a good sense of the model's accuracy at different values of C. To plot the curves, we'll use the `validation_curve` function from sklearn.
+Let's build a model and plot the cross-validation accuracy curves for the training data. We'll split `x_train` and `y_train` into training and validation sets since we only want to predict on the test set once. We'll use 5-fold cross validation to get a good sense of the model's accuracy at different values of C. To get the data for the curves, we'll use the `validation_curve` function from sklearn.
 
 
 ```python
@@ -283,12 +283,12 @@ from sklearn.grid_search import GridSearchCV
 from sklearn.learning_curve import validation_curve
 
 C_params = np.logspace(-6, 3, 10)
-svc_2 = LinearSVC(random_state = 12)
+clf_svc = LinearSVC(random_state = 12)
 
 train_scores, test_scores = validation_curve(
-    svc_2, x_train.values, y_train.values.flatten(),
-    param_name="C", param_range=C_params,
-    cv=5, scoring="accuracy", n_jobs=-1)
+    clf_svc, x_train.values, y_train.values.flatten(),
+    param_name = "C", param_range = C_params,
+    cv = 5, scoring = "accuracy", n_jobs = -1)
 ```
 
 
@@ -309,14 +309,14 @@ plt.xlabel("C Value")
 plt.ylabel("Accuracy")
 plt.ylim(y_min, y_max)
 plt.yticks(np.arange(y_min, y_max, .1))
-plt.semilogx(C_params, train_scores_mean, label="CV Training Accuracy", color="r")
+plt.semilogx(C_params, train_scores_mean, label = "CV Training Accuracy", color = "r")
 plt.fill_between(C_params, train_scores_mean - train_scores_std,
-                 train_scores_mean + train_scores_std, alpha=0.2, color="r")
-plt.semilogx(C_params, test_scores_mean, label="CV Validation Accuracy",
-             color="b")
+                 train_scores_mean + train_scores_std, alpha = 0.2, color = "r")
+plt.semilogx(C_params, test_scores_mean, label = "CV Validation Accuracy",
+             color = "b")
 plt.fill_between(C_params, test_scores_mean - test_scores_std,
-                 test_scores_mean + test_scores_std, alpha=0.2, color="b")
-plt.legend(loc="best")
+                 test_scores_mean + test_scores_std, alpha = 0.2, color="b")
+plt.legend(loc = "best")
 plt.show()
 ```
 

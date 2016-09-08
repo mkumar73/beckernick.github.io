@@ -291,25 +291,22 @@ train_scores, test_scores = validation_curve(
     cv = 5, scoring = "accuracy", n_jobs = -1)
 ```
 
-Now I'll calculate the means and standard deviations for the plot shading.
 
-```python
-train_scores_mean = np.mean(train_scores, axis=1)
-train_scores_std = np.std(train_scores, axis=1)
-test_scores_mean = np.mean(test_scores, axis=1)
-test_scores_std = np.std(test_scores, axis=1)
-```
-
-We can plot the learning curves by following the `learning_curve` documentation.
+We can plot the learning curves by following the `learning_curve` documentation. First, I'll calculate the means and standard deviations for the plot shading.
 
 ```python
 import seaborn as sns
 
-sns.set(font_scale = 1.25)
-sns.set_style("darkgrid")
+train_scores_mean = np.mean(train_scores, axis=1)
+train_scores_std = np.std(train_scores, axis=1)
+test_scores_mean = np.mean(test_scores, axis=1)
+test_scores_std = np.std(test_scores, axis=1)
 
 y_min = 0.5
 y_max = 1.0
+
+sns.set(font_scale = 1.25)
+sns.set_style("darkgrid")
 f = plt.figure(figsize = (12, 8))
 ax = plt.axes()
 plt.title("SVM Training and Validation Accuracy")

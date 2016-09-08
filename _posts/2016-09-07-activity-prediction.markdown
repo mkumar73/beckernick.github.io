@@ -299,6 +299,7 @@ test_scores_mean = np.mean(test_scores, axis=1)
 test_scores_std = np.std(test_scores, axis=1)
 ```
 
+We can plot the learning curves by following the `learning_curve` documentation.
 
 ```python
 import seaborn as sns
@@ -309,21 +310,21 @@ sns.set_style("darkgrid")
 y_min = 0.5
 y_max = 1.0
 
-f = plt.figure(figsize = (6, 8))
+f = plt.figure(figsize = (12, 8))
 ax = plt.axes()
 plt.title("SVM Training and Validation Accuracy")
 plt.xlabel("C Value")
 plt.ylabel("Accuracy")
 plt.ylim(y_min, y_max)
 plt.yticks(np.arange(y_min, y_max + .01, .05))
-plt.semilogx(C_params, train_scores_mean, label="CV Training Accuracy", color="red")
+plt.semilogx(C_params, train_scores_mean, label = "CV Training Accuracy", color = "red")
 plt.fill_between(C_params, train_scores_mean - train_scores_std,
-                 train_scores_mean + train_scores_std, alpha=0.2, color="red")
-plt.semilogx(C_params, test_scores_mean, label="CV Validation Accuracy",
-             color="green")
+                 train_scores_mean + train_scores_std, alpha = 0.2, color = "red")
+plt.semilogx(C_params, test_scores_mean, label = "CV Validation Accuracy",
+             color = "green")
 plt.fill_between(C_params, test_scores_mean - test_scores_std,
-                 test_scores_mean + test_scores_std, alpha=0.2, color="green")
-plt.legend(loc="best")
+                 test_scores_mean + test_scores_std, alpha = 0.2, color = "green")
+plt.legend(loc = "best")
 plt.show()
 ```
 

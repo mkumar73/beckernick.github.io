@@ -671,23 +671,23 @@ crosstab_clean
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th><sub>WALKING</sub></th>
-      <th><sub>WALKING<br>_UPSTAIRS</th>
-      <th><sub>WALKING<br>_DOWNSTAIRS</th>
-      <th><sub>SITTING</th>
-      <th><sub>STANDING</th>
-      <th><sub>LAYING</th>
-      <th><sub>STAND_<br>TO_SIT</th>
-      <th><sub>SIT_<br>TO_STAND</th>
-      <th><sub>SIT_<br>TO_LIE</th>
-      <th><sub>LIE_<br>TO_SIT</th>
-      <th><sub>STAND_<br>TO_LIE</th>
-      <th><sub>LIE_<br>TO_STAND</th>
+      <th><sub>WALKING</sub></sub></th>
+      <th><sub>WALKING<br>_UPSTAIRS</sub></th>
+      <th><sub>WALKING<br>_DOWNSTAIRS</sub></th>
+      <th><sub>SITTING</sub></th>
+      <th><sub>STANDING</sub></th>
+      <th><sub>LAYING</sub></th>
+      <th><sub>STAND_<br>TO_SIT</sub></th>
+      <th><sub>SIT_<br>TO_STAND</sub></th>
+      <th><sub>SIT_<br>TO_LIE</sub></th>
+      <th><sub>LIE_<br>TO_SIT</sub></th>
+      <th><sub>STAND_<br>TO_LIE</sub></th>
+      <th><sub>LIE_<br>TO_STAND</sub></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th><sub>WALKING</th>
+      <th><sub>WALKING</sub></th>
       <td>488</td>
       <td>4</td>
       <td>4</td>
@@ -702,7 +702,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>WALKING_<br>UPSTAIRS</th>
+      <th><sub>WALKING_<br>UPSTAIRS</sub></th>
       <td>20</td>
       <td>449</td>
       <td>1</td>
@@ -717,7 +717,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>WALKING_<br>DOWNSTAIRS</th>
+      <th><sub>WALKING_<br>DOWNSTAIRS</sub></th>
       <td>5</td>
       <td>16</td>
       <td>399</td>
@@ -732,7 +732,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>SITTING</th>
+      <th><sub>SITTING</sub></th>
       <td>0</td>
       <td>2</td>
       <td>0</td>
@@ -747,7 +747,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>STANDING</th>
+      <th><sub>STANDING</sub></th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -762,7 +762,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>LAYING</th>
+      <th><sub>LAYING</sub></th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -777,7 +777,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>STAND_<br>TO_SIT</th>
+      <th><sub>STAND_<br>TO_SIT</sub></th>
       <td>0</td>
       <td>1</td>
       <td>0</td>
@@ -792,7 +792,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>SIT_<br>TO_STAND</th>
+      <th><sub>SIT_<br>TO_STAND</sub></th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -807,7 +807,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>SIT_<br>TO_LIE</th>
+      <th><sub>SIT_<br>TO_LIE</sub></th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -822,7 +822,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th><sub>LIE_<br>TO_SIT</th>
+      <th><sub>LIE_<br>TO_SIT</sub></th>
       <td>0</td>
       <td>0</td>
       <td>0</td>

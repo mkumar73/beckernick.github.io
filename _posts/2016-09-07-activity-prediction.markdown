@@ -291,6 +291,7 @@ train_scores, test_scores = validation_curve(
     cv = 5, scoring = "accuracy", n_jobs = -1)
 ```
 
+Now I'll calculate the means and standard deviations for the plot shading.
 
 ```python
 train_scores_mean = np.mean(train_scores, axis=1)

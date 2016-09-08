@@ -673,8 +673,8 @@ crosstab_clean
     <tr style="text-align: right;">
       <th></th>
       <th>WALKING</th>
-      <th>WALKING_UPSTAIRS</th>
-      <th>WALKING_DOWNSTAIRS</th>
+      <th>WALKING<br>_UPSTAIRS</th>
+      <th>WALKING<br>_DOWNSTAIRS</th>
       <th>SITTING</th>
       <th>STANDING</th>
       <th>LAYING</th>
@@ -703,8 +703,7 @@ crosstab_clean
       <td>0</td>
     </tr>
     <tr>
-      <th>WALKING_
-        <br>ddUPSTAIRS</th>
+      <th>WALKING_UPSTAIRS</th>
       <td>20</td>
       <td>449</td>
       <td>1</td>

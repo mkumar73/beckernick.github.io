@@ -671,7 +671,7 @@ crosstab_clean
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th><sub>WALKING</sub></sub></th>
+      <th><sub>WALKING</sub></th>
       <th><sub>WALKING<br>_UPSTAIRS</sub></th>
       <th><sub>WALKING<br>_DOWNSTAIRS</sub></th>
       <th><sub>SITTING</sub></th>

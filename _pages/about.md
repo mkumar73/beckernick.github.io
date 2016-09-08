@@ -8,11 +8,5 @@ header:
 
 ---
 
-### Federal Reserve Board of Governors
->Building statistical models and algorithms to analyze data for U.S. monetary policy, financial regulatory policy, and economic research
-
-
-
-		
-### Duke University
-> Economics
+>Federal Reserve Board of Governors
+># Duke University

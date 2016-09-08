@@ -704,7 +704,7 @@ crosstab_clean
     </tr>
     <tr>
       <th>WALKING_
-        <br>UPSTAIRS</th>
+        <br>ddUPSTAIRS</th>
       <td>20</td>
       <td>449</td>
       <td>1</td>
@@ -983,6 +983,3 @@ crosstab_binary
 That's beautiful! We can almost perfectly distinguish walking from staying in place from smartphone accelerometer and gyroscope data. Now we just need to measure the distance traveled and we're ready to compete with Fitbit.
 
 
-```python
-
-```

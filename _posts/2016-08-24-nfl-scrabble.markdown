@@ -27,8 +27,11 @@ These are some high scores. _**Strong**_ performances by Jacquizz Rodgers, Kyle 
 
 And the Colts beat the Steelers in the Scrabble Super Bowl! Congratulations!
 
-Not a bad showing by the home-team Washington Redskins (8th), except for the fact that the Dallas Cowboys and New York Giants came in 3rd and 4th, respectively. Still, I think most Redskins fans would be happy if they made the Divisional Round of the NFL Playoffs (quarterfinals) this season.
+Not a bad showing by the home-team Washington Redskins (8th), except for the fact that the Dallas Cowboys and New York Giants came in 3rd and 4th, respectively. Still, I think most Redskins fans would be happy if they made the Divisional Round of the NFL Playoffs (quarterfinals) again this season.
 
+
+***
+EDIT: Apparently SB Nation did, in fact, wonder [this](http://www.sbnation.com/nfl/2014/10/22/7028663/absurd-power-rankings) in 2014. They only looked at the names of the teams, though, so I feel confident saying my ranking is better.
 
 ***
 

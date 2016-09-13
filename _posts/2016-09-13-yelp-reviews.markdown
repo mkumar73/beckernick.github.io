@@ -10,11 +10,17 @@ header:
 excerpt: "Code Focused. Logistic Regression, Stochastic Gradient Descent, Natural Language Processing"
 ---
 
-Intro
+
+In a previous [post](https://beckernick.github.io/law-clustering/), I used natural language processing techniques to cluster US laws. The dataset was relatively small, and I could easily do all the calculations in memory without frying my computer. But what if the data were larger--so much larger that we either can't fit in memory or can't reasonably analyze it in memory. Given the massive amount of data many companies and governments are creating, this is a huge problem (and one that I face at work).
+
+In this post, I'll walk through out-of-core text analysis, or natural language processing on datasets that are too large to fit or be analyzed in memory. I'm going to try to build a model that can predict whether a Yelp review's accompanying star rating is positive (a 4 or 5 stars) or negative (1 or 2 stars).
+
+The data come from Yelp's [Academic Challenge](https://www.yelp.com/dataset_challenge). There are tons of awesome variables in the data (including images, business and user attributes, and user social network data), but for this post I'll just focus on two: the review itself and the star rating.
 
 
+# Loading the Data
 
-Let's take a look at the Yelp data. It's about 1.25 Gigabytes, so I really don't want to read that all into my Macbook Air's memory. I'll read in 10,000 rows and just take a quick look.
+Let's dive into the Yelp data. It's about 1.25 gigabytes, so I really don't want to read that all into my Macbook Air's memory. I'll read in 10,000 rows and take a quick look at an example review.
 
 
 ```python
@@ -31,79 +37,6 @@ import matplotlib.pyplot as plt
 ```python
 reviews_data = pd.read_csv('/Users/nickbecker/Python_Projects/yelp_academic_challenge/yelp_academic_dataset_review.csv',
                              nrows = 10000)
-reviews_data.head(3)
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>user_id</th>
-      <th>review_id</th>
-      <th>text</th>
-      <th>votes.cool</th>
-      <th>business_id</th>
-      <th>votes.funny</th>
-      <th>stars</th>
-      <th>date</th>
-      <th>type</th>
-      <th>votes.useful</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Xqd0DzHaiyRqVH3WRG7hzg</td>
-      <td>15SdjuK7DmYqUAj6rjGowg</td>
-      <td>dr. goldberg offers everything i look for in a...</td>
-      <td>1</td>
-      <td>vcNAWiLM4dR7D2nwwJ7nCA</td>
-      <td>0</td>
-      <td>5</td>
-      <td>2007-05-17</td>
-      <td>review</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>H1kH6QZV7Le4zqTRNxoZow</td>
-      <td>RF6UnRTtG7tWMcrO2GEoAg</td>
-      <td>Unfortunately, the frustration of being Dr. Go...</td>
-      <td>0</td>
-      <td>vcNAWiLM4dR7D2nwwJ7nCA</td>
-      <td>0</td>
-      <td>2</td>
-      <td>2010-03-22</td>
-      <td>review</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>zvJCcrpm2yOZrxKffwGQLA</td>
-      <td>-TsVN230RCkLYKBeLsuz7A</td>
-      <td>Dr. Goldberg has been my doctor for years and ...</td>
-      <td>1</td>
-      <td>vcNAWiLM4dR7D2nwwJ7nCA</td>
-      <td>0</td>
-      <td>4</td>
-      <td>2012-02-14</td>
-      <td>review</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-Looks pretty good. We have user, review, and business identifiers in addition to the review text, stars, and other information. Let's look a sample review.
-
-
-```python
 print reviews_data.iloc[1000, :].text
 ```
 
@@ -124,7 +57,7 @@ print reviews_data.iloc[1000, :].stars
 
 Well I was wrong. It's a 5 star review. This is a perfect of example of why classifying sentiment (or ratings) from text is hard. Fortunately, for this post, I'll focus on predicting only whether reviews are positive (4 or 5 stars) or negative (1 or 2 stars). This is an easier problem, and is potentially just as useful.
 
-## Training a Model with Big Data
+# Training a Model with Big Data
 
 Normally I'd define 'big data' as data too large to fit into memory (which this is not). But, since the processing time required to analyze this much text is enormous, I'll count this as well. In other situations, we might read the whole dataset into memory and build a tf-idf or bag of words matrix. In fact, I've done that for other text analysis tasks (see []() and []() for examples). But here, since the data is so large, our processing and tokenization time would be gigantic even if we could fit everything into memory.
 
@@ -134,7 +67,7 @@ As the dataset becomes larger, gradient descent becomes a more efficient way to 
 
 However, as the dataset becomes **extremely** large, gradient descent becomes less effective. The size of the data just massively increase the number of steps required for gradient descent to converge. To use our massive amount of data, we need a new method.
 
-## Stochastic Gradient Descent (or Ascent)
+# Stochastic Gradient Descent (or Ascent)
 
 Stochastic gradient descent is the solution. Essentially, we're going to do the same gradient descent iteratively on random mini-batches of the data and use these to iteratively update our gradient to (hopefully) reach the optimal solution. Again, we aren't guaranteed to converge to the global optimium (we can get stuck in local optima just like before), but this approach has proven to work extremely well.
 

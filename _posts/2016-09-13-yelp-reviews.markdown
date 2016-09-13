@@ -124,11 +124,13 @@ print reviews_data.iloc[1000, :].stars
 
 Well I was wrong. It's a 5 star review. This is a perfect of example of why classifying sentiment (or ratings) from text is hard. Fortunately, for this post, I'll focus on predicting only whether reviews are positive (4 or 5 stars) or negative (1 or 2 stars). This is an easier problem, and is potentially just as useful.
 
-## Training a model with big data?
+## Training a Model with Big Data
 
 Normally I'd define 'big data' as data too large to fit into memory (which this is not). But, since the processing time required to analyze this much text is enormous, I'll count this as well. In other situations, we might read the whole dataset into memory and build a tf-idf or bag of words matrix. In fact, I've done that for other text analysis tasks (see []() and []() for examples). But here, since the data is so large, our processing and tokenization time would be gigantic even if we could fit everything into memory.
 
-To get around this, we need to change the optimization process. When the dataset size is small, optimization may be fastest by solving directly for the solution. In OLS linear regression, this would be performing the linear algebra to solve for the optimal weights (w = (X'X)-1X'y). As the dataset becomes larger, gradient descent becomes a more efficient way to find the optimal weights. Gradient descent isn't guaranteed to find the optimal weights (whether it does or not depends on the shape of the loss or likelihood function space), but in practice we are often fine.
+To get around this, we need to change the optimization process. When the dataset size is small, optimization may be fastest by solving directly for the solution. In OLS linear regression, this would be performing the linear algebra to solve for the optimal weights (w = (X'X)-1X'y).
+
+As the dataset becomes larger, gradient descent becomes a more efficient way to find the optimal weights. Gradient descent isn't guaranteed to find the optimal weights (whether it does or not depends on the shape of the loss or likelihood function space), but in practice we are often fine.
 
 However, as the dataset becomes **extremely** large, gradient descent becomes less effective. The size of the data just massively increase the number of steps required for gradient descent to converge. To use our massive amount of data, we need a new method.
 
@@ -188,9 +190,12 @@ I'll also get rid of the 3 star reviews, as they're neutral on a 5 star scale.
 reviews_data = reviews_data.query('stars != 3')
 reviews_data['clean_review'] = reviews_data['text'].apply(clean_review)
 reviews_data['star_sentiment'] = reviews_data['stars'].apply(lambda x: 1 if x > 3 else 0)
+
+x_validation = vectorizer.transform(reviews_data['clean_review'])
+y_validation = reviews_data['star_sentiment']
 ```
 
-Okay, time to build the model.
+Okay, time to build the model. I'll use bag-of-words again, but this time use the `HashingVectorizer` which lets me create the bag-of-words successively (which we need in stochastic gradient descent) and avoids filling up my computer's memory with a big vocabulary dictionary. Then we'll loop through `reviews_iterator` to train the model on batches of size 1000 each loop.
 
 
 ```python
@@ -206,9 +211,6 @@ clf_logit_sgd = SGDClassifier(loss = 'log', n_jobs = 2, learning_rate = 'optimal
                               random_state = 12, verbose = 0, shuffle = True)
 
 validation_accuracy_list = []
-
-x_validation = vectorizer.transform(reviews_data['clean_review'])
-y_validation = reviews_data['star_sentiment']
 
 for i, mini_batch in enumerate(reviews_iterator): 
     mini_reviews_data = mini_batch.copy().query('stars != 3')

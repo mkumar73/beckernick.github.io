@@ -59,7 +59,7 @@ Well I was wrong. It's a 5 star review. This is a perfect of example of why clas
 
 # Training a Model with Big Data
 
-In other situations, we might read the whole dataset into memory and build a tf-idf or bag of words matrix. In fact, I've done that for other text analysis tasks (see []() and []() for examples). But here, since the data is so large, our processing and tokenization time would be gigantic even if we could fit everything into memory.
+In other situations, we might read the whole dataset into memory and build a tf-idf or bag of words matrix. In fact, I've done that for other text analysis tasks. But here, since the data is so large, our processing and tokenization time would be gigantic even if we could fit everything into memory.
 
 To get around this, we need to change the optimization process. When the dataset size is small, optimization may be fastest by solving directly for the solution. In OLS linear regression, this would be performing the linear algebra to solve for the optimal weights (w = (X'X)-1X'y).
 

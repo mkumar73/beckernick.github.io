@@ -4,8 +4,8 @@ date:   2016-09-13
 tags: [data science]
 
 header:
-  image: "last_fm_spotify_edited.png"
-  caption: "Photo credit: [**Slash Gear**](http://www.slashgear.com/last-fm-and-spotify-team-up-to-give-better-music-recommendations-29315027/)"
+  image: "yelp_reviews/yelp_logo.png"
+  caption: "Photo credit: [**Yelp**](https://www.yelp.com/brand)"
 
 excerpt: "Code Focused. Logistic Regression, Stochastic Gradient Descent, Natural Language Processing"
 ---

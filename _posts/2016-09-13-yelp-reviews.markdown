@@ -1,5 +1,5 @@
 ---
-title:  "Predicting Star Ratings from 1+ GBs of Yelp Reviews"
+title:  "Predicting Ratings from 1+ GBs of Yelp Reviews"
 date:   2016-09-13
 tags: [data science]
 
@@ -14,10 +14,7 @@ Intro
 
 
 
-
-# Predicting Ratings from 1+ GB of Yelp Reviews
-
-Let's take a look at the Yelp data. It's about 1.25 Gigabytes, so I really don't want to load all that into my Macbook Air's memory. I'll read in 10,000 rows and just take a quick look.
+Let's take a look at the Yelp data. It's about 1.25 Gigabytes, so I really don't want to read that all into my Macbook Air's memory. I'll read in 10,000 rows and just take a quick look.
 
 
 ```python
@@ -28,9 +25,6 @@ import seaborn as sns
 import re
 import matplotlib.pyplot as plt
 %matplotlib inline
-
-# display results to 3 decimal points, not in scientific notation
-pd.set_option('display.float_format', lambda x: '%.3f' % x)
 ```
 
 
@@ -118,11 +112,23 @@ print reviews_data.iloc[1000, :].text
     My only complaint is that it is WAY TOO SMALL and always very busy.  They should really look at expanding the restaurant.
 
 
-In other situations, we might read the whole dataset into memory and build a tf-idf or bag of words matrix. In fact, I've done that for other text analysis tasks (see []() and []() for examples). But here, since the data is so large, our processing and tokenization time would be gigantic even if we could fit everything into memory.
+Okay, so that seems like a prety good review. They liked the food and the quantity, but didn't like the size and business of the restaurant. Definitely positive, but probably a 4 star instead of a 5 star since they had some complaints. Let's check.
 
-## How do we train a model using big data?
 
-To get around this, we need to change about the optimization process. When the dataset size is small, optimization may be fastest by solving directly for the solution. In OLS linear regression, this would be performing the linear algebra to solve for the optimal weights (w = (X'X)-1X'y). As the dataset becomes larger, gradient descent becomes a more efficient way to find the optimal weights. Gradient descent isn't guaranteed to find the optimal weights (whether it does or not depends on the shape of the loss or likelihood function space), but in practice we are often fine.
+```python
+print reviews_data.iloc[1000, :].stars
+```
+
+    5
+
+
+Well I was wrong. It's a 5 star review. This is a perfect of example of why classifying sentiment (or ratings) from text is hard. Fortunately, for this post, I'll focus on predicting only whether reviews are positive (4 or 5 stars) or negative (1 or 2 stars). This is an easier problem, and is potentially just as useful.
+
+## Training a model with big data?
+
+Normally I'd define 'big data' as data too large to fit into memory (which this is not). But, since the processing time required to analyze this much text is enormous, I'll count this as well. In other situations, we might read the whole dataset into memory and build a tf-idf or bag of words matrix. In fact, I've done that for other text analysis tasks (see []() and []() for examples). But here, since the data is so large, our processing and tokenization time would be gigantic even if we could fit everything into memory.
+
+To get around this, we need to change the optimization process. When the dataset size is small, optimization may be fastest by solving directly for the solution. In OLS linear regression, this would be performing the linear algebra to solve for the optimal weights (w = (X'X)-1X'y). As the dataset becomes larger, gradient descent becomes a more efficient way to find the optimal weights. Gradient descent isn't guaranteed to find the optimal weights (whether it does or not depends on the shape of the loss or likelihood function space), but in practice we are often fine.
 
 However, as the dataset becomes **extremely** large, gradient descent becomes less effective. The size of the data just massively increase the number of steps required for gradient descent to converge. To use our massive amount of data, we need a new method.
 
@@ -175,7 +181,7 @@ def tokenize(text):
 
 I'll apply our functions to the 10,000 rows I read into in memory and use it as a validation set. With this, I can plot the SGD accuracy curve.
 
-I'll also get rid of the 3-star reviews, as they're neutral on a 5-star scale.
+I'll also get rid of the 3 star reviews, as they're neutral on a 5 star scale.
 
 
 ```python
@@ -225,37 +231,12 @@ for i, mini_batch in enumerate(reviews_iterator):
 
     Validation Accuracy at 0: 0.825370281892
     Validation Accuracy at 1: 0.869804108935
-    Validation Accuracy at 2: 0.874104156713
     [...]
     Validation Accuracy at 298: 0.900501672241
     Validation Accuracy at 299: 0.90336837076
 
 
-Let's see how the accuracy evolved over time.
-
-
-```python
-y_min = 0.0
-y_max = 1.0
-
-sns.set(font_scale = 1.25)
-sns.set_style("darkgrid")
-f = plt.figure(figsize = (12, 8))
-ax = plt.axes()
-plt.title("SGD Logistic Regression Accuracy Evolution")
-plt.xlabel("Iteration")
-plt.ylabel("Accuracy")
-plt.ylim(y_min, y_max)
-plt.yticks(np.arange(y_min, y_max + .01, .10))
-plt.plot([x[0] for x in validation_accuracy_list], [x[1] for x in validation_accuracy_list], 'green')
-plt.show()
-```
-
-
-![png](output_20_0.png)
-
-
-Very noisy (as expected). I'll take the average of every 10 iterations and plot that.
+Let's see how the accuracy evolved over time. I'll plot the raw accuracy plot and the average of every 10 iterations.
 
 
 ```python
@@ -269,7 +250,7 @@ iterations_sampled = [x[0] for i, x in enumerate(validation_accuracy_list) if i 
 
 
 ```python
-y_min = 0.0
+y_min = 0.5
 y_max = 1.0
 
 sns.set(font_scale = 1.25)
@@ -281,12 +262,14 @@ plt.xlabel("Iteration")
 plt.ylabel("Accuracy")
 plt.ylim(y_min, y_max)
 plt.yticks(np.arange(y_min, y_max + .01, .10))
-plt.plot(iterations_every5, accuracies_average, 'green')
+plt.plot(iterations_sampled, accuracies_average, 'green', label = '10 Iteration Average')
+plt.plot(iterations, accuracies, 'red', alpha = 0.4, label = 'Individual Iteration')
+plt.legend(loc = 'best')
 plt.show()
 ```
 
 
-![png](output_23_0.png)
+![png](/images/yelp_reviews/sgd_accuracy_plot.png?raw=true)
 
 
 90% accuracy! That's not bad for minimal pre-processing and a standard logistic regression. If we were smart, we might think that the willingness to give out stars varies across users. It makes sense to account for the fact that some people might systematically give mediocre reviews and 4 stars, while others might systematically write fantastic reviews and only give 4 stars. "Normalizing" the features to account for user history would almost definitely improve the model.
@@ -297,6 +280,6 @@ Restaurants could get that kind of feedback by checking Yelp themselves, of cour
 
 # Concluding Thoughts and Online Learning
 
-I only did 300 epochs of stochastic gradient descent. With a chunksize of 1000, that means the model only used 300,000 reviews. By that time, it was pretty clear the classifier was oscillating around 90% accuracy. We could have trained the model by reading in 300,000 reviews and doing a standard gradient descent. Why might the stochastic way be better (aside from being slightly faster)?
+I only did 300 iterations of stochastic gradient descent. With a chunksize of 1000, that means the model only used 300,000 reviews. By that time, it was pretty clear the classifier was oscillating around 90% accuracy. We could have trained the model by reading in 300,000 reviews and doing a standard gradient descent. Why might the stochastic way be better (aside from being slightly faster)?
 
 It's better because it lets us do online learning. Online learning is the way we can update our model in near real-time as we acquire more data. Data can come in all the time, and we don't want to train on the entire dataset every time it changes. Stochastic gradient descent let's us build our model in small batches and extremely accurately approximate the gradient descent solution. The flexibility of this approach more than makes up for the slightly more involved coding process when you have big and rapidly increasing data.

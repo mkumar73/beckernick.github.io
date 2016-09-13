@@ -83,7 +83,7 @@ reviews_iterator = pd.read_csv('/Users/nickbecker/Python_Projects/yelp_academic_
                              chunksize = 1000, skiprows = 10000, names = reviews_data.columns)
 ```
 
-Next, I'll define a function to clean the review text (the same function I've used before) and a tokenizer to stem the words in the review. The tokenizer will be passed to the HashingVectorizer to capture words that should be treated as the same but have different endings.
+Next, I'll define a function to clean the review text and a tokenizer to stem the words in the review. The tokenizer will be passed to the HashingVectorizer to capture words that should be treated as the same but have different endings.
 
 
 ```python
@@ -161,6 +161,9 @@ for i, mini_batch in enumerate(reviews_iterator):
     if i >= max_iterations:
         break
 ```
+
+
+### Evaluating the Model
 
 Let's see how the accuracy evolved over time. I'll plot the raw accuracy plot and the average of every 10 iterations.
 

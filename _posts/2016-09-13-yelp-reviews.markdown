@@ -140,6 +140,9 @@ Stochastic gradient descent is the solution. Essentially, we're going to do the 
 
 As a note, since I'm going to do logistic regression, we're actually maximizing a likelihood function instead of minimizing a loss function. That makes it gradient ascent, instead of descent. 
 
+
+#### Preparing the Data
+
 First, I'll use `pandas.read_csv` to create an iterator object with chunks of size 1000. With this, I can loop through the iterator and each loop will return a chunk of size 1000 from the dataset until I reach the end.
 
 
@@ -195,7 +198,9 @@ x_validation = vectorizer.transform(reviews_data['clean_review'])
 y_validation = reviews_data['star_sentiment']
 ```
 
-Okay, time to build the model. I'll use bag-of-words again, but this time use the `HashingVectorizer` which lets me create the bag-of-words successively (which we need in stochastic gradient descent) and avoids filling up my computer's memory with a big vocabulary dictionary. Then we'll loop through `reviews_iterator` to train the model on batches of size 1000 each loop.
+#### Building the Model
+
+Okay, time to build the model. I'll employ bag-of-words again, but this time use the `HashingVectorizer` which lets me create the bag-of-words successively (which we need in stochastic gradient descent) and avoids filling up my computer's memory with a big vocabulary dictionary. Then we'll loop through `reviews_iterator` to train the model on batches of size 1000 each loop.
 
 
 ```python

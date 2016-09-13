@@ -238,10 +238,8 @@ Let's see how the accuracy evolved over time. I'll plot the raw accuracy plot an
 ```python
 iterations = [x[0] for x in validation_accuracy_list]
 accuracies = [x[1] for x in validation_accuracy_list]
-
-n = 10
-accuracies_average = np.array(accuracies).reshape(-1, n).mean(axis = 1)
-iterations_sampled = [x[0] for i, x in enumerate(validation_accuracy_list) if i % n == 0]
+accuracies_average = np.array(accuracies).reshape(-1, 10).mean(axis = 1)
+iterations_sampled = [x[0] for i, x in enumerate(validation_accuracy_list) if i % 10 == 0]
 ```
 
 

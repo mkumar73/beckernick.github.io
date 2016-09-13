@@ -232,13 +232,6 @@ for i, mini_batch in enumerate(reviews_iterator):
         break
 ```
 
-    Validation Accuracy at 0: 0.825370281892
-    Validation Accuracy at 1: 0.869804108935
-    [...]
-    Validation Accuracy at 298: 0.900501672241
-    Validation Accuracy at 299: 0.90336837076
-
-
 Let's see how the accuracy evolved over time. I'll plot the raw accuracy plot and the average of every 10 iterations.
 
 

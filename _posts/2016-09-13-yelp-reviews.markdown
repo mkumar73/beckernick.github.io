@@ -160,10 +160,6 @@ from nltk.stem.porter import PorterStemmer
 from nltk import word_tokenize
 
 def clean_review(review):
-    """
-    Function to clean review text to keep only letters and remove stopwords
-    Returns a string of the cleaned bill text
-    """
     letters_only = re.sub('[^a-zA-Z]', ' ', review)
     words = letters_only.lower().split()
     stopwords_eng = set(stopwords.words("english"))

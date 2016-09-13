@@ -45,7 +45,7 @@ print reviews_data.iloc[1000, :].text
     My only complaint is that it is WAY TOO SMALL and always very busy.  They should really look at expanding the restaurant.
 
 
-Okay, so that seems like a prety good review. They liked the food and the quantity, but didn't like the size and business of the restaurant. Definitely positive, but probably a 4 star instead of a 5 star since they had some complaints. Let's check.
+Okay, so that seems like a pretty good review. They liked the food and the quantity, but didn't like the size and business of the restaurant. Definitely positive, but probably a 4 star instead of a 5 star since they had some complaints. Let's check.
 
 
 ```python
@@ -55,7 +55,7 @@ print reviews_data.iloc[1000, :].stars
     5
 
 
-Well I was wrong. It's a 5 star review. This is a perfect of example of why classifying sentiment (or ratings) from text is hard. Fortunately, for this post, I'll focus on predicting only whether reviews are positive (4 or 5 stars) or negative (1 or 2 stars). This is an easier problem, and is potentially just as useful.
+Well I was wrong. It's a 5 star review. This is a perfect of example of why classifying sentiment (or ratings) from text is hard. Fortunately, for this post, I'll focus on predicting only whether reviews are positive (4 or 5 stars) or negative (1 or 2 stars). This is an easier problem, and is still pretty useful.
 
 # Training a Model with Big Data
 
@@ -76,8 +76,7 @@ As a note, since I'm going to do logistic regression, we're actually maximizing 
 
 ### Preparing the Data
 
-First, I'll use `pandas.read_csv` to create an iterator object with chunks of size 1000. With this, I can loop through the iterator and each loop will return a chunk of size 1000 from the dataset until I reach the end.
-
+First, I'll use `pandas.read_csv` to create an iterator object with chunks of size 1000. With this, I can loop through the iterator and each loop will return a chunk of size 1000 from the dataset until I reach the end. I'll skip the first 10,000 rows since we already read that into memory and will use that as a validation set.
 
 ```python
 reviews_iterator = pd.read_csv('/Users/nickbecker/Python_Projects/yelp_academic_challenge/yelp_academic_dataset_review.csv',
@@ -113,9 +112,7 @@ def tokenize(text):
     return stems
 ```
 
-I'll apply our functions to the 10,000 rows I read into in memory and use it as a validation set. With this, I can plot the SGD accuracy curve.
-
-I'll also get rid of the 3 star reviews, as they're neutral on a 5 star scale.
+I'll apply our functions to the 10,000 reviews in `reviews_data` so we can use them as a validation set. I'll also get rid of the 3 star reviews, as they're neutral on a 5 star scale.
 
 
 ```python
@@ -199,7 +196,7 @@ plt.show()
 ![png](/images/yelp_reviews/sgd_accuracy_plot.png?raw=true)
 
 
-90% accuracy! That's not bad for minimal pre-processing and a standard logistic regression. If we were smart, we might think that the willingness to give out stars varies across users. It makes sense to account for the fact that some people might systematically give mediocre reviews and 4 stars, while others might systematically write fantastic reviews and only give 4 stars. "Normalizing" the features to account for user history would almost definitely improve the model.
+90% accuracy! That's not bad for minimal pre-processing and a standard logistic regression. If we were smart, we might think that the willingness to give out stars varies across users (or even locations). It makes sense to account for the fact that some people might systematically give mediocre reviews and 4 stars, while others might systematically write fantastic reviews and only give 4 stars. "Normalizing" the features to account for user history would almost definitely improve the model.
 
 So why might predicting sentiment from reviews be useful? Maybe restaurants would pay for an automated service that tells them when a customer posts about a fantastic or terrible experience at their restaurant. I'd want to make sure to make as few mistakes as possible, so it would make sense to use only the reviews our model classifies above a certain probability of being positive or negative (maybe 95%). This is pretty straightforward with Logistic Regression.
 

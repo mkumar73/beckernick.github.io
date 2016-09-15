@@ -745,3 +745,6 @@ While our recommendation engine is doing a great job, it's only recommending pop
 
 Recommending lesser known artists is a huge challenge that doesn't fit as well with standard collaborative filtering, so we might want to incorporate feature based recommendations into such a system.
 
+***
+
+For those interested, the Jupyter Notebook with all the code can be found in the [Github repository](https://github.com/beckernick/music_recommender) for this post. 

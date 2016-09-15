@@ -211,3 +211,7 @@ Restaurants could get that kind of feedback by checking Yelp themselves, of cour
 I only did 300 iterations of stochastic gradient descent. With a chunksize of 1000, that means the model only used 300,000 reviews. By that time, it was pretty clear the classifier was oscillating around 90% accuracy. We could have trained the model by reading in 300,000 reviews and doing a standard gradient descent. Why might the stochastic way be better (aside from being slightly faster)?
 
 It's better because it lets us do online learning. Online learning is the way we can update our model in near real-time as we acquire more data. Data can come in all the time, and we don't want to train on the entire dataset every time it changes. Stochastic gradient descent let's us build our model in small batches and extremely accurately approximate the gradient descent solution. The flexibility of this approach more than makes up for the slightly more involved coding process when you have big and rapidly incoming data.
+
+***
+
+For those interested, the Jupyter Notebook with all the code can be found in the [Github repository](https://github.com/beckernick/yelp_rating_prediction) for this post.

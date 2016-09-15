@@ -38,5 +38,3 @@ EDIT: Apparently SB Nation did, in fact, wonder [this](http://www.sbnation.com/n
 For those interested, the Jupyter Notebook with code to scrape the data from Fox Sports, score the names, and generate the graphs can be found in the [Github repository](https://github.com/beckernick/scrabble_score_nfl) for this post. 
 
 
-
-

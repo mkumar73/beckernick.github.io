@@ -10,7 +10,7 @@ locale                   : "en"
 title                    : "nick becker"
 title_separator          : "-"
 name                     : "Nick Becker"
-description              : "Data science, beer, and music."
+description              : "data science, nick becker, blog"
 url                      : "https://beckernick.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 gh_repo                  :

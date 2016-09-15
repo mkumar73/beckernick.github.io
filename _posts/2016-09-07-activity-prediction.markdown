@@ -981,3 +981,6 @@ crosstab_binary
 That's beautiful! We can almost perfectly tell when someone is walking from smartphone accelerometer and gyroscope data. Now we just need a second model to predict the distance traveled and we'll be ready to compete with Fitbit.
 
 
+***
+
+For those interested, the Jupyter Notebook with all the code can be found in the [Github repository](https://github.com/beckernick/music_recommender) for this post.

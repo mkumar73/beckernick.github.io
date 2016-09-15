@@ -161,7 +161,7 @@ With the datasets loaded in memory, we can start doing some data work and eventu
 
 ## Filtering to Only Popular Artists
 
-Since we're going to be doing item-based collaborative filtering, our recommendations will be based on user patterns in listening to artists. Lesser known artists will have views from fewer viewers, making the pattern more noisy. This would probably result in bad recommendations (or at least ones highly sensitive to an individual person who _**loves**_ one obsscure artist. To avoid this problem, we'll just look at the popular artists.
+Since we're going to be doing item-based collaborative filtering, our recommendations will be based on user patterns in listening to artists. Lesser known artists will have views from fewer viewers, making the pattern more noisy. This would probably result in bad recommendations (or at least ones highly sensitive to an individual person who _**loves**_ one obscure artist. To avoid this problem, we'll just look at the popular artists.
 
 To find out which artists are popular, we need to know the total play count of every artist. Since our user play count data has one row per artist per user, we need to aggregate it up to the artist level. With `pandas`, we can group by the artist name and then calculate the sum of the `plays` column for every artist. If the `artist-name` variable is missing, our future reshaping and analysis won't work. So I'll start by removing rows where the artist name is missing just to be safe.
 

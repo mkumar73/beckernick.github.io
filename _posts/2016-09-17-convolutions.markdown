@@ -141,7 +141,7 @@ plt.imshow(output_array, cmap = plt.get_cmap('gray'))
 
 
 
-![png](output_20_1.png)
+![png](/images/convolutions/output_20_1.png)
 
 
 It's the same! Why? Because of the kernel we chose. For any given patch in the image, our convolution is just outputting 1 * the middle element of the patch. Every other element-to-element multiplication becomes 0 due to the kernel. For this reason, we call this kernel the `identity` kernel.
@@ -217,7 +217,7 @@ plt.imshow(lion_transf_edge3, cmap = plt.get_cmap('gray'))
 
 
 
-![png](output_27_1.png)
+![png](/images/convolutions/output_27_1.png)
 
 
 
@@ -247,7 +247,7 @@ ax_array[1, 1].axis('off')
 
 
 
-![png](output_28_1.png)
+![png](/images/convolutions/output_28_1.png)
 
 
 Awesome! Looks like each of the edge kernels make the edges successively more distinct
@@ -295,7 +295,7 @@ ax_array[2].axis('off')
 
 
 
-![png](output_32_1.png)
+![png](/images/convolutions/output_32_1.png)
 
 
 These look good, too. The convolution with the sharpen kernel clearly sharpened the image, and the unsharpen kernel does look slightly less sharp than the original image (though not by much).
@@ -339,7 +339,7 @@ ax_array[2].axis('off')
 
 
 
-![png](output_36_1.png)
+![png](/images/convolutions/output_36_1.png)
 
 
 Definitely blurrier.
@@ -414,7 +414,7 @@ ax_array[2].axis('off')
 
 
 
-![png](output_51_1.png)
+![png](/images/convolutions/output_51_1.png)
 
 
 # Next Steps

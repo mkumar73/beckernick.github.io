@@ -204,24 +204,6 @@ lion_transf_edge3 = conv_2d_kernel(lion_arr, kernel = edge_kernel_3, squash_pixe
 
 
 ```python
-plt.figure(figsize=(12,8))
-plt.axis('off')
-plt.imshow(lion_transf_edge3, cmap = plt.get_cmap('gray'))
-```
-
-
-
-
-    <matplotlib.image.AxesImage at 0x1146a6910>
-
-
-
-
-![png](/images/convolutions/output_27_1.png)
-
-
-
-```python
 f, ax_array = plt.subplots(2, 2)
 f.set_figheight(10)
 f.set_figwidth(15)

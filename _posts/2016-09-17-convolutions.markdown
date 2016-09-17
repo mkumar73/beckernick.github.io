@@ -7,10 +7,10 @@ header:
   image: "convolutions/lion_edges_header.png"
   caption: "Photo credit: [**Original Photo: Wikia, Edited by Nick Becker**](http://grayscale.wikia.com/wiki/File:Lion.png)"
 
-excerpt: "Code Focused. Logistic Regression, Stochastic Gradient Descent, Natural Language Processing"
+excerpt: "Code Focused. Convolution and Image Processing"
 ---
 
-Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, voice recognition, and text classification tasks.
+Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, text classification, and even drug discovery
 
 Since I didn't take any courses on deep learning in college, I figured I should start at the core of convolutional nets to really understand them. In a series of posts, I'll walk through convolution, standard neural networks, and convolutional networks in Python/Tensorflow.
 

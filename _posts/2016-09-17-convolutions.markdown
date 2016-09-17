@@ -10,11 +10,12 @@ header:
 excerpt: "Code Focused. Logistic Regression, Stochastic Gradient Descent, Natural Language Processing"
 ---
 
-Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, text classification, and even drug discovery.
+Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, voice recognition, and text classification tasks.
 
 Since I didn't take any courses on deep learning in college, I figured I should start at the core of convolutional nets to really understand them. In a series of posts, I'll walk through convolutions, standard neural networks, and convolutional networks in Python/Tensorflow.
 
 So here we go. Time to dive into image transformation with convolutions.
+
 
 # What is Convolution?
 
@@ -52,12 +53,12 @@ plt.imshow(lion_arr)
 
 
 
-    <matplotlib.image.AxesImage at 0x13af08c90>
+    <matplotlib.image.AxesImage at 0x113faf290>
 
 
 
 
-![png](output_8_1.png)
+![png](convolutions/lion_raw.png?raw=True)
 
 
 Looks good. However, though it does look grayscale, this image actually still has three channels (red, green, and blue). We can see that by looking at the shape of the array. Maybe all the color channels are actually the same?
@@ -135,7 +136,7 @@ plt.imshow(output_array, cmap = plt.get_cmap('gray'))
 
 
 
-    <matplotlib.image.AxesImage at 0x137d21750>
+    <matplotlib.image.AxesImage at 0x1147e8a10>
 
 
 
@@ -204,13 +205,14 @@ lion_transf_edge3 = conv_2d_kernel(lion_arr, kernel = edge_kernel_3, squash_pixe
 
 ```python
 plt.figure(figsize=(12,8))
+plt.axis('off')
 plt.imshow(lion_transf_edge3, cmap = plt.get_cmap('gray'))
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x16020dc90>
+    <matplotlib.image.AxesImage at 0x1146a6910>
 
 
 
@@ -225,18 +227,22 @@ f.set_figheight(10)
 f.set_figwidth(15)
 ax_array[0, 0].imshow(lion_arr, cmap = plt.get_cmap('gray'))
 ax_array[0, 0].set_title('Original Image')
+ax_array[0, 0].axis('off')
 ax_array[0, 1].imshow(lion_transf_edge1, cmap = plt.get_cmap('gray'))
 ax_array[0, 1].set_title('Edge Kernel 1')
+ax_array[0, 1].axis('off')
 ax_array[1, 0].imshow(lion_transf_edge2, cmap = plt.get_cmap('gray'))
 ax_array[1, 0].set_title('Edge Kernel 2')
+ax_array[1, 0].axis('off')
 ax_array[1, 1].imshow(lion_transf_edge3, cmap = plt.get_cmap('gray'))
 ax_array[1, 1].set_title('Edge Kernel 3')
+ax_array[1, 1].axis('off')
 ```
 
 
 
 
-    <matplotlib.text.Text at 0x15fa65650>
+    (-0.5, 496.5, 302.5, -0.5)
 
 
 
@@ -272,16 +278,19 @@ f.set_figheight(15)
 f.set_figwidth(12)
 ax_array[0].imshow(lion_arr, cmap = plt.get_cmap('gray'))
 ax_array[0].set_title('Original Image')
+ax_array[0].axis('off')
 ax_array[1].imshow(lion_transf_sharpen, cmap = plt.get_cmap('gray'))
 ax_array[1].set_title('Sharpen Kernel')
+ax_array[1].axis('off')
 ax_array[2].imshow(lion_transf_unsharpen, cmap = plt.get_cmap('gray'))
 ax_array[2].set_title('Unsharpen Kernel')
+ax_array[2].axis('off')
 ```
 
 
 
 
-    <matplotlib.text.Text at 0x15cc4cd50>
+    (-0.5, 496.5, 302.5, -0.5)
 
 
 
@@ -313,16 +322,19 @@ f.set_figwidth(12)
 
 ax_array[0].imshow(lion_arr, cmap = plt.get_cmap('gray'))
 ax_array[0].set_title('Original Image')
+ax_array[0].axis('off')
 ax_array[1].imshow(lion_transf_blur_box, cmap = plt.get_cmap('gray'))
 ax_array[1].set_title('Box Kernel Blur')
+ax_array[1].axis('off')
 ax_array[2].imshow(lion_transf_blur_gaussian, cmap = plt.get_cmap('gray'))
 ax_array[2].set_title('Gaussian Kernel Blur')
+ax_array[2].axis('off')
 ```
 
 
 
 
-    <matplotlib.text.Text at 0x15a5df990>
+    (-0.5, 496.5, 302.5, -0.5)
 
 
 
@@ -348,7 +360,7 @@ For the kernel tensor, the `filter_height` and `filter_width` are the dimensions
 
 ```python
 lion_array_4d = lion_arr.reshape(-1, 303, 497, 1)
-blur_kernel_4d = blur_kernel.reshape(3, 3, 1, 1)
+blur_kernel_4d = blur_box_kernel.reshape(3, 3, 1, 1)
 ```
 
 Understanding the next code block requires some knowledge of Tensorflow, so if anyone is interested in learning about it I recommend checking out one of Google's [tutorials](https://www.tensorflow.org/versions/r0.10/tutorials/index.html).
@@ -375,7 +387,7 @@ Our new output array should be the same as our hand-calculated output array `lio
 
 
 ```python
-np.testing.assert_array_almost_equal(lion_transf_blur_box, img_transformed,
+np.testing.assert_array_almost_equal(lion_transf_blur_box, transformed_image,
                              decimal = 4)
 ```
 
@@ -387,14 +399,17 @@ f, ax_array = plt.subplots(3, 1)
 f.set_figheight(15)
 f.set_figwidth(12)
 ax_array[0].imshow(lion_arr, cmap = plt.get_cmap('gray'))
+ax_array[0].axis('off')
 ax_array[1].imshow(lion_transf_blur_box, cmap = plt.get_cmap('gray'))
-ax_array[2].imshow(img_transformed, cmap = plt.get_cmap('gray'))
+ax_array[1].axis('off')
+ax_array[2].imshow(transformed_image, cmap = plt.get_cmap('gray'))
+ax_array[2].axis('off')
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x15be05110>
+    (-0.5, 496.5, 302.5, -0.5)
 
 
 
@@ -405,4 +420,3 @@ ax_array[2].imshow(img_transformed, cmap = plt.get_cmap('gray'))
 # Next Steps
 
 I've got a pretty good handle on convolutions for image analysis at this point. But it's not clear how we go from this to convolutional neural networks. In the next post, I'll walk through a simple neural network, and then eventually build a convolutional net.
-

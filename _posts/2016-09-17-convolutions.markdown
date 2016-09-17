@@ -1,5 +1,5 @@
 ---
-title:  "Understanding Convolutions, the core of Convolutional Neural Networks"
+title:  "Understanding Convolution, the core of Convolutional Neural Networks"
 date:   2016-09-17
 tags: [data science]
 
@@ -12,9 +12,9 @@ excerpt: "Code Focused. Logistic Regression, Stochastic Gradient Descent, Natura
 
 Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, voice recognition, and text classification tasks.
 
-Since I didn't take any courses on deep learning in college, I figured I should start at the core of convolutional nets to really understand them. In a series of posts, I'll walk through convolutions, standard neural networks, and convolutional networks in Python/Tensorflow.
+Since I didn't take any courses on deep learning in college, I figured I should start at the core of convolutional nets to really understand them. In a series of posts, I'll walk through convolution, standard neural networks, and convolutional networks in Python/Tensorflow.
 
-So here we go. Time to dive into image transformation with convolutions.
+So here we go. Time to dive into image transformation with convolution.
 
 
 # What is Convolution?
@@ -127,7 +127,7 @@ plt.imshow(output_array, cmap = plt.get_cmap('gray'))
 
 It's the same! Why? Because of the kernel we chose. For any given patch in the image, our convolution is just outputting 1 * the middle element of the patch. Every other element-to-element multiplication becomes 0 due to the kernel. For this reason, we call this kernel the `identity` kernel.
 
-# Standard Convolutions
+# Standard Convolution
 
 Let's go through the example kernels listed on this wikipedia [page](https://en.wikipedia.org/wiki/Kernel_(image_processing)). First, I'll define a function to convolve a 2-D kernel on an image. Since we're calculating sums, our output values can be greater than 255 or less than 0. We might want to squash those values to 255 and 0, respectively, so I'll write a function to do that. There are better ways to handle this phenomenon (such as **biasing** the output value by a certain amount), but this works for now.
 
@@ -291,9 +291,9 @@ ax_array[2].axis('off')
 
 Definitely blurrier.
 
-Okay. So I've got the convolution math and application down. Since I'm going to eventually build a convolutional neural net using Tensorflow, I should really understand tensorflows 2-D convolution function, `nn.conv2d`. So how does it work?
+Okay. So I've got the convolution math and application down. Since I'm going to eventually build a convolutional neural net using Tensorflow, I should really understand Tensorflow's 2-D convolution function, `nn.conv2d`. So how does it work?
 
-# Convolutions in Tensorflow
+# Convolution in Tensorflow
 
 From the [documentation](https://www.tensorflow.org/versions/r0.10/api_docs/python/nn.html#conv2d), `conv2d`:
 
@@ -358,4 +358,4 @@ ax_array[2].axis('off')
 
 # Next Steps
 
-I've got a pretty good handle on convolutions for image analysis at this point. But it's not clear how we go from this to convolutional neural networks. In the next post, I'll walk through a simple neural network, and then eventually build a convolutional net.
+I've got a pretty good handle on convolution for image analysis at this point. But it's not clear how we go from this to convolutional neural networks. In the next post, I'll walk through a simple neural network, and then eventually build a convolutional net.

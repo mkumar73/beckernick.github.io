@@ -223,12 +223,11 @@ unsharp_kernel = np.array([[1, 4, 6, 4, 1],
                            [1, 4, 6, 4, 1]]) / -256
 
 lion_transf_sharpen = conv_2d_kernel(lion_arr, kernel = sharpen_kernel, squash_pixels = True)
-lion_transf_unsharpen = conv_2d_kernel(lion_arr, kernel = unsharp_kernel, squash_pixels = True)
+lion_transf_unsharp = conv_2d_kernel(lion_arr, kernel = unsharp_kernel, squash_pixels = True)
 ```
 
 
 ```python
-# sharp/unsharp comparison
 f, ax_array = plt.subplots(3, 1)
 f.set_figheight(15)
 f.set_figwidth(12)
@@ -238,8 +237,8 @@ ax_array[0].axis('off')
 ax_array[1].imshow(lion_transf_sharpen, cmap = plt.get_cmap('gray'))
 ax_array[1].set_title('Sharpen Kernel')
 ax_array[1].axis('off')
-ax_array[2].imshow(lion_transf_unsharpen, cmap = plt.get_cmap('gray'))
-ax_array[2].set_title('Unsharpen Kernel')
+ax_array[2].imshow(lion_transf_unsharp, cmap = plt.get_cmap('gray'))
+ax_array[2].set_title('Unsharp Kernel')
 ax_array[2].axis('off')
 ```
 
@@ -254,7 +253,7 @@ ax_array[2].axis('off')
 ![png](/images/convolutions/output_32_1.png)
 
 
-These look good, too. The convolution with the sharpen kernel clearly sharpened the image, and the unsharpen kernel does look slightly less sharp than the original image (though not by much).
+These look good, too. The convolution with the sharpen kernel clearly sharpened the image, and the unsharp kernel does look slightly sharper than the original image (though not by much).
 
 ### Blur
 

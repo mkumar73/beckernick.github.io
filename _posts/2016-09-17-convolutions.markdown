@@ -50,14 +50,6 @@ First let's see the lion.
 plt.imshow(lion_arr)
 ```
 
-
-
-
-    <matplotlib.image.AxesImage at 0x113faf290>
-
-
-
-
 ![png](/images/convolutions/lion_raw.png?raw=True)
 
 
@@ -88,9 +80,6 @@ Let's take a look at the image array. We've got rows and columns of numbers betw
 ```python
 lion_arr[:200, :400]
 ```
-
-
-
 
     array([[  0,   0,   0, ...,   0,   0,   0],
            [  2,   2,   1, ...,   0,   0,   0],
@@ -132,14 +121,6 @@ Let's look at the output.
 ```python
 plt.imshow(output_array, cmap = plt.get_cmap('gray'))
 ```
-
-
-
-
-    <matplotlib.image.AxesImage at 0x1147e8a10>
-
-
-
 
 ![png](/images/convolutions/output_20_1.png)
 
@@ -222,19 +203,12 @@ ax_array[1, 1].axis('off')
 ```
 
 
-
-
-    (-0.5, 496.5, 302.5, -0.5)
-
-
-
-
 ![png](/images/convolutions/output_28_1.png)
 
 
 Awesome! Looks like each of the edge kernels make the edges successively more distinct
 
-# Sharpen
+### Sharpen
 
 
 ```python
@@ -282,12 +256,11 @@ ax_array[2].axis('off')
 
 These look good, too. The convolution with the sharpen kernel clearly sharpened the image, and the unsharpen kernel does look slightly less sharp than the original image (though not by much).
 
-# Blur
+### Blur
 
 
 ```python
 blur_box_kernel = np.ones((3, 3)) / 9
-
 blur_gaussian_kernel = np.array([[1,2,1],
                                  [2,4,2],
                                  [1,2,1]]) / 16
@@ -312,14 +285,6 @@ ax_array[2].imshow(lion_transf_blur_gaussian, cmap = plt.get_cmap('gray'))
 ax_array[2].set_title('Gaussian Kernel Blur')
 ax_array[2].axis('off')
 ```
-
-
-
-
-    (-0.5, 496.5, 302.5, -0.5)
-
-
-
 
 ![png](/images/convolutions/output_36_1.png)
 
@@ -387,14 +352,6 @@ ax_array[1].axis('off')
 ax_array[2].imshow(transformed_image, cmap = plt.get_cmap('gray'))
 ax_array[2].axis('off')
 ```
-
-
-
-
-    (-0.5, 496.5, 302.5, -0.5)
-
-
-
 
 ![png](/images/convolutions/output_51_1.png)
 

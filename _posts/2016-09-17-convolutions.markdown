@@ -58,7 +58,7 @@ plt.imshow(lion_arr)
 
 
 
-![png](convolutions/lion_raw.png?raw=True)
+![png](/images/convolutions/lion_raw.png?raw=True)
 
 
 Looks good. However, though it does look grayscale, this image actually still has three channels (red, green, and blue). We can see that by looking at the shape of the array. Maybe all the color channels are actually the same?

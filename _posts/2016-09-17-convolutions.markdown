@@ -7,10 +7,10 @@ header:
   image: "convolutions/lion_edges_header.png"
   caption: "Photo credit: [**Original Photo: Wikia, Edited by Nick Becker**](http://grayscale.wikia.com/wiki/File:Lion.png)"
 
-excerpt: "Code Focused. Convolution and Image Processing"
+excerpt: "Code Focused. Convolution, Image Processing, TensorFlow"
 ---
 
-Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, text classification, and even drug discovery
+Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, text classification, and even drug discovery.
 
 Since I didn't take any courses on deep learning in college, I figured I should start at the core of convolutional nets to really understand them. In a series of posts, I'll walk through convolution, standard neural networks, and convolutional networks in Python/Tensorflow.
 
@@ -21,7 +21,7 @@ So here we go. Time to dive into image transformation with convolution.
 
 Essentially, convolution is transforming two functions into a third function. In the context of image processing, convolution is kind of like transforming image pixels in a structured way, taking nearby pixels into account. In terms of coding, let's think of an image as a 2-D array of pixels (I'm going to abstract away from the color aspect of the image -- grayscale only). We want to transform each element of the array in a structured way, taking into account nearby elements.
 
-Let's look at an image and its pixel array. I'll download a grayscale picture of a lion from Google Images. The lion image I'm using comes from [here](http://grayscale.wikia.com/wiki/File:Lion.png).
+Let's look at an image and its pixel array. For this post, I'll download a grayscale picture of a lion from Google Images. The lion image I'm using comes from [here](http://grayscale.wikia.com/wiki/File:Lion.png).
 
 
 ```python
@@ -101,7 +101,7 @@ There's a problem though. Imagine sequentially moving a 3 x 3 patch through a 5 
 
 More generally, to pass an m x m kernel over a p x q image, we'd need to pad the image with m - 2 zeros on every side (where m is an odd number). We assume m is odd so that the kernel has a "center".
 
-Time to do it. I'll convolve a 3 x 3 kernel on the lion image. First I'll pad the array with 1 zeros at the end of each row and column. Then I'll define a 3 x 3 kernel, pass it over every 3x3 patch in the padded image, and do elementwise multiplication of the 3 x 3 kernel and 3 x 3 array. I'll store the sum of that transformation in an output array, which will be the same size as our original lion array.
+Time to do it. I'll convolve a 3 x 3 kernel on the lion image. First I'll pad the array with a zero at the end of each row and column. Then I'll define a 3 x 3 kernel, pass it over every 3 x 3 patch in the padded image, and do elementwise multiplication of the 3 x 3 kernel and 3 x 3 array. I'll store the sum of that transformation in an output array, which will be the same size as our original lion array.
 
 
 ```python
@@ -206,7 +206,7 @@ ax_array[1, 1].axis('off')
 ![png](/images/convolutions/output_28_1.png)
 
 
-Awesome! Looks like each of the edge kernels make the edges successively more distinct
+Awesome! Looks like each of the edge kernels make the edges successively more distinct.
 
 ### Sharpen
 

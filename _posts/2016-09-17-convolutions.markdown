@@ -19,7 +19,7 @@ So here we go. Time to dive into image transformation with convolution.
 
 # What is Convolution?
 
-Essentially, convolution is transforming two functions into a third function. In the context of image processing, convolution is kind of like transforming image pixels in a structured way, taking nearby pixels into account. In terms of coding, let's think of an image as a 2-D array of pixels with 3 channels (reg, green, and blue). I'm going to abstract away from the color aspect of the image (so grayscale only), but the logic of this post extends naturally to the multichannel 2-D image. We want to transform each element of the array in a structured way, taking into account nearby elements.
+In math, convolution is essentially the blending of two functions into a third function. In the context of image processing, convolution is kind of like transforming image pixels in a structured way, taking nearby pixels into account. In terms of coding, let's think of an image as a 2-D array of pixels with 3 channels (reg, green, and blue). I'm going to abstract away from the color aspect of the image (so grayscale only), but the logic of this post extends naturally to the multichannel 2-D image. We want to transform each element of the array in a structured way, taking into account nearby elements.
 
 Let's look at an image and its pixel array. For this post, I'll download a grayscale picture of a lion from Google Images. The lion image I'm using comes from [here](http://grayscale.wikia.com/wiki/File:Lion.png).
 

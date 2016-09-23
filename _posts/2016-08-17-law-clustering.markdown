@@ -561,7 +561,6 @@ cluster_themes_dict = {}
 
 for key in cluster_assignments_dict.keys():
     current_tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words='english')
-    current_tfidf = TfidfVectorizer(stop_words='english')
     current_tfs = current_tfidf.fit_transform(map(clean_bill, cluster_assignments_dict[key]))
     
     current_tf_idfs = dict(zip(current_tfidf.get_feature_names(), current_tfidf.idf_))

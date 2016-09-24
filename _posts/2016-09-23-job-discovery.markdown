@@ -1,5 +1,5 @@
 ---
-title:  "Automated Job Discovery and Evaluation"
+title:  "Automated Job Discovery and Evaluation: Web Scraping Indeed.com"
 date:   2016-09-23
 tags: [data science]
 

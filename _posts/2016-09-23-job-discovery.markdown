@@ -28,7 +28,7 @@ So I need to create some kind of automated pipeline that will:
 3. Identify the ones that are relevant to me
 4. Email me a list of the recent jobs that are relevant to me every day
 
-Then I'll stick this in my crontab and just check my email every day for new data science jobs. Since I want to be able to control many of the parameters (including the job search terms), I'm going to build this pipeline through a series of stand-alone functions.
+Then I'll stick this in my crontab and just check my email every day for new data science jobs. Since I want to be able to tweak many of the parameters (including the job search terms), I'm going to build this pipeline through a series of stand-alone functions.
 
 # Evaluating a Single Job
 
@@ -265,6 +265,6 @@ Easy. Here's a snapshot of the email I sent myself.
 
 Now I can just stick this program into a cron-job and I'll get an email every day with newly posted data science jobs I might be interested in. If I want to get emails with jobs in other cities or from other Indeed.com search terms, I can just add a another `find_new_jobs` and `send_gmail` couplet to the `main` function. If anyone was wondering why I was writing all of this code in functions (instead of as a stand-alone program), that's the reason right there.
 
-While this is all pretty useful, it's important to remember that finding jobs this way is externally rather than internally oriented. It's looking at the set of all (many) possibilities and finding ones that might be relevant, as opposed to looking to see if there are any openings at the places that I find exciting.
+While this is all pretty useful, it's important to remember that finding jobs this way is externally rather than internally oriented. It's looking at the set of all (many) possibilities and finding ones that might be relevant, as opposed to looking to see if there are any openings at the places that I find exciting. As a result, this is just a supplement to my actual job search.
 
-It's finding jobs that I might be a good technical fit for -- not jobs that might be a good fit for me. As a result, this should be seen as a supplement to a good job search.
+It's finding jobs that I might be a good technical fit for -- not jobs that might be a good fit for me. It's a small distinction, but a massive difference.

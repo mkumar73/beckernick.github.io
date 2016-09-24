@@ -32,7 +32,7 @@ Then I'll stick this in my crontab and just check my email every day for new dat
 
 # Evaluating a Single Job
 
-While it's not easy to perfectly evaluate any data science job, it's fairly trivial to see if it's remotely relevant to my skillset. For example, if I were 100% focused on getting a job requiring Python programming, I probably wouldn't apply to jobs whose descriptions didn't have the word Python in them. By using this (simple) heuristic, I can write a function to do the evaluation for me. The function will need to search the HTML of a job page and return whether or not I'm a good match. Based on the example logic, I'll write the function to check if Python, R, or SQL are in the job description and return the number of times those terms appear.
+While it's not easy to perfectly evaluate any data science job, it's fairly trivial to see if it's remotely relevant to my skillset. For example, if I were 100% focused on getting a job requiring Python programming, I probably wouldn't apply to jobs whose descriptions didn't have the word Python in them. By following this (simple) heuristic, I can write a function to do the evaluation for me. The function will need to search the HTML of a job page and return whether or not I'm a good match. For me, the function should check if Python, R, or SQL are in the job description and return the number of times those terms appear.
 
 
 ```python
@@ -129,7 +129,7 @@ With these functions in hand, I'm almost ready to find and evaluate new jobs. So
 extra_interest_companies = ['apple', 'microsoft', 'google', 'facebook', 'amazon']
 ```
 
-Okay, I can extract job information from a page on Indeed, and then I can evaluate the individual jobs from their URLs. Now I need to loop through Indeed.com and apply my functions to every page. I'll define a function `find_new_jobs` to do this.
+Okay, I can extract job information from a page on Indeed, and then I can evaluate the individual jobs from their URLs. Now I need to loop through Indeed.com's newest results for a search query and apply my functions to every page. I'll define a function `find_new_jobs` to do this.
 
 
 ```python
@@ -259,7 +259,7 @@ if __name__ == "__main__":
 
 Easy. Here's a snapshot of the email I sent myself.
 
-![png](/images/convolutions/indeed_email_pic.png?raw=True)
+![png](/images/indeed_scraping/indeed_email_pic.png?raw=True)
 
 # Conclusion
 

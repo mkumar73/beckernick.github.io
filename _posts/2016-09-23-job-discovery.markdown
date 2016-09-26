@@ -179,7 +179,7 @@ def find_new_jobs(days_ago_limit = 1, starting_page = 0, pages_limit = 20, old_j
                 new_jobs_list.append('{0}, {1}, {2}'.format(company, title, 'http://indeed.com' + href))
                 
             print '\n'
-            time.sleep(5)
+            time.sleep(15)
             
     new_jobs_string = '\n\n'.join(new_jobs_list)
     return new_jobs_string

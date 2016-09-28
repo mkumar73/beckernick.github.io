@@ -12,7 +12,7 @@ excerpt: "Code Focused. Job Discovery, Web Scraping, Indeed.com"
 
 I'm getting ready to start looking for a new job (my term at the Federal Reserve Board lasts 2 years), so I've been trying to reflect on what's important to me in a job. I could write thousands of words about how I want to challenge myself intellectually, make a difference in people's lives, work with smart and passionate people, and many other things -- but I won't.
 
-Though that is how I'm going to look for jobs -- seeking out and applying to specific jobs that I've identified as a strong fit based on my skillset and desire for self-actualization -- I'm not even **close** to a good enough writer to make such a post remotely readable.
+Finding a job like that isn't easy. It requires seeking out and applying to specific jobs that I've identified as a strong fit based on my skillset and desire for self-actualization. Though that is how I'm going to look for jobs I'm not even **close** to a good enough writer to make such a post remotely readable.
 
 So, instead, this post will be about the opposite side of the job search: finding potentially interesting jobs from the abyss that I might not have otherwise seen. I'll focus on [Indeed.com](http://www.indeed.com/), a major job aggregator that is one of the top stops in many people's job search.
 

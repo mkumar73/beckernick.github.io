@@ -7,8 +7,7 @@ header:
 
 ---
 
->Federal Reserve Board of Governors
->DataKind DC
+>Federal Reserve Board of Governors\nDataKind DC
 >Duke University
 
 >All analyses and conclusions presented on this website reflect my views and do not indicate concurrence by the Board of Governors or the Federal Reserve System.

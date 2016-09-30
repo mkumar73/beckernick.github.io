@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /visuals/
-title: "Visualizations"
+title: "Visualizations2"
 author_profile: true
 header:
   image: "japanese_arches.jpg"
@@ -10,7 +10,7 @@ header:
 ---
 
 {% include base_path %}
-{% include group-by-array collection=site.portfolio field="tags" %}
+{% include group-by-array collection=site.visuals field="tags" %}
 
 {% for tag in group_names %}
   {% assign posts = group_items[forloop.index0] %}

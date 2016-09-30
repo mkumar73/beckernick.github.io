@@ -1,7 +1,7 @@
 ---
 title:  "Which NFL Team Would Win in Scrabble?"
 date:   2016-08-25
-tags: [sports]
+tags: [Sports]
 
 header:
   image: "fox_sports_images/scrabble_tile_holder.jpg"

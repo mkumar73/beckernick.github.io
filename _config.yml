@@ -208,10 +208,6 @@ compress_html:
   ignore:
     envs: development
 
-collections:
-  visuals:
-    output: true
-    permalink: /:collection/:path/
 
 defaults:
   # _posts

@@ -1,7 +1,7 @@
 ---
 title:  "Automated Job Discovery and Evaluation: Web Scraping Indeed.com"
 date:   2016-09-23
-tags: [data science]
+tags: [web scraping]
 
 header:
   image: "indeed_scraping/job_discovery_header.jpg"

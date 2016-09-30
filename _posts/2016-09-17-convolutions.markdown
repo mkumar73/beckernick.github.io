@@ -1,7 +1,7 @@
 ---
 title:  "Understanding Convolution, the core of Convolutional Neural Networks"
 date:   2016-09-17
-tags: [data science]
+tags: [neural networks]
 
 header:
   image: "convolutions/lion_edges_header.png"

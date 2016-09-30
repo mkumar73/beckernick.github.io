@@ -98,7 +98,6 @@ include:
   - .htaccess
   - _pages
   - _posts
-  - _visuals
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
@@ -209,6 +208,10 @@ compress_html:
   ignore:
     envs: development
 
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
 
 defaults:
   # _posts

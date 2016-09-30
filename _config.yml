@@ -211,7 +211,7 @@ compress_html:
 collections:
   portfolio:
     output: true
-    permalink: /:collection/visuals/
+    permalink: /visuals/
 
 defaults:
   # _posts

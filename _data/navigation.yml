@@ -4,7 +4,7 @@ main:
     url: /about/
 
   - title: "data science"
-    url: /projects/
+    url: /datascience/
 
   - title: "visuals"
     url: /visuals/

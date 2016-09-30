@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /datascience/
-title: "Posts by Tags2"
+title: "Posts by Tags23"
 author_profile: true
 header:
   image: "japanese_arches.jpg"
@@ -11,7 +11,6 @@ header:
 
 {% include base_path %}
 {% include group-by-array collection=site.posts field="tags" %}
-{% include paginator.html %}
 
 {% for tag in group_names %}
   {% assign posts = group_items[forloop.index0] %}
@@ -20,3 +19,5 @@ header:
   	{% include archive-single.html %}
   {% endfor %}
 {% endfor %}
+
+{% include paginator.html %}

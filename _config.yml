@@ -208,6 +208,10 @@ compress_html:
   ignore:
     envs: development
 
+collections:
+  visuals:
+    output: true
+    permalink: /:collection/visuals/
 
 defaults:
   # _posts
@@ -230,7 +234,7 @@ defaults:
       layout: single
       author_profile: true
 
-  # _portfolio
+  # _visuals
   - scope:
       path: ""
       type: portfolio

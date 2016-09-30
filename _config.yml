@@ -209,7 +209,7 @@ compress_html:
     envs: development
 
 collections:
-  portfolio:
+  visuals:
     output: true
     permalink: /:collection/:path/
 

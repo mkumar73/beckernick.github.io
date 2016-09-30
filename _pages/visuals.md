@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /visuals/
-title: "Visualizations1"
+title: "Visualizations12"
 author_profile: true
 header:
   image: "japanese_arches.jpg"

@@ -1,13 +1,13 @@
 ---
-title:  "Test portfolio"
+title:  "Test visuals"
 date:   2016-09-23
-tags: [data science]
+tags: [visualizations]
 
 header:
   image: "indeed_scraping/job_discovery_header.jpg"
   caption: "Photo credit: [**Novartis**](https://www.nibr.com/files/job-discovery-0)"
 
-excerpt: "Code Focused. Job Discovery, Web Scraping, Indeed.com"
+excerpt: "test"
 ---
 
 test post

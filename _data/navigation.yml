@@ -3,7 +3,7 @@ main:
   - title: "about"
     url: /about/
 
-  - title: "projects"
+  - title: "data science"
     url: /projects/
 
   - title: "visuals"

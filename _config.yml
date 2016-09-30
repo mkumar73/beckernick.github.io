@@ -237,7 +237,7 @@ defaults:
   # _visuals
   - scope:
       path: ""
-      type: posts
+      type: visuals
     values:
       layout: single
       author_profile: false

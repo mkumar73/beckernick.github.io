@@ -1,7 +1,7 @@
 ---
 layout: archive
-permalink: /portfolio/
-title: "Portfolio"
+permalink: /visuals/
+title: "Visualizations"
 author_profile: true
 header:
   image: "japanese_arches.jpg"

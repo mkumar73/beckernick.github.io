@@ -234,7 +234,7 @@ defaults:
       layout: single
       author_profile: true
 
-  # _portfolio
+  # _visuals
   - scope:
       path: ""
       type: portfolio

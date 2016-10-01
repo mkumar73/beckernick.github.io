@@ -4,7 +4,7 @@ date:   2016-09-30
 tags: [parallel programming]
 
 header:
-  image: "hongkong_skyline.jpg"
+  image: "record_linkage/hongkong_skyline.jpg"
   caption: "Photo credit: Ginny Lehman"
 
 excerpt: "Parallel Programming, Record Linkage, Synthetic Data, Python"

@@ -12,7 +12,7 @@ excerpt: "Parallel Programming, Record Linkage, Synthetic Data, Python"
 
 When dealing with data from different sources, whether the data are from surveys, internal data, external data vendors, or scraped from the web, we often want to link people or companies across the datasets. Unfortunately, we almost never start with perfectly clean data.
 
-Even when using structured data, people make absent minded mistakes like mixing up letters in names, individual values are recorded incorrectly, measurement error affects the results, and countless other things can happen. Sometimes, perhaps even more frustratingly, different sources just use different names for the same entity (Last.FM vs. LastFM, J.P. Morgan Chase vs. JP Morgan Chase NA).
+Even when using structured data, people make absent minded mistakes like mixing up letters in names, individual values are recorded incorrectly, measurement error affects the results. Countless things can happen before we get to dig into the data. Sometimes, perhaps even more frustratingly, different sources just use different names for the same entity (Last.FM vs. LastFM, J.P. Morgan Chase vs. JP Morgan Chase NA, or Sammy Watkins Jr. vs. Sammy Watkins II).
 
 These little discrepancies make it impossible to simply merge the data together on the unique identifiers.
 Trying to link individual or company data across sources is called record linkage, and it can be extremely time consuming.

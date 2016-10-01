@@ -163,7 +163,7 @@ Not bad! We clearly matched some correctly, but also have some false matches. Fu
 
 # Parallel Fuzzy Matching
 
-Okay, so we've got the function working. How do we parallelize it? By shamelessly using the simple method detailed in [blog post](http://chriskiehl.com/article/parallelism-in-one-line/) by Chris Kiehl. In Python, we can map functions to data in parallel by using the `multiprocessing` module. Instead of using Python's base `map` function like I did above, I'll use the `map` function from `multiprocessing`.
+Okay, so we've got the function working. How do we parallelize it? By shamelessly using the simple method detailed in [this blog post](http://chriskiehl.com/article/parallelism-in-one-line/) by Chris Kiehl. In Python, we can map functions to data in parallel by using the `multiprocessing` module. Instead of using Python's base `map` function like I did above, I'll use the `map` function from `multiprocessing`.
 
 To actually implement the parallel fuzzy match I will:
 
@@ -243,9 +243,9 @@ for i in indices[1:]:
     pool = mp.Pool()
     t0 = time.time()
     pooled_matches = pool.map(get_basic_fuzzy_matches, synthetic_companies_list[:i+1])
-    t1 = time.time()
     pool.close()
     pool.join()
+    t1 = time.time()
     times_list_pool.append(t1-t0)
 ```
 

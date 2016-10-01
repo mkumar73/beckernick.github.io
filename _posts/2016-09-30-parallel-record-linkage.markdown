@@ -96,7 +96,7 @@ Perfect! Looks like it would be a nightmare to try and merge two datasets with t
 
 There are many very smart algorithms for record linkage (William Cohen at Carnegie Mellon has some great information about smart algorithms on his [website](http://www.cs.cmu.edu/~wcohen/)).
 
-But, since I'm using a toy example, I'll implement a basic record linkage algorithm that I'd argue is still the most commonly used. This algorithm will calculate the number of matching sequences in two strings and the corresponding similarity ratio. For information about this, check out the `difflib` [documentation](https://docs.python.org/2/library/difflib.html)
+But, since I'm using a toy example, I'll implement a basic record linkage algorithm that I'd argue is still the most commonly used. This algorithm will calculate the number of matching sequences in two strings and the corresponding similarity ratio. For information about the math behind the similarity ratio, check out the `difflib` [documentation](https://docs.python.org/2/library/difflib.html).
 
 First, I'll define a function to get the similarity ratio of two company names.
 

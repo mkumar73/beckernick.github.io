@@ -107,19 +107,6 @@ def match_ratio(name1, name2):
     return s.ratio()
 ```
 
-
-```python
-match_ratio(switch_3_characters_randomly('Abercrombie & Fitch Co.'),
-            switch_3_characters_randomly('Abercrombie & Fitch Co.'))
-```
-
-
-
-
-    0.8260869565217391
-
-
-
 Next, I'll define a function to "fuzzy match" (matching based on the similarity ratio) an individual synthetic company names with the real company names. I'll decide that a similarity ratio > 0.75 constitutes a match. By using a `flag` variable, we can make sure our output `match_list` has a value for every company checked (even if no match is found). This may or may not be desirable depending on the goal.
 
 

@@ -21,7 +21,7 @@ Fortunately, we can make this task significantly faster by parallelizing the cod
 
 # Getting Some Data
 
-First things first. I need a toy dataset to play with. I'll download a list of company names from the SEC, as these are what are commonly misspelled in datasets.
+First things first. I need a toy dataset to play with. I'll download a list of company names from the SEC, as these are the types of entities that are commonly misspelled in datasets I use.
 
 
 ```python

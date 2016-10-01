@@ -107,7 +107,7 @@ def match_ratio(name1, name2):
     return s.ratio()
 ```
 
-Next, I'll define a function to "fuzzy match" (matching based on the similarity ratio) an individual synthetic company names with the real company names. I'll decide that a similarity ratio > 0.75 constitutes a match. By using a `flag` variable, we can make sure our output `match_list` has a value for every company checked (even if no match is found). This may or may not be desirable depending on the goal.
+Next, I'll define a function to "fuzzy match" (matching based on the similarity ratio) an individual synthetic company names with the real company names. I'll decide that a similarity ratio > 0.75 constitutes a possible match. By using a `flag` variable, we can make sure our output `match_list` has a value for every company checked (even if no match is found). This may or may not be desirable depending on the goal.
 
 
 ```python
@@ -166,6 +166,7 @@ Not bad! We clearly matched some correctly, but also have some false matches. Fu
 Okay, so we've got the function working. How do we parallelize it? By shamelessly using the simple method detailed in [blog post](http://chriskiehl.com/article/parallelism-in-one-line/) by Chris Kiehl. In Python, we can map functions to data in parallel by using the `multiprocessing` module. Instead of using Python's base `map` function like I did above, I'll use the `map` function from `multiprocessing`.
 
 To actually implement the parallel fuzzy match I will:
+
 1. Initialize a multiprocessing.Pool object as `pool`
 2. Use the `map` function from `pool` and pass it my fuzzy match function and the synthetic companies list
 3. Close the pool

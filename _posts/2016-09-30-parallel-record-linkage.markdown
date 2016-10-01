@@ -291,19 +291,17 @@ plt.legend(loc = 'best')
 
 
 
-
-    <matplotlib.legend.Legend at 0x11faf8dd0>
-
-
-
-
 ![png](/images/record_linkage/parallel_standard_comparison.png?raw=True)
 
-As the size of the dataset increases, the time value of parallel processing increases. With small datasets, parallel processing isn't much faster. As the dataset gets larger, parallel processing is significantly faster. This makes sense. In order to execute the code in parallel, more actions have to be taken under the hood. The computer needs to divide the data, store metadata about the divisions, and recombine the data at the end. This is all in addition to mapping the function to the data. This takes non-zero time, so the benefit of parallel programming increases in the size of the dataset (the slope of the green line in the graph is shallower).
+As the size of the dataset increases, the time value of parallel processing increases. With small datasets, parallel processing isn't much faster. As the dataset gets larger, parallel processing is significantly faster. This makes sense. In order to execute the code in parallel, more actions have to be taken under the hood.
+
+The computer needs to divide the data, store metadata about the divisions, and recombine the data at the end. This is all in addition to mapping the function to the data. This takes non-zero time, so the benefit of parallel programming increases in the size of the dataset (the slope of the green line in the graph is shallower).
 
 # Conclusion
 
-In this example, we didn't have that many entities to compare. Our real company dataset has only 947 companies. Parallel record linkage was 2-3 times faster, but we could handle this task without it since it still doesn't take that long. With more cores to utilize (my laptop only has a couple of cores), the parallel fuzzy match would be even faster and scale more effectively to massive datasets. This kind of standard record linkage lends itself nicely to being distributed on a computer cluster. In fact, that's how I would usually run this kind of code.
+In this example, we didn't have that many entities to compare. Our real company dataset has only 947 companies. Parallel record linkage was 2-3 times faster, but we could handle this task without it since it still doesn't take that long. With more cores to utilize (my laptop only has a couple of cores), the parallel fuzzy match would be even faster and scale more effectively to massive datasets.
+
+This kind of standard record linkage lends itself nicely to being distributed on a computer cluster. In fact, that's how I would usually run this kind of code.
 
 
 

@@ -78,8 +78,7 @@ def switch_3_characters_randomly(name, seed = None):
     return ''.join(name_split)
 ```
 
-Time to try it out.
-
+Does it work?
 
 ```python
 synthetic_companies_list = map(switch_3_characters_randomly, companies_list_clean)
@@ -91,7 +90,7 @@ print companies_list_clean[:5]
     ['3com corp', '3m company', 'a.g. edwards inc.', 'abbott laboratories', 'abercrombie & fitch co.']
 
 
-Perfect! Looks like it would be a nightmare to try and merge two datasets on these company names. Time to do
+Perfect! Looks like it would be a nightmare to try and merge two datasets with these lists as their company name variables. It's time for fuzzy matching.
 
 # Fuzzy Matching
 

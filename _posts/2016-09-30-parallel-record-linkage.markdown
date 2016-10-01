@@ -170,7 +170,7 @@ To actually implement the parallel fuzzy match I will:
 1. Initialize a multiprocessing.Pool object as `pool`
 2. Use the `map` function from `pool` and pass it my fuzzy match function and the synthetic companies list
 3. Close the pool
-4. Join the output from the pool workers
+4. Join the output from the pool's parallel workers
 
 It's really that simple.
 
@@ -191,10 +191,6 @@ pooled_matches[:5]
 ```
 
     True
-
-
-
-
 
     [[('mco3 corp', '3com corp', 0.7777777777777778),
       ('mco3 corp', 'fmc corp', 0.8235294117647058)],

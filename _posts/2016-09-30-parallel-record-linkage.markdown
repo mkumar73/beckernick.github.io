@@ -242,22 +242,12 @@ indices
 ```python
 times_list = []
 for i in indices[1:]:
-    print i
     t0 = time.time()
     matches = map(get_basic_fuzzy_matches, synthetic_companies_list[:i+1])
     t1 = time.time()
     times_list.append(t1-t0)
 ```
 
-    105
-    210
-    315
-    420
-    526
-    631
-    736
-    841
-    947
 
 
 ### Parallel Fuzzy Matching
@@ -266,7 +256,6 @@ for i in indices[1:]:
 ```python
 times_list_pool = []
 for i in indices[1:]:
-    print i
     pool = mp.Pool()
     t0 = time.time()
     pooled_matches = pool.map(get_basic_fuzzy_matches, synthetic_companies_list[:i+1])
@@ -275,17 +264,6 @@ for i in indices[1:]:
     pool.join()
     times_list_pool.append(t1-t0)
 ```
-
-    105
-    210
-    315
-    420
-    526
-    631
-    736
-    841
-    947
-
 
 ### Plotting the Time at Different Sizes
 

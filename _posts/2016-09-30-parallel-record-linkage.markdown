@@ -12,12 +12,12 @@ excerpt: "Parallel Programming, Record Linkage, Synthetic Data, Python"
 
 When dealing with data from different sources, whether the data are from surveys, internal data, external data vendors, or scraped from the web, we often want to link people or companies across the datasets. Unfortunately, we almost never start with perfectly clean data.
 
-Even when using structured data, people make absent minded mistakes like mixing up letters in names, individual values are recorded incorrectly, measurement error affects the results, and countless other things can happen. Sometimes, perhaps even more frustratingly, different sources use different names for the same entity (Last.FM vs. LastFM, J.P. Morgan Chase vs. JP Morgan Chase NA).
+Even when using structured data, people make absent minded mistakes like mixing up letters in names, individual values are recorded incorrectly, measurement error affects the results, and countless other things can happen. Sometimes, perhaps even more frustratingly, different sources just use different names for the same entity (Last.FM vs. LastFM, J.P. Morgan Chase vs. JP Morgan Chase NA).
 
 These little discrepancies make it impossible to simply merge the data together on the unique identifiers.
 Trying to link individual or company data across sources is called record linkage, and it can be extremely time consuming.
 
-Fortunately, we can make this task significantly faster by parallelizing the code. In this post, I'll walk through basic record linkage (based on string similarity) with and without parallel processing, and show how the speed differences change with the size of the data.
+Fortunately, we can make this task significantly faster by parallelizing the code. In this post, I'll walk through basic record linkage (based on string similarity) with and without parallel processing. Then I'll illustrate how and why the speed improvement from parallelizing varies with the size of the data.
 
 # Getting Some Data
 

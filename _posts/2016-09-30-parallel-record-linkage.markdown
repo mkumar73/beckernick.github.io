@@ -17,7 +17,7 @@ Even when using structured data, people make absent minded mistakes like mixing 
 These little discrepancies make it impossible to simply merge the data together on the unique identifiers.
 Trying to link individual or company data across sources is called record linkage, and it can be extremely time consuming.
 
-Fortunately, we can make this task significantly faster by parallelizing the code. In this post, I'll walk through basic record linkage (based on string similarity) with and without parallel processing. Then I'll illustrate how and why the speed improvement from parallelizing varies with the size of the data.
+Fortunately, we can make this task significantly faster by parallelizing the code. In this post, I'll walk through basic record linkage (based on string similarity) with and without parallel processing. Then, I'll measure the speed improvement from parallelizing and discuss why it varies with the size of the data.
 
 # Getting Some Data
 

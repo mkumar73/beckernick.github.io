@@ -32,7 +32,7 @@ Then I'll stick this in my crontab and just check my email every day for new dat
 
 # Evaluating a Single Job
 
-While it's not easy to perfectly evaluate any data science job, it's fairly trivial to see if it's remotely relevant to my skillset. For example, if I were 100% focused on getting a job requiring Python programming, I probably wouldn't apply to jobs whose descriptions didn't have the word Python in them. By following this (simple) heuristic, I can write a function to do the evaluation for me. The function will need to search the HTML of a job page and return whether or not I'm a good match. For me, the function should check if Python, R, or SQL are in the job description and return the number of times those terms appear.
+While it's not easy to perfectly evaluate any data science job, it's fairly trivial to see if it's remotely relevant to my skillset. For example, if I were 100% focused on getting a job requiring Python programming, I probably wouldn't apply to jobs whose descriptions didn't have the word Python in them. By following this (simple) heuristic, I can write a function to do the evaluation for me. The function will need to search the HTML of a job page and return whether or not I'm a good match. For me, the function should check if Python, R, and SQL are in the job description and return the number of times those terms appear.
 
 
 ```python
@@ -263,7 +263,7 @@ Easy. Here's a snapshot of the email I sent myself.
 
 # Conclusion
 
-Now I can just set up a cron-job and I'll get an email every day with newly posted data science jobs I might be interested in. If I want to get emails with jobs in other cities or from other Indeed.com search terms, I can just add a another `find_new_jobs` and `send_gmail` couplet to the `main` function. If anyone was wondering why I was writing all of this code in functions (instead of as a stand-alone program), that's the main reason right there.
+Now I can just set up a cron-job and I'll get an email every day with newly posted data science jobs I might be interested in. If I want to get emails with jobs in other cities or from other Indeed.com search terms, I can just add another `find_new_jobs` and `send_gmail` couplet to the `main` function. If anyone was wondering why I was writing all of this code in functions (instead of as a stand-alone program), that's the main reason right there.
 
 While this is all pretty useful, it's important to remember that finding jobs this way is externally rather than internally oriented. It's looking at the set of all (many) possibilities and finding ones that might be relevant, as opposed to looking to see if there are any openings at companies and organizations that I find exciting. As a result, this is just a supplement to my actual job search.
 

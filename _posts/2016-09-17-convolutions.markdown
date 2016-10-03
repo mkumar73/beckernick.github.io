@@ -95,7 +95,7 @@ If we wanted to perform a convolution on the array, we'd loop through and transf
 
 ## Convolution with 2-D Kernels
 
-With a 2-D kernel, we need to apply our kernel to **patches** of the image with the same shape of the kernel. Since we still want to output a scalar from our convolution, we'll multiply our kernel and the patch and then take the sum of the resulting output array.
+With a 2-D kernel, we need to apply our kernel to **patches** of the image with the same shape as the kernel. Since we still want to output a scalar from our convolution, we'll multiply our kernel and the patch and then take the sum of the resulting output array.
 
 There's a problem though. Imagine sequentially moving a 3 x 3 patch through a 5 x 5 image. You'd start with the top left corner, and move across the image until you hit the top right corner. That would only take take 3 moves. By this logic, we'd end up with a smaller image than we started with. To avoid this, we **pad** the array with zeros on every side. The zeros allow us to apply our kernel to every pixel.
 
@@ -327,9 +327,9 @@ with tf.Session(graph = graph) as sess:
     transformed_image = transformed_image[0, :, :, 0]
 ```
 
-So what did that code do? In the first `with` statement, I initialized the input and kernel tensors (with values as floats) and the convolution. In the second `with` statement, I executed the tensorflow `graph` and evaluated the convolution. `Conv2d` also needs parameters `strides` and `padding`. `strides = [1, 1, 1, 1]` results in a convolution on every pixel and `padding = 'SAME'` is the standard zero padding that results in an output array the same shape as the input array.
+So what did that code do? In the first `with` statement, I initialized the input and kernel tensors (with values as floats) and the convolution. In the second `with` statement, I executed the tensorflow `graph` and evaluated the convolution. `Conv2d` also needs parameters `strides` and `padding`. `strides = [1, 1, 1, 1]` results in a convolution on every pixel and `padding = 'SAME'` is the standard zero padding that results in an output array with the same shape as the input array.
 
-Our new output array should be the same as our hand-calculated output array `lion_transf_blur_box`. I'll test whether they are equal to 4 decimal place using `np.testing.assert_array_almost_equal`. If they aren't equal, this will throw an error.
+Our new output array should be the same as our hand-calculated output array `lion_transf_blur_box`. I'll test whether they are equal to 4 decimal places using `np.testing.assert_array_almost_equal`. If they aren't equal, this will throw an error.
 
 
 ```python
@@ -337,7 +337,7 @@ np.testing.assert_array_almost_equal(lion_transf_blur_box, transformed_image,
                              decimal = 4)
 ```
 
-Perfect! I got the same output using my `conv_2d_kernel` function and tensorflows `tf.nn.conv2d` function. Let's compare the original image, the original blur, and the new blur.
+Perfect! I got the same output using my `conv_2d_kernel` function and tensorflow's `tf.nn.conv2d` function. Let's compare the original image, the original blur, and the new blur.
 
 
 ```python

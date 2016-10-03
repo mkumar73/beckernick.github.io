@@ -128,17 +128,6 @@ def get_basic_fuzzy_matches(synthetic_name, threshold = 0.75):
 ```
 
 
-```python
-get_basic_fuzzy_matches(synthetic_companies_list[12])
-```
-
-
-
-
-    [('idmanistaff, inc.', 'administaff, inc.', 0.8823529411764706)]
-
-
-
 Let's do a quick test run to see if the functions are working. I'll map our function to some of the synthetic company names and see how we did.
 
 

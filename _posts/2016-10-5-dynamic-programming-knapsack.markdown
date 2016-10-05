@@ -1,5 +1,5 @@
 ---
-title:  "Dynamic Programming: Knapsack Optimization"
+title:  "Dynamic Programming2: Knapsack Optimization"
 date:   2016-10-05
 tags: [optimization]
 

@@ -1,5 +1,5 @@
 ---
-title:  "Dynamic Programming2: Knapsack Optimization"
+title:  "Dynamic Programming: Knapsack Optimization"
 date:   2016-10-05
 tags: [optimization]
 
@@ -53,7 +53,7 @@ num_items = len(value_weight_list)
 
 Great. Now I need to define a blank table to fill in. Based on what I said earlier, the table should have `num_items` number of columns and `capacity` number of rows. However, to simplify the programming logic, I'll actually pad the table with an extra row and column. It'll be clear why this helps when I walk through the code.
 
-I'll also define an empty 3-dimensional array `intermediate_tables_array` which I'll use to store every different stage of the table as I fill it in element by element. This will make the dynamic programming process more clear.
+I'll also define an empty 3-dimensional array, `intermediate_tables_array`, which I'll use to store every different stage of the table as I fill it in element by element. This will make the dynamic programming process more clear.
 
 
 ```python
@@ -108,7 +108,7 @@ table
 
 Okay. How did we actually populate this optimal value table. Let's break down exactly what the code does.
 
-First, we create a loop to go through each column of the table (each column represents an item in our knapsack). In our case, we want to iterate from `1` to the `num_items + 1` times since we padded our array for easier calculation (now column 1 represents item 1, column 2 represents item 2, and so on).
+First, we create a loop to go through each column of the table (each column represents an item in our knapsack). In our case, we want to iterate from `1` to the `num_items + 1` times since we padded our array for easier calculation (now column index 1 represents item 1, column index 2 represents item 2, and so on).
 
 
 ```python
@@ -124,14 +124,14 @@ In the loop, I use `j` to loop through every column in our table (the number of 
 for i in xrange(1, capacity + 1):
 ```
 
-Now I'm looping through every row in our table (starting from 1) for each column. Similar to the first loop, each row represents a different amount of capacity (row 1 represents capacity = 1, row 2 represents capacity = 2, and so on until the final row which represents the maximum capacity (11 in this case)). This is why I padded the table with an extra row and column.
+Now I'm looping through every row in our table (starting from 1) for each column. Similar to the first loop, each row represents a different amount of capacity (row 1 represents capacity = 1, row 2 represents capacity = 2, and so on until the final row which represents the maximum capacity -- 11 in this case). This is a result of padding the table with an extra row.
 
 That's all for the set up. How do we actually populate the table?
 
 
 ```python
 if weight > i:
-    table[i, j] = table[i, j-1]
+    table[i,j] = table[i,j-1]
 ```
 
 What's going on here? Since each row index represents the capacity for that row, if the `weight` of our current item is bigger than the index we can't fit it in the backpack. If that's the case, our best action is to just take the same item (or items) we had at this level of capacity before even considering this item. We get that value from the value in the same row one column to the left. If we're looking at the first item (column 1), this value is intuitively zero. The extra column allows me to grab the value of 0 from inside the table (column 0).
@@ -141,16 +141,16 @@ But what if we could fit the item in the backpack?
 
 ```python
 else:
-    table[i, j] = max(table[i, j-1], table[i-weight,j-1] + value)
+    table[i,j] = max(table[i,j-1], table[i-weight,j-1] + value)
 ```
 
-If we can fit the item, do we want to take it? Possibly. We want to take the new item if we'd have higher value at this current level of capacity by taking it than not taking it. So, how do we assess that? We've already seen that the `table[i, j-1]` represents the best value at this capacity with the previously seen items.
+If we can fit the item, do we want to take it? Possibly. We want to take the new item if we'd have higher value at this current level of capacity by taking it than not taking it. So, how do we assess that? We've already seen that the `table[i,j-1]` represents the best value at this capacity with the previously seen items.
 
 What does `table[i-weight,j-1] + value` really represent? `table[i-weight,j-1]` is the best value, before looking at the current item, at a capacity level just small enough for us to add in this new item.
 
-To understand how this works, imagine we're looking at the second item in our example (`j=2`), with value 4 and weight 3.
+To understand how this works, imagine we're looking at the second item in our item set (`j=2`), with value 4 and weight 3.
 
-We've filled in our table for the first item, with 0 value at capacity less than its weight and 8 value once we can hold it. This is what our table looks like.
+We've already filled in our table for the first item, with 0 value at capacity less than its weight and 8 value once we can hold it. This is what our table looks like.
 
 
     array([[ 0.,  0.,  0.,  0.,  0.],
@@ -168,12 +168,12 @@ We've filled in our table for the first item, with 0 value at capacity less than
 
 
 
-When `i < 3`, we clearly can't do better than the best value we had from this row looking at the first item (`table[i,1]`).
+When `i < 3`, we clearly can't do better than the maximum value we had from this row looking at the first item (`table[i,1]`). Since we couldn't fit the first item at these capacities either, our maximum value is still 0.
 
-When `i = 3`, we can now possibly take the 2nd item. Our best value from the first item in this row is `table[3,1]`, which equals 0 since we couldn't fit the item. If we made room to take this new item, we'd need to use 3 capacity up. 
+When `i = 3`, we can now possibly take the 2nd item. Our maximum value from the first item in this row is `table[3,1]`, which equals 0 since we couldn't fit the item (it had weight 4). If we made room to take this new item, we'd need to use 3 capacity up. 
 
 
-So our combined value would be the value at `table[3-3,1]` + the value of this new item. `table[0,1]` is 0, the new value is 4, so our best value when looking at the 2nd item is now `table[3,2]` is 4. Our table now looks like this:
+So our combined value would be the value at `table[3-3,1]` + the value of this new item. `table[0,1]` is 0, the new value is 4, so our best value when looking at the 2nd item is 4. Thus, `table[3,2]` becomes 4. Our table now looks like this:
 
 
     array([[ 0.,  0.,  0.,  0.,  0.],
@@ -228,7 +228,7 @@ As we move through the loop for this item (with increasing capacity size), we co
 
 
 
-At capacity 7 (`i=7`), we were able to choose between `8` (`table[7,1]`) and `table[7-3,1]` (which is 8) `+ 4 = 12` since we had the capacity to fit both items.
+At capacity 7 (i=7), we were able to choose between `table[7,1]` (value of 8) and `table[7-3,1]` + `value of item 2` (which is 8 + 4). since we had the capacity to fit both items. Since 12 > 8, we update our table accordingly.
 
 After doing this same assessment for every item, our best value table is in the bottom right corner.
 

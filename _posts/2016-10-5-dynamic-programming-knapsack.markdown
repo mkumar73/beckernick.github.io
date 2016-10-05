@@ -282,4 +282,4 @@ Looks like I put the second and fourth items in the knapsack to get the most val
 
 # Conclusion
 
-It's pretty clear that dynamic programming can help us find answers to problems that we couldn't otherwise solve. While this 4-item knapsack problem was a toy example, optimization problems are everywhere. Whether it's by calculating the optimal truck routes for a fleet of delivery vehicles or by determining the optimal emergency-vehicle routes after a snow storm, dynamic programming (and other optimization techniques) can help us get answers to problems that impact people's lives.
+It's pretty clear that dynamic programming can help us find answers to problems that we couldn't otherwise solve. While this 4-item knapsack problem was a toy example, optimization problems are everywhere. Whether it's by allowing us to calculate the optimal truck routes for a fleet of delivery vehicles or to determine the longest common patterns in sets of DNA sequences, dynamic programming (and other optimization techniques) can help us get answers to problems that impact people's lives.

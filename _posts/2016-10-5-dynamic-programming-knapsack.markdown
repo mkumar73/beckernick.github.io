@@ -228,7 +228,7 @@ As we move through the loop for this item (with increasing capacity size), we co
 
 
 
-At capacity 7 (i=7), we were able to choose between `table[7,1]` (value of 8) and `table[7-3,1]` + `value of item 2` (which is 8 + 4). since we had the capacity to fit both items. Since 12 > 8, we update our table accordingly.
+At capacity 7 (i=7), we were able to choose between `table[7,1]` (value of 8) and `table[7-3,1]` + `value of item 2` (which is 8 + 4), since we had the capacity to fit both items. Since 12 > 8, we update our table accordingly.
 
 After doing this same assessment for every item, our best value table is in the bottom right corner.
 
@@ -252,9 +252,7 @@ From the table, it's clear the most value we can carry in the knapsack is 19. Bu
 
 # Finding the Optimal Items
 
-For each item column (all but the 0th index column in the table), starting from the last column, check if the value in the row corresponding to the capacity we have remaining to use is different in the current column and the one before it. If they aren't, it means the item wasn't chosen, so mark the item as such. If they are different, mark the item as chosen and reduce the remaining capacity by the weight of that item. Due to this, the next iteration of the loop will be checking values in a different row.
-
-Continue until all item columns have been looped over.
+For each item column (all but the 0th index column in the table), starting from the last column, check if the value in the row corresponding to the capacity we have remaining to use is different in the current column and the one before it. If they aren't, it means the item wasn't chosen, so mark the item as such. If they are different, mark the item as chosen and reduce the remaining capacity by the weight of that item. Due to this, the next iteration of the loop will be checking values in the row corresponding to the updated amount of remaining capacity. Continue until all item columns have been looped over.
 
 
 ```python

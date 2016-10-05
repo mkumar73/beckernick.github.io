@@ -7,7 +7,7 @@ header:
   image: "yelp_reviews/yelp_logo.png"
   caption: "Photo credit: [**Yelp**](https://www.yelp.com/brand)"
 
-excerpt: "Code Focused. Logistic Regression, Stochastic Gradient Descent, Natural Language Processing"
+excerpt: "Logistic Regression, Stochastic Gradient Descent, Natural Language Processing"
 ---
 
 

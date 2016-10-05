@@ -7,7 +7,7 @@ header:
   image: "smartphone_accelerometer.jpg"
   caption: "Photo credit: [**MathWorks**](http://www.mathworks.com/hardware-support/android-sensor.html)"
 
-excerpt: "Code Focused. Human Activity Classification, Accelerometers, Support Vector Machines"
+excerpt: "Human Activity Classification, Accelerometers, Support Vector Machines"
 ---
 
 How does my Fitbit track my steps? I always assumed it was pretty accurate, but I never actually knew how it worked.

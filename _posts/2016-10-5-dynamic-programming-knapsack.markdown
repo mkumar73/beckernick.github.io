@@ -7,7 +7,7 @@ header:
   image: "dynamic_programming_knapsack/vietnam_water_boat.jpg"
   caption: "Photo credit: Ginny Lehman"
 
-excerpt: "Dynamic Programming, Knapsack Problem, Discrete Optimization, Python"
+excerpt: "Dynamic Programming, Knapsack Problem, Discrete Optimization"
 ---
 
 One of the quintessential programs in discrete optimization is the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem). The premise is simple. Given a knapsack with fixed weight capacity and a set of items with associated values and weights:

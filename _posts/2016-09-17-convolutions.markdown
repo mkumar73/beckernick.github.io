@@ -7,7 +7,7 @@ header:
   image: "convolutions/lion_edges_header.png"
   caption: "Photo credit: [**Original Photo: Wikia, Edited by Nick Becker**](http://grayscale.wikia.com/wiki/File:Lion.png)"
 
-excerpt: "Code Focused. Convolution, Image Processing, TensorFlow"
+excerpt: "Image Convolution, Image Processing, TensorFlow"
 ---
 
 Deep learning is all the rage right now. Convolutional neural networks are particularly hot, achieving state of the art performance on image recognition, text classification, and even drug discovery.

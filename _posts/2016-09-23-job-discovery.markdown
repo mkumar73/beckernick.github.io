@@ -7,7 +7,7 @@ header:
   image: "indeed_scraping/job_discovery_header.jpg"
   caption: "Photo credit: [**Novartis**](https://www.nibr.com/files/job-discovery-0)"
 
-excerpt: "Code Focused. Job Discovery, Web Scraping, Indeed.com"
+excerpt: "Job Discovery, Web Scraping, Indeed.com"
 ---
 
 I'm getting ready to start looking for a new job (my term at the Federal Reserve Board lasts 2 years), so I've been trying to reflect on what's important to me in a job. I could write thousands of words about how I want to challenge myself intellectually, make a difference in people's lives, work with smart and passionate people, and many other things -- but I won't.

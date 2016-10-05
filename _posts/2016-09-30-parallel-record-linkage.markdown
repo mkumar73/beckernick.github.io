@@ -7,7 +7,7 @@ header:
   image: "record_linkage/hongkong_skyline.jpg"
   caption: "Photo credit: Ginny Lehman"
 
-excerpt: "Parallel Programming, Record Linkage, Synthetic Data, Python"
+excerpt: "Parallel Programming, Record Linkage, Synthetic Data"
 ---
 
 When dealing with data from different sources, whether the data are from surveys, internal data, external data vendors, or scraped from the web, we often want to link people or companies across the datasets. Unfortunately, we almost never start with perfectly clean data.

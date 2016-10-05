@@ -4,7 +4,7 @@ date:   2016-10-05
 tags: [optimization]
 
 header:
-  image: "record_linkage/hongkong_skyline.jpg"
+  image: "dynamic_programming_knapsack/vietnam_water_boat.jpg"
   caption: "Photo credit: Ginny Lehman"
 
 excerpt: "Dynamic Programming, Knapsack Problem, Discrete Optimization, Python"

@@ -106,7 +106,7 @@ table
 
 
 
-Okay. How did we actually populate this optimal value table. Let's break down exactly what the code does.
+Okay. How did we actually populate this optimal value table? Let's break down exactly what the code does.
 
 First, we create a loop to go through each column of the table (each column represents an item in our knapsack). In our case, we want to iterate from `1` to the `num_items + 1` times since we padded our array for easier calculation (now column index 1 represents item 1, column index 2 represents item 2, and so on).
 

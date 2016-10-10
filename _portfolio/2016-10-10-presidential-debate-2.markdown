@@ -10,7 +10,7 @@ header:
 excerpt: "Presidential Debate Visualization"
 ---
 
-The presidential debates between Trump and Clinton have been interesting, to say the least. I decided to take the transcript of the debate and make a wordcloud of what each candidate said. They're similar, but have some clear differences.
+The presidential debates between Trump and Clinton have been interesting, to say the least. I decided to take the [transcript](http://www.politico.com/story/2016/10/2016-presidential-debate-transcript-229519) of the debate and make a wordcloud of what each candidate said. They're similar, but have some clear differences.
 
 ***
 Trump's Debate Wordcloud

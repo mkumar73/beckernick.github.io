@@ -12,18 +12,12 @@ excerpt: "Presidential Debate Visualization"
 
 The presidential debates between Trump and Clinton have been interesting, to say the least. I decided to take the [transcript](http://www.politico.com/story/2016/10/2016-presidential-debate-transcript-229519) of the debate and make a wordcloud of what each candidate said. They're similar, but have some clear differences.
 
-***
-Trump's Debate Wordcloud
+One thing in particular these wordclouds highlight is that Trump seems to "know" things while Clinton seems to "think" things. Without going too far into the weeds, that distinction seems like it might be meaningful.
 
+***
 
 ![](/images/debate_images/trump_debate2_wordcloud.png?raw=true)
 
-
-Clinton's Debate Wordcloud
-
-![](/images/debate_images/clinton_debate2_wordcloud.png?raw=true)
-
-
 ***
 
-One thing in particular these wordclouds highlight is that Trump seems to "know" things while Clinton seems to "think" things. Without going too far into the weeds, that distinction seems like it might be meaningful.
+![](/images/debate_images/clinton_debate2_wordcloud.png?raw=true)

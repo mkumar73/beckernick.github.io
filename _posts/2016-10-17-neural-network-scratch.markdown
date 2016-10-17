@@ -34,7 +34,7 @@ Before designing a network, though, I need some data to play with.
 
 # Generating Data
 
-To start off, I'll create a dataset with several mostly separable clusters of points. Though how clear the clusters are doesn't really affect how I'm going to build the network, my ego makes me want to ultimately have a successful model. I can easily generate random clusters of data by sampling from a multivariate normal distribution centered at different points. I'll use difference different matrices just because it's more fun.
+To start off, I'll create a dataset with several mostly separable clusters of points. Though how clear the clusters are doesn't really affect how I'm going to build the network, my ego makes me want to ultimately have a successful model. I can easily generate random clusters of data by sampling from a multivariate normal distribution centered at different points. I'll use difference covariance matrices just because it's more fun.
 
 
 ```python

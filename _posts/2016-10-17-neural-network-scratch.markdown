@@ -284,7 +284,7 @@ Either way, it's not that hard to calculate the total cross entropy for the pred
 
 $$\begin{equation}
 H(p,q)=-\sum _{x}1\times\log q(x)
-\end{equation}$$,
+\end{equation}$$
 
 We'll use this to calculate the loss for every observation, and then take the average to be the overall loss.
 
@@ -317,7 +317,7 @@ def regularization_L2_softmax_loss(reg_lambda, weight1, weight2):
 
 At this point, we've finished with the feed-forward part of the model. We can take raw data, get the predictions from the model, and calculate the error (loss). What we haven't done is design a way to modify the weights, based on our predictions, that tries to reduce the loss on our next prediction with the updated weights.
 
-We do this by something called backpropagation. It's a very simple concept that's surprisingly difficult to wrap your head around mathematically at first. I spent a couple of days reading lecture notes and processing the math derivations until I was actually able to code it myself on any arbitrary network architecture.
+We do this by something called backpropagation. It's a very simple concept that's surprisingly difficult to wrap your head around mathematically at first. I spent a couple of days reading lecture notes and processing the math derivations until I was able to confidently code it myself on any arbitrary network architecture.
 
 ## Backpropagation Discussion (Warning: Wall of Text)
 
@@ -327,9 +327,9 @@ Okay, so what is backpropagation? And why do we do it?
 
 Backprop is a method for calculating the gradient of the model's error with respect to every weight in the model. We do it so that we can slightly update each weight via gradient descent in order to reduce the model's error.
 
-With some effort, it's possible to show that **the gradient of the error with respect to any given weight is the activated values array at the layer from which the weight originates multiplied by the error signal at the layer at which the weight ends**. So, the error gradient for `layer2_weights_array` would be the `hidden_layer` values times the error signal of the softmaxed `output_layer`.
+With some effort, it's possible to show that **the gradient of the error with respect to any given weight is the activated values array at the layer from which the weight originates matrix multiplied by the error signal at the layer at which the weight ends**. So, the error gradient for `layer2_weights_array` would be the `hidden_layer` values times the error signal of the softmaxed `output_layer`.
 
-But how do we backpropagate the error? We'd need the error signals at any given layer. Fortunately, we can also calculate the error signal at any given layer so long as we have the output error. A key derivation in the backprop math illustrates that the **error signal at the end of a given layer is the matrix multiplication of the error signal from the next layer in the network and the transpose of the weights coming out of the current layer. This is then multiplied by the derivative of the layer's activation function.** This is why the backprop algorithm is often called an application of the chain rule. You can nest these linear algebra calculations to get the error signal at any layer.
+But how do we backpropagate the error? We'd need the error signals at any given layer. Fortunately, we can also calculate the error signal at any given layer so long as we have the output error. A key derivation in the backprop math illustrates that the **error signal at the end of a given layer is the matrix multiplication of the error signal from the next layer in the network and the transpose of the weights coming out of the current layer. This is then multiplied by the derivative of the layer's activation function.** This is why the backprop algorithm is often called an application of the chain rule. You can nest these calculations to get the error signal at any layer.
 
 I'm not going to walk through the math here. But I will list a few resources that go through the math in detail.
 
@@ -350,7 +350,7 @@ With this general framework, we can update all the weights and biases by their r
 End of wall of text. Now I can implement the algorithm on my network.
 
 ## Implementing Backpropagation
-First, I'll calculate the error signal at the output, `output_error_signal`. I'll use the network output array `output_probs` (the softmaxed output of my network) and the labels array `labels_onehot`. Since the network error is the average of every individual loss, I need to divide the difference of those two matrices by the number of observations to get the true error signal matrix (just like I did when calculating the loss with the `cross_entropy_softmax_loss_array` function).
+First, I'll calculate the error signal at the output, `output_error_signal`. I'll use the network output array `output_probs` (the softmaxed output of my network) and the labels array `labels_onehot`. Since the network error is the average of every individual loss, I need to divide the difference of those two matrices by the number of observations to get the true error signal matrix (just like I did when calculating the loss with the `cross_entropy_softmax_loss_array` function) since the model's loss is an average of all the observation's losses.
 
 
 ```python
@@ -381,7 +381,7 @@ gradient_layer1_weights = np.dot(data.T, error_signal_hidden)
 gradient_layer1_bias = np.sum(error_signal_hidden, axis = 0, keepdims = True)
 ```
 
-Now I just add each weights regularization contribution to the respective gradients, and I'm ready to update the weights and biases. Since I want to move in the negative gradient direction, I subtract the gradient (times the learning rate) from the weights and biases.
+Now I just add each weight's regularization contribution to the respective gradients, and I'm ready to update the weights and biases. Since I want to move in the negative gradient direction, I subtract the gradient (times the learning rate) from the weights and biases.
 
 
 ```python
@@ -406,12 +406,12 @@ The proceeding code is just the combination of everything I've written above, wr
 
 
 ```python
-data = train_dataset
-labels = train_labels
+training_data = train_dataset
+training_labels = train_labels
 
 hidden_nodes = 5
-num_labels = labels.shape[1]
-num_features = data.shape[1]
+num_labels = training_labels.shape[1]
+num_features = training_data.shape[1]
 learning_rate = .01
 reg_lambda = .01
 
@@ -425,15 +425,15 @@ layer2_biases_array = np.zeros((1, num_labels))
 
 for step in xrange(5001):
 
-    input_layer = np.dot(data, layer1_weights_array)
+    input_layer = np.dot(training_data, layer1_weights_array)
     hidden_layer = relu_activation(input_layer + layer1_biases_array)
     output_layer = np.dot(hidden_layer, layer2_weights_array) + layer2_biases_array
     output_probs = softmax(output_layer)
     
-    loss = cross_entropy_softmax_loss_array(output_probs, labels)
+    loss = cross_entropy_softmax_loss_array(output_probs, training_labels)
     loss += regularization_L2_softmax_loss(reg_lambda, layer1_weights_array, layer2_weights_array)
 
-    output_error_signal = (output_probs - labels) / output_probs.shape[0]
+    output_error_signal = (output_probs - training_labels) / output_probs.shape[0]
     
     error_signal_hidden = np.dot(output_error_signal, layer2_weights_array.T) 
     error_signal_hidden[hidden_layer <= 0] = 0
@@ -441,7 +441,7 @@ for step in xrange(5001):
     gradient_layer2_weights = np.dot(hidden_layer.T, output_error_signal)
     gradient_layer2_bias = np.sum(output_error_signal, axis = 0, keepdims = True)
     
-    gradient_layer1_weights = np.dot(data.T, error_signal_hidden)
+    gradient_layer1_weights = np.dot(training_data.T, error_signal_hidden)
     gradient_layer1_bias = np.sum(error_signal_hidden, axis = 0, keepdims = True)
 
     gradient_layer2_weights += reg_lambda * layer2_weights_array
@@ -457,15 +457,7 @@ for step in xrange(5001):
 ```
 
     Loss at step 0: 2.97031571897
-    Loss at step 500: 0.673303759714
-    Loss at step 1000: 0.50385603856
-    Loss at step 1500: 0.413345370767
-    Loss at step 2000: 0.352679496247
-    Loss at step 2500: 0.311172228173
-    Loss at step 3000: 0.282550476557
-    Loss at step 3500: 0.262262349711
-    Loss at step 4000: 0.247447053984
-    Loss at step 4500: 0.236261744427
+    [...]
     Loss at step 5000: 0.227432713332
 
 
@@ -495,14 +487,6 @@ predictions = np.argmax(probs, axis = 1)
 plt.figure(figsize = (12, 8))
 plt.scatter(test_dataset[:, 0], test_dataset[:, 1], c = predictions == labels_flat - 1, alpha = .8, s = 50)
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x12842f290>
-
-
-
 
 ![png](/images/neural_network_from_scratch/output_57_1.png?raw=True)
 

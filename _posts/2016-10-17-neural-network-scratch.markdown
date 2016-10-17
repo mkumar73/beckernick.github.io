@@ -470,10 +470,10 @@ input_layer = np.dot(test_dataset, layer1_weights_array)
 hidden_layer = relu_activation(input_layer + layer1_biases_array)
 scores = np.dot(hidden_layer, layer2_weights_array) + layer2_biases_array
 probs = softmax(scores)
-print accuracy(probs, test_labels)
+print 'Test accuracy: {0}%'.format(accuracy(probs, test_labels))
 ```
 
-    96.4
+    Test accuracy: 96.4%
 
 
 Nearly identical to the results from Tensorflow! Even though my model was slower, it still did well!

@@ -7,5 +7,5 @@ header:
   image: "neural_network_scratch/neural_network_hidden.png"
   caption: "Photo credit: Wikipedia User Glosser.ca"
 
-excerpt: "Image Convolution, Image Processing, TensorFlow"
+excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
 ---

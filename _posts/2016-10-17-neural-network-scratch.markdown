@@ -476,7 +476,7 @@ print 'Test accuracy: {0}%'.format(accuracy(probs, test_labels))
     Test accuracy: 96.4%
 
 
-Nearly identical to the results from Tensorflow! Even though my model was slower, it still did well!
+Nearly identical to the results from Tensorflow! Even though my model was slower, it still works.
 
 Let's plot the correct predictions in blue and the incorrect ones in red.
 

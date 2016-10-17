@@ -272,10 +272,8 @@ def softmax(output_array):
 ## Loss Function
 Since we're using calculating softmax values, we'll calculate the cross entropy loss for every observation: 
 
-$$\begin{equation}
-\H(p,q)=-\sum _{x}p(x)\,\log q(x)
-\end{equation}$$
-
+$$\begin{equation}H(p,q)=-\sum _{x}p(x)\,\log q(x)\end{equation}$$
+t
 where _p(x)_ is the target label and _q(x)_ is the predicted probability of that label for a given observation.
 
 I don't have the knowledge to give a really good explanation of cross entropy, but it's essentially a measure of the similarity between two distributions. Chris Olah (Google Brain) has an awesome explanation of various information theory concepts (which includes cross entropy) [here](http://colah.github.io/posts/2015-09-Visual-Information/). In the case of a neural network, it's a measure of how similar the predicted probabilities for the correct target class are to the actual target values.

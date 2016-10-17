@@ -272,9 +272,9 @@ def softmax(output_array):
 ## Loss Function
 Since we're using calculating softmax values, we'll calculate the cross entropy loss for every observation: 
 
-\begin{equation}
+$$\begin{equation}
 H(p,q)=-\sum _{x}p(x)\,\log q(x).\!
-\end{equation},
+\end{equation}$$,
 
 where _p(x)_ is the target label and _q(x)_ is the predicted probability of that label for a given observation.
 
@@ -282,9 +282,9 @@ I don't have the knowledge to give a really good explanation of cross entropy, b
 
 Either way, it's not that hard to calculate the total cross entropy for the predicted probabilities. Since our target value for every observation is one, we can effectively ignore that part of the loss, making the loss for every individual observation:
 
-\begin{equation}
+$$\begin{equation}
 H(p,q)=-\sum _{x}1\times\log q(x).\!
-\end{equation}
+\end{equation}$$
 
 We'll use this to calculate the loss for every observation, and then take the average to be the overall loss.
 
@@ -300,9 +300,9 @@ def cross_entropy_softmax_loss_array(softmax_probs_array, y_onehot):
 
 To avoid overfitting in predictive modeling, we often use L2 regularization. This kind of regularization works by squashing weights closer to zero, and it also contributes to the total loss of the model. So we need a function to calculate the regularization loss. Fortunately, L2 regulariation loss has a simple formula:
 
-\begin{equation}
+$$\begin{equation}
 0.5\timesλ \times weights^2
-\end{equation}
+\end{equation}$$
 for every array of weights in the model.
 
 So I'll define a second function to calculate the regularization loss. I didn't do this in the Tensorflow model, but for a more complex problem I really should.

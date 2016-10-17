@@ -273,8 +273,8 @@ def softmax(output_array):
 Since we're using calculating softmax values, we'll calculate the cross entropy loss for every observation: 
 
 $$\begin{equation}
-H(p,q)=-\sum _{x}p(x)\,\log q(x)
-\end{equation}$$,
+\H(p,q)=-\sum _{x}p(x)\,\log q(x)
+\end{equation}$$
 
 where _p(x)_ is the target label and _q(x)_ is the predicted probability of that label for a given observation.
 

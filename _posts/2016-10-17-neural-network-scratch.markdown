@@ -284,7 +284,7 @@ Either way, it's not that hard to calculate the total cross entropy for the pred
 
 $$\begin{equation}
 H(p,q)=-\sum _{x}1\times\log q(x)
-\end{equation}$$
+\end{equation}$$,
 
 We'll use this to calculate the loss for every observation, and then take the average to be the overall loss.
 

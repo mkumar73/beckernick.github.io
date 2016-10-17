@@ -79,8 +79,9 @@ In general, I would want train a predictive model with a validation dataset or b
 labels_onehot = np.zeros((simulated_labels.shape[0], 3)).astype(int)
 labels_onehot[np.arange(len(simulated_labels)), simulated_labels.astype(int)] = 1
 
-train_dataset, test_dataset, train_labels, test_labels = train_test_split(simulated_separableish_features,
-                                                                          labels_onehot, test_size = .1, random_state=12)
+train_dataset, test_dataset, \
+train_labels, test_labels = train_test_split(
+    simulated_separableish_features, labels_onehot, test_size = .1, random_state = 12)
 ```
 
 With the data split, it's time to train the model.
@@ -175,20 +176,12 @@ with tf.Session(graph=graph) as session:
 ```
 
     Minibatch loss at step 0: 10.4225320816
-    Minibatch loss at step 1000: 0.41565027833
-    Minibatch loss at step 2000: 0.254470437765
-    Minibatch loss at step 3000: 0.216733917594
-    Minibatch loss at step 4000: 0.169398501515
-    Minibatch loss at step 5000: 0.1574626863
-    Minibatch loss at step 6000: 0.138239994645
-    Minibatch loss at step 7000: 0.0901687443256
-    Minibatch loss at step 8000: 0.0652273818851
-    Minibatch loss at step 9000: 0.0905538350344
+    [...]
     Minibatch loss at step 10000: 0.103610478342
     Test accuracy: 96.2666666667%
 
 
-And the network is excellent. This makes sense, since the data is nearly separable, but it's still cool to see that it works.
+The network is excellent. This makes sense, since the data is nearly separable, but it's still cool to see that it works.
 
 This was pretty simple in Tensorflow, because it allows me to build the network at a high level of abstraction. I don't need to know how to code an activation function, calculate the loss, or update the parameter weights by error backpropagation to use the model.
 
@@ -211,6 +204,8 @@ Where to begin? Well, for a neural network, I need:
 ## Model Architecture
 
 Because my network structure determines the weights and biases array shapes, I'll start by defining the model's architecture using the example network picture from [wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/2000px-Colored_neural_network.svg.png) I used at the top of this post.
+
+![png](/images/neural_network_from_scratch/neural_network_hidden.png?raw=True)
 
 Each black arrow represents one weight vector, and the three layers are labeled clearly. We can represent all of the weights at any layer as an array of the individual weight vectors. A basic, three-layer network has two sets of weights arrays and bias vectors. There's no bias in the image, but the bias vectors don't change the architecture in any meaningful way (they just get added in to change the neuron's threshold). The way to go from the input to the output: 
 

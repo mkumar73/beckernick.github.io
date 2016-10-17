@@ -218,7 +218,7 @@ Once we have the output, we apply some kind of normalization function in order t
 With the basic architecture defined, I can start initializing my weights and biases.
 
 ## Weights and Biases
-Since the network is all about matrix multiplication, I need the array shapes to allow for matrix multiplication. I'll first define variables to represdent the number of hidden nodes, the number of features, and the number of output labels.
+Since the network is all about matrix multiplication, I need the array shapes to allow for matrix multiplication. I'll first define variables to represent the number of hidden nodes, the number of features, and the number of output labels. The number of hidden nodes is a hyperparameter I could tune with cross-validation, but for a dataset as simple as mine it won't matter that much.
 
 
 ```python
@@ -227,7 +227,7 @@ num_features = data.shape[1]
 num_labels = labels.shape[1]
 ```
 
-With these, I can initialize starting weights and biases for the network. I need to matrix multiply the first set of weights with the input data, which has shape `(number of observations x num_features)`. So `num_features` needs to be a dimension. But, since the output of that calculation defines the hidden layer, I also need to end up with an array that represents my chosen number of `hidden_nodes` vectors collectively. So I need my layer 1 weights array to have a shape of `(num_features x hidden_nodes)`. The layer 1 bias array gets added to the input layer, so it needs to have shape `(1, hidden_nodes)` for the math to line up.
+With these, I can initialize starting weights and biases for the network. I need to matrix multiply the first set of weights with the input data, which has shape `(number of observations x num_features)`. So `num_features` needs to be a dimension of the weights array. But, since the output of that calculation defines the hidden layer, I also need to end up with an array that represents my chosen number of `hidden_nodes` vectors collectively. So I need my layer 1 weights array to have a shape of `(num_features x hidden_nodes)`. The layer 1 bias array gets added to the input layer, so it needs to have shape `(1, hidden_nodes)` for the math to line up.
 
 The same logic determines the shapes of the weights and bias arrays, except instead of starting from the raw data and going to the hidden layer, we're going from the hidden layer and going to the output. We want the output to have one neuron for each possible class, so `layer2_weights_array` needs shape `(hidden_nodes, num_labels)`. The layer 2 bias array gets added to the output layer, so it needs to have shape `(1, hidden_nodes)`.
 
@@ -241,7 +241,7 @@ layer2_biases_array = np.zeros((1, num_labels))
 ```
 
 ## ReLU Activiation
-Okay, now I need the activiation function I'm going to use to get the output at the hidden layer. The ReLU (Rectified Linear Unit) is a commonly chosen function because of several mathematical advantages (see [here](https://en.wikipedia.org/wiki/Rectifier_(neural_networks) for details). It's a simple function that has `output = 0` for any `input < 0` and `output = input` for any `input >= 0`. I can code that easily.
+Okay, now I need the activiation function I'm going to use to get the output at the hidden layer. The ReLU (Rectified Linear Unit) is a commonly chosen function because of several mathematical advantages (see [here](https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) for details). It's a simple function that has `output = 0` for any `input < 0` and `output = input` for any `input >= 0`. I can code that easily.
 
 
 ```python

@@ -16,7 +16,7 @@ This is Part 2 of a 3 post series on [Convolutional Neural Networks](https://en.
 
 Let me say at the outset that this post will be similar to several other posts by a few people walking through neural networks (Google's Tensorflow tutorials, Andrej Karpathy's lecture notes, and others's posts). This somewhat begs the question: why make this post?.
 
-The main reason is that doing this on my own will **signifcantly** improve my understanding of neural networks. By actually trying to build a neural network from scratch, I went from a high-level, general understanding of neural networks to a detailed, low-level understanding.
+The main reason is that doing this on my own will **signifcantly** improve my understanding of neural networks. By actually trying to build a neural network from scratch, I went from a general, high-level understanding of neural networks to a detailed, low-level understanding.
 
 The secondary reason is that, if I phrase things slightly differently and someone is able to understand neural networks a little better by reading this in addition to the other (vastly superior) resources, this was worth putting out there.
 

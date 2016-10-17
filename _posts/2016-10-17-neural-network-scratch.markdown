@@ -55,20 +55,13 @@ x2 = np.random.multivariate_normal([1, 4], [[1, .75],[.75, 1]], num_observations
 x3 = np.random.multivariate_normal([2, 8], [[0, .75],[.75, 0]], num_observations)
 
 simulated_separableish_features = np.vstack((x1, x2, x3)).astype(np.float32)
-simulated_labels = np.hstack((np.zeros(num_observations), np.ones(num_observations), np.ones(num_observations) + 1))
+simulated_labels = np.hstack((np.zeros(num_observations),
+							  np.ones(num_observations), np.ones(num_observations) + 1))
 
 plt.figure(figsize=(12,8))
 plt.scatter(simulated_separableish_features[:, 0], simulated_separableish_features[:, 1],
             c = simulated_labels, alpha = .4)
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x130237490>
-
-
-
 
 ![png](/images/neural_network_from_scratch/output_6_1.png?raw=True)
 

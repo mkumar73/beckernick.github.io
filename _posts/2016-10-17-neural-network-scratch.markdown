@@ -254,9 +254,9 @@ When we think about a model choosing between various output classes for a single
 
 The softmax function is:
 
-\begin{equation}
+$$\begin{equation}
 \sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}} for j = 1, …, K
-\end{equation}
+\end{equation}$$
 
 where `z` represents the values from the output layer (in our case) and `K` represents the number of output classes.
 

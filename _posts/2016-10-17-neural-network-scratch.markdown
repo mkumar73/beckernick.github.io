@@ -265,7 +265,7 @@ It's also very easy to implement this.
 
 ```python
 def softmax(output_array):
-    logits_exp = np.exp(output_array.astype(np.float32))
+    logits_exp = np.exp(output_array)
     return logits_exp / np.sum(logits_exp, axis = 1, keepdims = True)
 ```
 
@@ -273,7 +273,7 @@ def softmax(output_array):
 Since we're using calculating softmax values, we'll calculate the cross entropy loss for every observation: 
 
 $$\begin{equation}
-H(p,q)=-\sum _{x}p(x)\,\log q(x).\!
+H(p,q)=-\sum _{x}p(x)\,\log q(x)
 \end{equation}$$,
 
 where _p(x)_ is the target label and _q(x)_ is the predicted probability of that label for a given observation.
@@ -283,7 +283,7 @@ I don't have the knowledge to give a really good explanation of cross entropy, b
 Either way, it's not that hard to calculate the total cross entropy for the predicted probabilities. Since our target value for every observation is one, we can effectively ignore that part of the loss, making the loss for every individual observation:
 
 $$\begin{equation}
-H(p,q)=-\sum _{x}1\times\log q(x).\!
+H(p,q)=-\sum _{x}1\times\log q(x)
 \end{equation}$$
 
 We'll use this to calculate the loss for every observation, and then take the average to be the overall loss.

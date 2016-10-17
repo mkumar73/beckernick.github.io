@@ -4,7 +4,7 @@ date:   2016-10-17
 tags: [neural networks]
 
 header:
-  image: "neural_network_scratch/neural_network_hidden.png"
+  image: "neural_network_from_scratch/neural_network_hidden.png"
   caption: "Photo Credit: Wikipedia User Glosser.ca"
 
 excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
@@ -70,7 +70,7 @@ plt.scatter(simulated_separableish_features[:, 0], simulated_separableish_featur
 
 
 
-![png](output_6_1.png)
+![png](/images/neural_network_from_scratch/output_6_1.png?raw=True)
 
 
 Okay, so the dataset looks good. Time to get it ready for tensorflow.
@@ -516,7 +516,7 @@ plt.scatter(test_dataset[:, 0], test_dataset[:, 1], c = predictions == labels_fl
 
 
 
-![png](output_57_1.png)
+![png](/images/neural_network_from_scratch/output_57_1.png?raw=True)
 
 
 As expected, the model makes a few mistakes near the cluster boundaries, but does very well otherwise.

@@ -14,7 +14,7 @@ This is Part 2 of a 3 part series on [Convolutional Neural Networks](https://en.
 
 [Part 1](https://beckernick.github.io/convolutions/) detailed the basics of image convolution. This post will detail the basics of standard neural networks with hidden layers. As in the last post, I'll implement the code in both standard Python and TensorFlow.
 
-Let me say at the outset that this post will be similar to several other posts by a few people walking through neural networks (Google's Tensorflow tutorials, Andrej Karpathy's lecture notes, and others's posts). This somewhat begs the question: why make this post?.
+Let me say at the outset that this post will be similar to several other posts walking through neural networks (Google's Tensorflow tutorials, Andrej Karpathy's lecture notes, and others's posts). This somewhat begs the question: why make this post?
 
 The main reason is that doing this on my own will **signifcantly** improve my understanding of neural networks. By actually trying to build a neural network from scratch, I went from a general, high-level understanding of neural networks to a detailed, low-level understanding.
 

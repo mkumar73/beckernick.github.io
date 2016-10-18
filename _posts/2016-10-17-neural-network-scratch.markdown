@@ -209,11 +209,11 @@ Because my network structure determines the weights and biases array shapes, I'l
 
 Each black arrow represents one weight vector, and the three layers are labeled clearly. We can represent all of the weights at any layer as an array of the individual weight vectors. A basic, three-layer network has two sets of weights arrays and bias vectors. There's no bias in the image, but the bias vectors don't change the architecture in any meaningful way (they just get added in to change the neuron's threshold). The way to go from the input to the output: 
 
-1. Apply the first layer's weights to the raw data (via matrix multiplication) and add a bias vector. I'll call this the input layer.
-2. Apply one of many activiation functions to that matrix, resulting in the hidden layer.
+1. Apply the first layer's weights to the raw data (via matrix multiplication). I'll call this the input layer.
+2. Add a bias vector and apply one of many activiation functions to that new matrix, resulting in the hidden layer.
 3. Apply the second layer's weights to the hidden layer matrix and add a bias vector. I'll call this the output layer.
 
-Once we have the output, we apply some kind of normalization function in order to let the output values represent a probabilitiy distribution. A very common choice is the softmax function, because it's easily differentiable.
+Once we have the output layer, we apply some kind of normalization function in order to let the output values represent a probabilitiy distribution. A very common choice is the softmax function, because it's easily differentiable and intuitively fits classification tasks.
 
 With the basic architecture defined, I can start initializing my weights and biases.
 

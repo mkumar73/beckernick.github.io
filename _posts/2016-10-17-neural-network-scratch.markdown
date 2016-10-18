@@ -1,5 +1,5 @@
 ---
-title:  "Building Neural Networks from Scratch and in Tensorflow"
+title:  "Building Neural Networks from Scratch and in TensorFlow"
 date:   2016-10-17
 tags: [neural networks]
 
@@ -12,7 +12,7 @@ excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
 
 This is Part 2 of a 3 part series on [Convolutional Neural Networks](https://en.wikipedia.org/wiki/Convolutional_neural_network).
 
-[Part 1](https://beckernick.github.io/convolutions/) detailed the basics of image convolution. This post will detail the basics of standard neural networks with hidden layers. As in the last post, I'll implement the code in both standard Python and Tensorflow.
+[Part 1](https://beckernick.github.io/convolutions/) detailed the basics of image convolution. This post will detail the basics of standard neural networks with hidden layers. As in the last post, I'll implement the code in both standard Python and TensorFlow.
 
 Let me say at the outset that this post will be similar to several other posts by a few people walking through neural networks (Google's Tensorflow tutorials, Andrej Karpathy's lecture notes, and others's posts). This somewhat begs the question: why make this post?.
 
@@ -28,7 +28,7 @@ I think a good way to think of a neural network is as a multi-layered decision s
 
 Decades of research have produced some pretty amazing insights into how we might want to manipulate and transform the data. Though neural networks have been around for a while, they went out of fashion for a couple of decades. A key insight that helped bring them back into the fold was a clever way to efficiently determine effective manipulations and transformations.
 
-Now, the research field is more active than ever before. People are developing unbelievably effective and advanced networks for tons of problems. I won't cover any advanced networks in this post, but there are sophisticated networks powering a good chunk of the technology we use today.
+Now, the research field is more active than ever before. People are developing unbelievably effective and sophisticated networks for tons of problems. I won't cover any of these networks in this post, but they are powering a good chunk of the technology we use today.
 
 Before designing a network, though, I need some data to play with.
 

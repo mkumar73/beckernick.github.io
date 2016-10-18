@@ -218,7 +218,7 @@ Once we have the output, we apply some kind of normalization function in order t
 With the basic architecture defined, I can start initializing my weights and biases.
 
 ## Weights and Biases
-Since the network is all about matrix multiplication, I need the array shapes to allow for matrix multiplication. I'll first define variables to represent the number of hidden nodes, the number of features, and the number of output labels. The number of hidden nodes is a hyperparameter I could tune with cross-validation, but for a dataset as simple as mine it won't matter that much.
+A neural network is all about matrix multiplication, so I need the array shapes to line-up correctly for matrix multiplication. I'll first define variables to represent the number of hidden nodes, the number of features, and the number of output labels. The number of hidden nodes is a hyperparameter I could tune with cross-validation, but for a dataset as simple as mine it won't matter that much.
 
 
 ```python
@@ -227,7 +227,7 @@ num_features = data.shape[1]
 num_labels = labels.shape[1]
 ```
 
-With these, I can initialize starting weights and biases for the network. I need to matrix multiply the first set of weights with the input data, which has shape `(number of observations x num_features)`. So `num_features` needs to be a dimension of the weights array. But, since the output of that calculation defines the hidden layer, I also need to end up with an array that represents my chosen number of `hidden_nodes` vectors collectively. So I need my layer 1 weights array to have a shape of `(num_features x hidden_nodes)`. The layer 1 bias array gets added to the input layer, so it needs to have shape `(1, hidden_nodes)` for the math to line up.
+With these, I can initialize starting weights and biases for the network. Since the key idea behind a neural network is to iteratively improve the weights, I can just start with random weights (there are some smart ways to initialize, but random is usually fine). I need to matrix multiply the first set of weights with the input data, which has shape `(number of observations x num_features)`. So `num_features` needs to be a dimension of the weights array. But, since the output of that calculation defines the hidden layer, I also need to end up with an array that represents my chosen number of `hidden_nodes` vectors collectively. So I need my layer 1 weights array to have a shape of `(num_features x hidden_nodes)`. The layer 1 bias array gets added to the input layer, so it needs to have shape `(1, hidden_nodes)` for the math to line up.
 
 The same logic determines the shapes of the weights and bias arrays, except instead of starting from the raw data and going to the hidden layer, we're going from the hidden layer and going to the output. We want the output to have one neuron for each possible class, so `layer2_weights_array` needs shape `(hidden_nodes, num_labels)`. The layer 2 bias array gets added to the output layer, so it needs to have shape `(1, hidden_nodes)`.
 

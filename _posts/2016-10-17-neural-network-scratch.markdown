@@ -231,7 +231,7 @@ With these, I can initialize starting weights and biases for the network. Since 
 
 But, since the output of that calculation defines the hidden layer, I also need to end up with an array that represents my chosen number of `hidden_nodes` vectors collectively. So I need my layer 1 weights array to have a shape of `(num_features x hidden_nodes)`. The layer 1 bias array gets added to the input layer, so it needs to have shape `(1, hidden_nodes)` for the math to line up.
 
-The same logic determines the shapes of the weights and bias arrays, except instead of starting from the raw data and going to the hidden layer, we're going from the hidden layer and going to the output. We want the output to have one neuron for each possible class, so `layer2_weights_array` needs shape `(hidden_nodes, num_labels)`. The layer 2 bias array gets added to the output layer, so it needs to have shape `(1, hidden_nodes)`.
+The same logic determines the shapes of the next weights and bias arrays, except instead of starting from the raw data and going to the hidden layer, we're going from the hidden layer and going to the output. We want the output to have one neuron for each possible class, so `layer2_weights_array` needs shape `(hidden_nodes, num_labels)`. The layer 2 bias array gets added to the output layer, so it needs to have shape `(1, hidden_nodes)`.
 
 
 ```python

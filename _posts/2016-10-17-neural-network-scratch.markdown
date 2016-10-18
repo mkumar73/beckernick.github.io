@@ -5,7 +5,7 @@ tags: [neural networks]
 
 header:
   image: "neural_network_from_scratch/butterfly.jpg"
-  caption: "Photo Credit: Wikipedia User Glosser.ca"
+  caption: "Photo Credit: Ginny Lehman"
 
 excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
 ---
@@ -203,7 +203,7 @@ Where to begin? Well, for a neural network, I need:
 
 ## Model Architecture
 
-Because my network structure determines the weights and biases array shapes, I'll start by defining the model's architecture using the example network picture from [wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/2000px-Colored_neural_network.svg.png) I used at the top of this post.
+Because my network structure determines the weights and biases array shapes, I'll start by defining the model's architecture using this example network from [wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/2000px-Colored_neural_network.svg.png).
 
 ![png](/images/neural_network_from_scratch/neural_network_hidden.png?raw=True)
 

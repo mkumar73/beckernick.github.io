@@ -4,7 +4,7 @@ date:   2016-10-17
 tags: [neural networks]
 
 header:
-  image: "neural_network_from_scratch/neural_network_hidden.png"
+  image: "neural_network_from_scratch/butterfly.jpg"
   caption: "Photo Credit: Wikipedia User Glosser.ca"
 
 excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"

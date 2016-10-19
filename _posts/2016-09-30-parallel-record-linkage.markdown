@@ -268,7 +268,7 @@ plt.legend(loc = 'best')
 
 As the size of the dataset increases, the time value of parallel processing increases. With small datasets, parallel processing isn't much faster. As the dataset gets larger, parallel processing is significantly faster. This makes sense. In order to execute the code in parallel, more actions have to be taken under the hood.
 
-The computer needs to divide the data, store metadata about the divisions, and recombine the data at the end. This is all in addition to mapping the function to the data. This takes non-zero time, so the benefit of parallel programming increases in the size of the dataset (the slope of the green line in the graph is shallower).
+The computer needs to divide the data, store metadata about the divisions, and recombine the data at the end. This is all in addition to mapping the function to the data. This takes non-zero time, so the benefit (in time saved) of parallel programming increases in the size of the dataset.
 
 # Conclusion
 

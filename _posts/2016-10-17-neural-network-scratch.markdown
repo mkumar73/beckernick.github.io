@@ -12,7 +12,7 @@ excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
 
 This is Part 2 of a 3 part series on [Convolutional Neural Networks](https://en.wikipedia.org/wiki/Convolutional_neural_network).
 
-[Part 1](https://beckernick.github.io/convolutions/) detailed the basics of image convolution. This post will detail the basics of standard neural networks with hidden layers. As in the last post, I'll implement the code in both standard Python and TensorFlow.
+[Part 1](https://beckernick.github.io/convolutions/) detailed the basics of image convolution. This post will detail the basics of neural networks with hidden layers. As in the last post, I'll implement the code in both standard Python and TensorFlow.
 
 Let me say at the outset that this post will be similar to several other posts walking through neural networks (Google's Tensorflow tutorials, Andrej Karpathy's lecture notes, and others's posts). This somewhat begs the question: why make this post?
 

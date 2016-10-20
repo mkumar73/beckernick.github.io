@@ -1,5 +1,5 @@
 ---
-title:  "Building a Neural Network from Scratch and in TensorFlow"
+title:  "Building a Neural Network from Scratch in Python and in TensorFlow"
 date:   2016-10-17
 tags: [neural networks]
 

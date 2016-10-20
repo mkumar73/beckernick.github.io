@@ -24,9 +24,9 @@ Okay. Enough introduction. Time to briefly and poorly explain what neural networ
 
 # What is a Neural Network?
 
-I think a good way to think of a neural network is as a multi-layered decision system. Information is fed into the network, manipulated and transformed, then fed into the second layer, manipulated and transformed again, and so on until a decision is made after the final transformation. The key to the network, then, is figuring out effective manipulations and transformations of the data to get good decisions.
+I think a good way to think of a neural network is as a multi-layered decision system. Information is fed into the network, linearly transformed and then non-linearly transformed, then fed into the second layer, linearly transformed and then non-linearly transformed again, and so on until a decision is made after the final transformation. The key to the network, then, is figuring out effective transformations of the data to get good decisions.
 
-Decades of research have produced some pretty amazing insights into how we might want to manipulate and transform the data. Though neural networks have been around for a while, they went out of fashion for a couple of decades. A key insight that helped bring them back into the fold was a clever way to efficiently determine effective manipulations.
+Decades of research have produced some pretty amazing insights into how we might want to transform the data. Though neural networks have been around for a while, they went out of fashion for a couple of decades. A key insight that helped bring them back into the fold was a clever way to efficiently determine effective linear transformations, given specified non-linear ones.
 
 Now, the research field is more active than ever before. People are developing unbelievably effective and sophisticated networks for tons of problems. I won't cover any of these networks in this post, but they are powering a good chunk of the technology we use today.
 

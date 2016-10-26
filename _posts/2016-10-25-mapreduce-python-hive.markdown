@@ -1,7 +1,7 @@
 ---
 title:  "Hadoop MapReduce in Python vs. Hive: Finding Common Wikipedia Words"
 date:   2016-10-25
-tags: [big data]
+tags: [parallel programming]
 
 header:
   image: "mapreduce_hive/tokyo_skytree.jpg"
@@ -104,9 +104,9 @@ But what if I wanted to get every Facebook user's most commonly used words durin
 
 The key idea is that no one aspect of this task is dependent on any other part (until the very final stage of getting the total count). Every time a word appears, I'm increasing the count by 1 regardless of what is happening elsewhere.
 
-If there were 320 million books in the world, you could imagine every person in the United States counting the word occurrence counts in one book. After everyone is finished, I could then add their answers together to get the word counts for all the books. In other words, I **_mapped_** the big task to lot of smaller independent workers, and then I **_reduced_** the many map outputs into the single answer I wanted.
+If there were 320 million books in the world, you could imagine every person in the United States counting the word occurrence counts in one book at the same time. After everyone is finished, I could then add their answers together to get the word counts for all the books. In other words, I **_mapped_** the big task to lot of smaller independent workers, and then I **_reduced_** the many map outputs into the single answer I wanted.
 
-That's all there is to it. Let's write MapReduce Python code.
+That's all there is to it, except we have fewer workers to use. Let's write MapReduce Python code.
 
 # MapReduce in Python
 

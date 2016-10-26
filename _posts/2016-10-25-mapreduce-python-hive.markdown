@@ -19,10 +19,7 @@ The wikipedia dataset comes from Emily Fox and Carlos Guestrin's Coursera [Machi
 
 ```python
 import pandas as pd
-```
 
-
-```python
 people_wiki_sample = pd.read_csv('/users/nickbecker/Python_Projects/hadoop/blog_example/people_wiki_sample.csv')
 people_wiki_sample.head()
 ```
@@ -190,7 +187,8 @@ This is a mouthful. It'd be inconveneint to have to type this every time.
 
 Fortunately, I can create an **alias** for the `hadoop jar ...` command to simplify things. I just need to put the following code in my ~/.bashrc file.
 
-```run_mapreduce() {
+```python
+run_mapreduce() {
     hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar 
         -mapper $1 -reducer $2 -file $1 -file $2 -input $3 -output $4
 }

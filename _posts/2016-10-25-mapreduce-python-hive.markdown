@@ -190,12 +190,13 @@ This is a mouthful. It'd be inconveneint to have to type this every time.
 
 Fortunately, I can create an **alias** for the `hadoop jar ...` command to simplify things. I just need to put the following code in my ~/.bashrc file.
 
-    run_mapreduce() {
-        hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar 
-            -mapper $1 -reducer $2 -file $1 -file $2 -input $3 -output $4
-    }
+```run_mapreduce() {
+    hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar 
+        -mapper $1 -reducer $2 -file $1 -file $2 -input $3 -output $4
+}
 
-    alias hs=run_mapreduce
+alias hs=run_mapreduce
+```
 
 Now, I can run Map/Reduce programs with `hs` and four keywords (corresponding to the $ inputs in the alias function).
 

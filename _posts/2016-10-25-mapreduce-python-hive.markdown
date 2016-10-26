@@ -142,7 +142,7 @@ import sys
 
 def reducer():
     word_count = 0
-    old_key = None
+    old_word = None
     
     for line in sys.stdin:
         data = line.strip().split("\t")
@@ -150,17 +150,17 @@ def reducer():
         if len(data) != 2:
             continue
         
-        current_key, value = data
+        current_word, value = data
         
-        if old_key and old_key != current_key:
-            print "{0}\t{1}".format(old_key, word_count)
+        if old_word and old_word != current_word:
+            print "{0}\t{1}".format(old_word, word_count)
             word_count = 0
         
-        old_key = current_key
+        old_word = current_word
         word_count += int(value)
     
-    if old_key != None:
-        print "{0}\t{1}".format(old_key, word_count)
+    if old_word != None:
+        print "{0}\t{1}".format(old_word, word_count)
     
 if __name__ == "__main__":
     reducer()
@@ -465,12 +465,11 @@ With the output in Python on my local machine, I can just continue with my analy
 
 Though I only dealt with counting words in this post, the MapReduce framework isn't just limited to natural language domains. Even some machine learning algorithms can be turned into MapReduce problems (see [this paper](http://papers.nips.cc/paper/3150-map-reduce-for-machine-learning-on-multicore.pdf) by Cheng-Tao Chu et. al for more information). If a data problem can be recast as a combination of the solutions to independent smaller subproblems, MapReduce may be able to help us get the answer faster.
 
-Since we can write MapReduce code in many programming languages, why bother with Hive? To keep it brief: **Abstraction saves coding time and mental bandwidth.** Though many people spend time optimizing their code's running time, they rarely spend time optimizing their code's design and implementation time.
+Since we can write MapReduce code in many programming languages, why bother with Hive? To keep it brief: **Abstraction saves coding time and mental bandwidth.** Though many people spend time optimizing their code's running time, fewer people spend time optimizing their code's design and implementation time.
 
 When I have to run some OLS regressions on panel data with entity-level fixed effects and clustered standard errors (you might be surprised how often I do this), I have a clear picture in my head of the R code I need to write to do that.
 
-I don't have to think about whether the normal equation or gradient descent is faster, whether the gradient descent will converge to the globl minimum (spoiler: it will in OLS regression since the cost function is convex), or whether I did the right adjustment for clustered standard errors. I don't have to do any of that because I can use functions that take care of all this for me. By abstracting away from the details, I can create that output faster with less mental bandwidth used.
+I don't have to think about whether the normal equation or gradient descent is faster, whether I miscoded the gradient descent weights update, or whether I did the right adjustment for clustered standard errors. I don't have to do any of that because I can use functions that take care of all this for me. By abstracting away from the details, I can create that output faster with less mental bandwidth used.
 
 To me, Hive is no different. I don't need to waste time and bandwidth making sure the low-level details are correct every time I want to run a MapReduce job. Because of that, I can spend less time thinking about the implementation of the algorithm and more time thinking about the implications of the result.
-
 

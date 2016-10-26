@@ -1,5 +1,5 @@
 ---
-title:  "Where Do People Complain About Financial Services?"
+title:  "Where Do People Have Problems With Financial Services?"
 date:   2016-10-26
 tags: [Consumer Behavior]
 

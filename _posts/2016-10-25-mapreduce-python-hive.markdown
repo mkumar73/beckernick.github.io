@@ -7,7 +7,7 @@ header:
   image: "mapreduce_hive/tokyo_skytree.jpg"
   caption: "Photo Credit: Ginny Lehman"
 
-excerpt: "MapReduce, Hadoop, Hive, Big Data, Python, Word Count"
+excerpt: "MapReduce, Hadoop, Hive, Big Data, Word Count"
 ---
 
 Big Data. Hadoop. MapReduce. Hive.

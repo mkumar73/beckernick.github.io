@@ -1,20 +1,24 @@
 ---
 title:  "Hadoop MapReduce in Python vs. Hive: Finding Common Wikipedia Words"
-date:   2016-10-17
+date:   2016-10-25
 tags: [big data]
 
 header:
   image: "mapreduce_hive/tokyo_skytree.jpg"
   caption: "Photo Credit: Ginny Lehman"
 
-excerpt: "MapReduce, Hadoop, Hive, Python, Word Count"
+excerpt: "MapReduce, Hadoop, Hive, Big Data, Python, Word Count"
 ---
 
+Big Data. Hadoop. MapReduce. Hive.
 
-Introduction goes here.
+We hear these buzzwords all the time, but what do they all actually mean? In this post, I'll walk through the basics of Hadoop, MapReduce, and Hive through a simple example. I've dealt with Hadoop and MapReduce at work in the context of text analysis, so it seems natural to choose the quintessential use-case of MapReduce: counting word occurences. For this post, I'll find the most common words in a dataset that contains lightly pre-processed introduction sections of Wikipedia articles.
 
+The dataset comes from Emily Fox and Carlos Guestrin's Coursera clusering and retrieval course in their [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning). They use it for teaching k-nearest neighbors and locality sensitive hashing, but it's also a great, simple dataset for illustrating MapReduce code. I've taken a 25,000 row sample for this blog post.
 
-The wikipedia dataset comes from Emily Fox and Carlos Guestrin's Coursera [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning). They use it for teaching k-nearest neighbors and locality sensitive hashing, but it's also a great, simple dataset for illustrating MapReduce code. I've taken a sample for this blog post that contains the introduction sections of 25,000 wikipedia articles. Let's take a quick look to see what we're dealing with.
+Before I begin, I need to give a huge shoutout to the Udacity course [Intro to Hadoop and MapReduce](https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617). I went through this course in the Spring when I was playing with Hadoop at work for the first time, and it gives a fantastic introduction. Most importantly, Cloudera and Udacity provide access to a local distribution of Cloudera Hadoop, which I used to run all the code in this post.
+
+Okay. Let's take a quick look at the Wikipedia data to see what we're dealing with.
 
 
 ```python
@@ -217,17 +221,11 @@ Now I can load the output in Python and see the most common words.
 ```python
 word_counts_df = pd.read_table('/users/nickbecker/Python_Projects/hadoop/blog_example/blog_wiki_output.txt',
                                sep = '\t', names = ['word', 'count'])
-```
-
-
-```python
 word_counts_df = (word_counts_df.sort_values(['count'], ascending = False).
                       reset_index(drop = True)
                  )
 word_counts_df.head()
 ```
-
-
 
 
 <div>
@@ -270,20 +268,16 @@ word_counts_df.head()
 </div>
 
 
+No surprises here. The most common words are the articles, conjunctions and prepositions.
 
+# Counting Words with Hive
 
-```python
+So we've got MapReduce down. What is Hive?
 
-```
+Hive is really two things: 1) a structured way of storing data in tables built on Hadoop; and 2) a language (HiveQL) to interact with the tables in a SQL-like manner. It's super useful, because it allows for me to write HiveQL (hive) queries that basically get turned into MapReduce code under the hood.
 
-# Counting Words in Hive
+I'll go through each line of hive code for the word count program on the interactive interpreter (signified by the _hive>_ at the beginning of the line), and then show the hive script I used to do it all at once.
 
-I'll go through each line on the interactive interpreter (signified by the _hive>_ at the beginning of the line), and then show the hive script I used to do this all at once.
-
-
-```python
-
-```
 
 ## Creating a Database and Table
 First, I need to create a database to put my hive table. I'll call my database `wiki`, for obvious reasons.
@@ -367,11 +361,7 @@ from people_wiki_sample lateral view explode(split(text, ' ')) temptable as word
 group by word order by count desc;
 ```
 
-    Total MapReduce CPU Time Spent: 31 seconds 340 msec
-    OK
-    Time taken: 69.796 seconds
-
-After running this, I have a new table in my database, `wiki_word_counts`
+After running this, I have a new table named `wiki_word_counts` in my database.
 
 
 ```python
@@ -397,8 +387,8 @@ hive> select * from wiki_word_counts limit 5;
     a   169765
     Time taken: 0.075 seconds
 
-## Bringing the Data Back
-Now I can export this hive table to my local machine as a text file (or any file type). Since I'm running this from my regular command line (not in the previous hive interpreter session), I need to tell it which database to use again.
+## Bringing the Data Back Home
+Now I can export this hive table to my local machine as a text file (or any file type) at my command line. Since, I'm running this from my regular command line (not in the one in the previous hive interpreter session), I need to tell it which database to use again.
 
 
 ```python
@@ -471,15 +461,14 @@ With the output in Python on my local machine, I can just continue with my analy
 
 # Concluding Thoughts on MapReduce and Hive
 
-Though I only dealt with counting words in this post, the MapReduce framework isn't just limited to natural language domains. Even some machine learning algorithms can be turned into MapReduce problems (see [this paper](http://papers.nips.cc/paper/3150-map-reduce-for-machine-learning-on-multicore.pdf) by Cheng-Tao Chu et. al for more information). If a data problem can be recast as a combination of the solutions to independent smaller subproblems, MapReduce may be able to help us get the answer faster (or be the only way, if the data cannot fit into memory).
+Though I only dealt with counting words in this post, the MapReduce framework isn't just limited to natural language domains. Even some machine learning algorithms can be turned into MapReduce problems (see [this paper](http://papers.nips.cc/paper/3150-map-reduce-for-machine-learning-on-multicore.pdf) by Cheng-Tao Chu et. al for more information). If a data problem can be recast as a combination of the solutions to independent smaller subproblems, MapReduce may be able to help us get the answer faster.
 
 Since we can write MapReduce code in many programming languages, why bother with Hive? To keep it brief: **Abstraction saves coding time and mental bandwidth.** Though many people spend time optimizing their code's running time, they rarely spend time optimizing their code's design and implementation time.
 
-If I have to run some OLS regressions on panel data with entity-level fixed effects and clustered standard errors (you might be surprised how often I do this), I have a clear picture in my head of the R code I need to write to do that. I don't have to think about whether the normal equation or gradient descent is faster, whether the gradient descent will converge (spoiler: it will in OLS regression since the cost function is convex), or whether I did the right adjustment for clustered standard errors. I don't have to do any of that because I can use functions that take care of all this for me. By abstracting away from the details, I can create that output faster with less mental bandwidth used.
+When I have to run some OLS regressions on panel data with entity-level fixed effects and clustered standard errors (you might be surprised how often I do this), I have a clear picture in my head of the R code I need to write to do that.
+
+I don't have to think about whether the normal equation or gradient descent is faster, whether the gradient descent will converge to the globl minimum (spoiler: it will in OLS regression since the cost function is convex), or whether I did the right adjustment for clustered standard errors. I don't have to do any of that because I can use functions that take care of all this for me. By abstracting away from the details, I can create that output faster with less mental bandwidth used.
 
 To me, Hive is no different. I don't need to waste time and bandwidth making sure the low-level details are correct every time I want to run a MapReduce job. Because of that, I can spend less time thinking about the implementation of the algorithm and more time thinking about the implications of the result.
 
 
-```python
-
-```

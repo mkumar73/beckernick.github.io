@@ -1,5 +1,5 @@
 ---
-title:  "Where Do People Complain About Financial Products?"
+title:  "Where Do People Complain About Financial Services?"
 date:   2016-10-26
 tags: [Consumer Behavior]
 
@@ -9,6 +9,8 @@ header:
 
 excerpt: "Consumer Complaints, Visualization"
 ---
+
+A while ago, I was curious if people have more issues with financial services and products in some states than in others. Given the recent Wells Fargo scandal, I figured I'd post the results. Though this doesn't get at the reasons people complain more in some states, it's still pretty interesting.
 
 ![](/images/cfpb_complaints/complaints_chart.png?raw=true)
 

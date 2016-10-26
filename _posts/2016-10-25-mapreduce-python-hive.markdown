@@ -16,7 +16,7 @@ We hear these buzzwords all the time, but what do they actually mean? In this po
 
 I've dealt with Hadoop and MapReduce at work in the context of analyzing patent text, so it seems natural to choose the classic use-case: counting word occurences. To that end, I'll find the most common words in a dataset that contains lightly pre-processed introduction sections of Wikipedia articles.
 
-The dataset comes from Emily Fox and Carlos Guestrin's Coursera clusering and retrieval course in their [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning). They use it for teaching k-nearest neighbors and locality sensitive hashing, but it's also a great, simple dataset for illustrating MapReduce code. I've taken a 25,000 row sample for this blog post.
+The dataset comes from Emily Fox and Carlos Guestrin's Clusering and Retrieval course in their [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning) on Coursera. They use it for teaching k-nearest neighbors and locality sensitive hashing, but it's also a great, simple dataset for illustrating MapReduce code. I've taken a 25,000 row sample for this blog post.
 
 Before I begin, I need to give a huge shoutout to the Udacity course [Intro to Hadoop and MapReduce](https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617). I went through this course in the spring of 2016 when I was playing with Hadoop at work for the first time, and it delivers a fantastic introduction. Most importantly, Cloudera and Udacity provide access to a local distribution of Cloudera Hadoop, which I used months later to run all the code in this post.
 
@@ -98,13 +98,13 @@ Now that we know what the data contains, it's time to dive into MapReduce and Hi
 
 MapReduce is a way of thinking about big data problems as collections of smaller subproblems.
 
-For example, imagine I wanted to count how many times each word appears in one of [Anton Chekov's](https://en.wikipedia.org/wiki/Anton_Chekhov) short stories. I'd probably loop through the text, creating a key in a dictionary for every word (as it appears) and adding 1 to it if the key already exists. This works because the text of the story can fit into my computer's memory.
+For example, imagine I wanted to count how many times each word appears in one of [Anton Chekov's](https://en.wikipedia.org/wiki/Anton_Chekhov) short stories. I'd probably loop through the text, creating a key in a dictionary for every word (as it appears) and adding 1 to it if the key already exists. This works because the text of the story can fit into my computer's memory and I can parse one short story reasonably quickly.
 
 But what if I wanted to get every Facebook user's most commonly used words during a specific event (say a presidential debate)? Or what if I wanted to do the same thing for every book, like Google does? Since I can't fit that much text in memory (and going sequentially with an iterator would be _painfully_ slow), I need a new framework. MapReduce is the answer.
 
 The key idea is that no one aspect of this task is dependent on any other part (until the very final stage of getting the total count). Every time a word appears, I'm increasing the count by 1 regardless of what is happening elsewhere.
 
-If there were 320 million books in the world, you could imagine every person in the United States counting the word occurrence counts in one book at the same time. After everyone is finished, I could then add their answers together to get the word counts for all the books. In other words, I **_mapped_** the big task to lot of smaller independent workers, and then I **_reduced_** the many map outputs into the single answer I wanted.
+If there were 320 million books in the world, you could imagine every person in the United States counting the word occurrence counts in a different book at the same time. After everyone is finished, I could then add their answers together to get the word counts for all the books. In other words, I **_mapped_** the big task to lot of smaller independent workers, and then I **_reduced_** the many map outputs into the single answer I wanted.
 
 That's all there is to it, except we have fewer workers to use. Let's write MapReduce Python code.
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     mapper()
 ```
 
-I also need a reducer. The reducer needs to calculate the total occurrences for each word from the **sorted** mapper output. Though this code is less straightforward than the mapper, I'm not going to walk through every line of it. At a high level, this code loops through the sorted mapper output and totals the count for each word in `word_count`. If the current word is different than the previous word, it prints out the value in `word_count` since that represents the total occurences if the data mapper output was sorted.
+I also need a reducer. The reducer needs to calculate the total occurrences for each word from the **sorted** mapper output. Though this code is less straightforward than the mapper, I'm not going to walk through every line of it. At a high level, this code loops through the sorted mapper output and totals the count for each word in `word_count`. If the current word is different than the previous word, it prints out the value in `word_count` since that represents the total occurences if the mapper's output is sorted.
 
 
 ```python
@@ -169,9 +169,9 @@ if __name__ == "__main__":
 With these two programs, I can run a MapReduce job on Hadoop.
 
 # Hadoop
-Hadoop is a distributed file storage and processing system. It handles all the dirty work in MapReduce like distributing the data, mapping the programs to workers, collecting the results, handling failures, and other tasks. It's a key part of many production pipeline handling large quantities of data.
+Hadoop is a distributed file storage and processing system. It handles all the dirty work in parallel MapReduce like distributing the data, sending the mapper programs to the workers, collecting the results, handling worker failures, and other tasks. It's a key part of many production pipelines handling large quantities of data.
 
-### Load the Data into HDFS
+## Load the Data into HDFS
 First, I need to put my data into the Hadoop Distributed File System (HDFS). Since I don't want my data floating around randomly, I'll make a directory for it and move it there.
 
 
@@ -180,12 +180,12 @@ hadoop fs -mkdir blog_wiki_input
 hadoop fs -put people_wiki_sample.csv blog_wiki_input
 ```
 
-### Running the Code
+## Running the Code
 In general, I can run Map/Reduce Python code with the following:
 
 
 ```python
-hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar 
+hadoop jar /path/to/my/installation/of/hadoop/streaming/jar/hadoop-streaming*.jar
 -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -input myinput_folder -output myoutput_folder
 ```
 
@@ -195,7 +195,7 @@ Fortunately, I can create an **alias** for the `hadoop jar ...` command to simpl
 
 ```python
 run_mapreduce() {
-    hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar 
+    hadoop jar /path/to/my/installation/of/hadoop/streaming/jar/hadoop-streaming*.jar
         -mapper $1 -reducer $2 -file $1 -file $2 -input $3 -output $4
 }
 
@@ -209,7 +209,7 @@ Now, I can run Map/Reduce programs with `hs` and four keywords (corresponding to
 hs wiki_words_mapper.py wiki_words_reducer.py blog_wiki_input blog_wiki_output
 ```
 
-###  Bringing the Data Back
+## Bringing the Data Back
 I'll get the reduced data from HDFS and put it back on my local machine.
 
 
@@ -276,7 +276,7 @@ No surprises here. The most common words are the articles, conjunctions and prep
 
 So we've got MapReduce down. What is Hive?
 
-Hive is really two things: 1) a structured way of storing data in tables built on Hadoop; and 2) a language (HiveQL) to interact with the tables in a SQL-like manner. It's super useful, because it allows for me to write HiveQL (hive) queries that basically get turned into MapReduce code under the hood.
+Hive is really two things: 1) a structured way of storing data in tables built on Hadoop; and 2) a language (HiveQL) to interact with the tables in a SQL-like manner. It's super useful, because it allows me to write HiveQL (hive) queries that basically get turned into MapReduce code under the hood.
 
 I'll go through each line of hive code for the word count program on the interactive interpreter (signified by the _hive>_ at the beginning of the line), and then show the hive script I used to do it all at once.
 
@@ -289,7 +289,7 @@ First, I need to create a database to put my hive table. I'll call my database `
 hive> create database if not exists wiki;
 ```
 
-Now I can create the hive table for the sample data.
+Now I can create a hive table for the sample data.
 
 
 ```python
@@ -332,13 +332,14 @@ With the data in the table, I can get the word counts pretty easily. I need to u
 
 So, what does these do?
 
-According to the [Apache wiki](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView), "Lateral view is used in conjunction with user-defined table generating functions such as explode()". I use `lateral view` to apply the `explode` function to column `text` in every row in the table. `Explode` converts the `text` column to separate rows. `Split` returns an array with each word as an element (similar to Python).
+According to the [Apache wiki](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView), "Lateral view is used in conjunction with user-defined table generating functions such as explode()". I use `lateral view` to apply the `explode` function to the column `text` in every row in the table. `Explode` converts the `text` column to separate rows. `Split` returns an array with each word as an element (similar to Python).
 
-So essentially, all I'm doing is create a table, `temptable`, where every word in the `text` column gets its own row (just like in my `mapper.py` function). Let's test it.
+So essentially, all I'm doing is creating a table, `temptable`, where every word in the `text` column gets its own row (just like in my `mapper.py` function). Let's test it.
 
 
 ```python
-hive> select word from people_wiki_sample lateral view explode(split(text, ' ')) temptable as word limit 10;
+hive> select word from people_wiki_sample lateral view
+explode(split(text, ' ')) temptable as word limit 10;
 ```
 
     OK
@@ -390,7 +391,7 @@ hive> select * from wiki_word_counts limit 5;
     Time taken: 0.075 seconds
 
 ## Bringing the Data Back Home
-Now I can export this hive table to my local machine as a text file (or any file type) at my command line. Since, I'm running this from my regular command line (not in the one in the previous hive interpreter session), I need to tell it which database to use again.
+Now I can export this hive table to my local machine as a text file (or any file type) at my command line. Since, I'm running this from my regular command line (not in the one in the previous hive interpreter session), I need to tell hive which database to use.
 
 
 ```python
@@ -459,7 +460,7 @@ Using the interactive interpreter is fine (and useful for glancing at tables), b
 
 At the command line, I can now type: `hive -f hive_word_count.hql` and it will run all of the code I ran interactively before. After that, I can just export the table in the same way.
 
-With the output in Python on my local machine, I can just continue with my analysis. Maybe I want to compare the word distributions of these 25,000 Wikipedia introduction to another sample. Whatever I want to do with the output, by using a script to generate it I can easily re-run it or tweak it as the need arises.
+With the output in Python on my local machine, I can just continue with my analysis. Maybe I want to compare the word distributions of these 25,000 Wikipedia introductions to another sample. Whatever I want to do with the output, by using a script to generate it I can easily re-run it or tweak it as the need arises.
 
 # Concluding Thoughts on MapReduce and Hive
 
@@ -469,7 +470,7 @@ Since we can write MapReduce code in many programming languages, why bother with
 
 When I have to run some OLS regressions on panel data with entity-level fixed effects and clustered standard errors (you might be surprised how often I do this), I have a clear picture in my head of the R code I need to write to do that.
 
-I don't have to think about whether the normal equation or gradient descent is faster, whether I miscoded the gradient descent weights update, or whether I did the right adjustment for clustered standard errors. I don't have to do any of that because I can use functions that take care of all this for me. By abstracting away from the details, I can create that output faster with less mental bandwidth used.
+I don't have to think about whether the normal equation or gradient descent is faster, whether I miscoded the gradient descent weights update, or whether I did the right adjustment for clustered standard errors. I don't have to do any of that because I can use functions that take care of all this for me. By abstracting away from the details, I can get the output faster using less mental bandwidth.
 
 To me, Hive is no different. I don't need to waste time and bandwidth making sure the low-level details are correct every time I want to run a MapReduce job. Because of that, I can spend less time thinking about the implementation of the algorithm and more time thinking about the implications of the result.
 

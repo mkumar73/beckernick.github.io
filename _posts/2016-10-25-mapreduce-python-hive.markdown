@@ -12,11 +12,13 @@ excerpt: "MapReduce, Hadoop, Hive, Big Data, Python, Word Count"
 
 Big Data. Hadoop. MapReduce. Hive.
 
-We hear these buzzwords all the time, but what do they all actually mean? In this post, I'll walk through the basics of Hadoop, MapReduce, and Hive through a simple example. I've dealt with Hadoop and MapReduce at work in the context of text analysis, so it seems natural to choose the quintessential use-case of MapReduce: counting word occurences. For this post, I'll find the most common words in a dataset that contains lightly pre-processed introduction sections of Wikipedia articles.
+We hear these buzzwords all the time, but what do they actually mean? In this post, I'll walk through the basics of Hadoop, MapReduce, and Hive through a simple example.
+
+I've dealt with Hadoop and MapReduce at work in the context of text analysis, so it seems natural to choose the classic use-case: counting word occurences. To that end, I'll find the most common words in a dataset that contains lightly pre-processed introduction sections of Wikipedia articles.
 
 The dataset comes from Emily Fox and Carlos Guestrin's Coursera clusering and retrieval course in their [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning). They use it for teaching k-nearest neighbors and locality sensitive hashing, but it's also a great, simple dataset for illustrating MapReduce code. I've taken a 25,000 row sample for this blog post.
 
-Before I begin, I need to give a huge shoutout to the Udacity course [Intro to Hadoop and MapReduce](https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617). I went through this course in the Spring when I was playing with Hadoop at work for the first time, and it gives a fantastic introduction. Most importantly, Cloudera and Udacity provide access to a local distribution of Cloudera Hadoop, which I used to run all the code in this post.
+Before I begin, I need to give a huge shoutout to the Udacity course [Intro to Hadoop and MapReduce](https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617). I went through this course in the spring of 2016 when I was playing with Hadoop at work for the first time, and it delivers a fantastic introduction. Most importantly, Cloudera and Udacity provide access to a local distribution of Cloudera Hadoop, which I used months later to run all the code in this post.
 
 Okay. Let's take a quick look at the Wikipedia data to see what we're dealing with.
 

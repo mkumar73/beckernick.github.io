@@ -7,7 +7,7 @@ header:
   image: "/debate_images/trump_hillary.jpg"
   caption: "Photo credit: [**CNN**](http://www.cnn.com/2016/03/05/opinions/clinton-trump-made-for-each-other-opinion-zelizer/)"
 
-excerpt: "Presidential Debate Visualization"
+excerpt: "Presidential Debate, Visualization"
 ---
 
 The presidential debates between Trump and Clinton have been interesting, to say the least. So, I decided to take the [transcript](http://www.politico.com/story/2016/10/2016-presidential-debate-transcript-229519) of the second debate and make a wordcloud of what each candidate said. They're similar, but they have some clear differences.

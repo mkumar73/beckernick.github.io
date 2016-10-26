@@ -7,7 +7,7 @@ header:
   image: "mapreduce_hive/tokyo_skytree.jpg"
   caption: "Photo Credit: Ginny Lehman"
 
-excerpt: "MapReduce, Hadoop, HiveNeural Networks, Hidden Layers, Backpropagation, TensorFlow"
+excerpt: "MapReduce, Hadoop, Hive, Python, Word Count"
 ---
 
 

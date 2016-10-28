@@ -22,7 +22,7 @@
     {% endif %}
 
     {% assign page_start = 2 %}
-    {% if paginator.page > 5 %}
+    {% if paginator.page > 4 %}
       {% assign page_start = paginator.page | minus: 2 %}
       {% comment %} Ellipsis for truncated links {% endcomment %}
       <li><a href="#" class="disabled">&hellip;</a></li>
@@ -30,7 +30,7 @@
 
     {% assign page_end = paginator.total_pages | minus: 1 %}
     {% assign pages_to_end = paginator.total_pages | minus: paginator.page %}
-    {% if pages_to_end > 5 %}
+    {% if pages_to_end > 4 %}
       {% assign page_end = paginator.page | plus: 2 %}
     {% endif %}
 

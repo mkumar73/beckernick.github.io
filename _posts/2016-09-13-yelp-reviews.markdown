@@ -13,7 +13,7 @@ excerpt: "Logistic Regression, Stochastic Gradient Descent, Natural Language Pro
 
 In a previous [post](https://beckernick.github.io/law-clustering/), I used natural language processing techniques to cluster US laws. The dataset was relatively small, and I could easily do all the calculations in memory without frying my computer. But what if the data were larger--so much larger that we either can't fit in memory or can't reasonably analyze it in memory. Given the massive amount of data many companies and governments are creating, this is a huge problem (and one that I face at work).
 
-In this post, I'll walk through out-of-core text analysis, or natural language processing on datasets that are too large to fit or be analyzed in memory. I'm going to try to build a model that can predict whether a Yelp review's accompanying star rating is positive (a 4 or 5 stars) or negative (1 or 2 stars).
+In this post, I'll walk through out-of-core text analysis, or natural language processing on datasets that are too large to fit or be analyzed in memory. I'm going to try to build a model that can predict whether a Yelp review's accompanying star rating is positive (4 or 5 stars) or negative (1 or 2 stars).
 
 The data come from Yelp's [Academic Challenge](https://www.yelp.com/dataset_challenge). There are tons of awesome variables in the data (including images, business and user attributes, and user social network data), but for this post I'll just focus on two: the review itself and the star rating.
 

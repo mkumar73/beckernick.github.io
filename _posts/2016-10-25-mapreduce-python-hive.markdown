@@ -217,7 +217,9 @@ I'll get the reduced data from HDFS and put it back on my local machine.
 hadoop fs -get blog_wiki_output/part-00000 blog_wiki_output.txt
 ```
 
-Now I can load the output in Python and see the most common words.
+Since I only had one output file, this worked. With multiple output files, I'd want to use the `-getmerge` command to combine them and then bring it to my local machine.
+
+Anyway, now I can load the output in Python and see the most common words.
 
 
 ```python
@@ -293,7 +295,7 @@ Now I can create a hive table for the sample data.
 
 
 ```python
-hive> create table people_wiki_sample (uri string, name string, text string) row format delimited 
+hive> create table wiki.people_wiki_sample (uri string, name string, text string) row format delimited 
 fields terminated by ',' stored as textfile;
 ```
 
@@ -301,7 +303,7 @@ I can show the tables in my databases to verify that I created the table.
 
 
 ```python
-hive> show tables;
+hive> use wiki; show tables;
 ```
 
     OK
@@ -312,10 +314,10 @@ With the table created, I can just load the data into it.
 
 
 ```python
-hive> load data local inpath '../blog_post/people_wiki_sample.csv' into table people_wiki_sample; 
+hive> load data local inpath '../blog_post/people_wiki_sample.csv' into table wiki.people_wiki_sample; 
 ```
 
-I can take a glance at the table from the interactive interpreter to make sure this worked.
+I can take a glance at the table from the interactive interpreter to make sure this worked. Since I'm "using" the wiki database, I don't need the prefix now.
 
 
 ```python
@@ -359,7 +361,7 @@ Perfect, now all I want to do is group these results by each word and count the 
 
 
 ```python
-hive> create table wiki_word_counts as select word, count(1) count 
+hive> create table wiki.wiki_word_counts as select word, count(1) count 
 from people_wiki_sample lateral view explode(split(text, ' ')) temptable as word 
 group by word order by count desc;
 ```
@@ -395,7 +397,7 @@ Now I can export this hive table to my local machine as a text file (or any file
 
 
 ```python
-hive -e 'use wiki; select * from wiki_word_counts' > wiki_word_counts_hive.txt
+hive -e 'select * from wiki.wiki_word_counts' > wiki_word_counts_hive.txt
 ```
 
 Let's see the output.

@@ -24,7 +24,7 @@ Okay. Enough introduction. Time to briefly and poorly explain what neural networ
 
 # What is a Neural Network?
 
-I think a good way to think of a neural network is as a multi-layered decision system. Information is fed into the network, linearly transformed and then non-linearly transformed, then fed into the second layer, linearly transformed and then non-linearly transformed again, and so on until a decision is made after the final transformation. The key to the network, then, is figuring out effective transformations of the data to get good decisions.
+I think a good way to think of a neural network is as a multi-layered decision system. Information is fed into the network, linearly transformed and then non-linearly transformed, then linearly transformed and non-linearly transformed again, and so on until a decision is made after the final transformation. The key to the network, then, is figuring out effective transformations of the data to get good decisions.
 
 Decades of research have produced some pretty amazing insights into how we might want to transform the data. Though neural networks have been around for a while, they went out of fashion for a couple of decades. A key insight that helped bring them back into the fold was a clever way to efficiently determine effective linear transformations, given specified non-linear ones.
 
@@ -210,10 +210,10 @@ Because my network structure determines the weights and biases array shapes, I'l
 Each black arrow represents one weight vector, and the three layers are labeled clearly. We can represent all of the weights at any layer as an array of the individual weight vectors. A basic, three-layer network has two sets of weights arrays and bias vectors. There's no bias in the image, but the bias vectors don't change the architecture in any meaningful way (they just get added in to change the neuron's threshold). The way to go from the input to the output: 
 
 1. Apply the first layer's weights to the raw data (via matrix multiplication). I'll call this the input layer.
-2. Add a bias vector and apply one of many activiation functions to that new matrix, resulting in the hidden layer.
+2. Add a bias vector and apply one of many possible activiation functions to that new matrix, resulting in the hidden layer.
 3. Apply the second layer's weights to the hidden layer matrix and add a bias vector. I'll call this the output layer.
 
-Once we have the output layer, we apply some kind of normalization function in order to let the output values represent a probabilitiy distribution. A very common choice is the softmax function, because it's easily differentiable and intuitively fits classification tasks.
+Once we have the output layer, we apply some kind of non-linear normalization function in order to let the output values represent a probabilitiy distribution. A very common choice is the softmax function, because it's easily differentiable and intuitively fits classification tasks.
 
 With the basic architecture defined, I can start initializing my weights and biases.
 

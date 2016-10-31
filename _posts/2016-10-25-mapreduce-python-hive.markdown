@@ -133,7 +133,7 @@ if __name__ == "__main__":
     mapper()
 ```
 
-I also need a reducer. The reducer needs to calculate the total occurrences for each word from the **sorted** mapper output. Though this code is less straightforward than the mapper, I'm not going to walk through every line of it. At a high level, this code loops through the sorted mapper output and totals the count for each word in `word_count`. If the current word is different than the previous word, it prints out the value in `word_count` since that represents the total occurences if the mapper's output is sorted.
+I also need a reducer. The reducer needs to calculate the total occurrences for each word from the **sorted** mapper output. Though this code is less straightforward than the mapper, I'm not going to walk through every line of it. At a high level, this code loops through the sorted mapper output and totals the count for each word in `word_count`. If the current word is different than the previous word, it prints out the value in `word_count` since that represents the total number of occurences of the previous word.
 
 
 ```python

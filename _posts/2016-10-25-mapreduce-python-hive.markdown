@@ -171,7 +171,7 @@ With these two programs, I can run a MapReduce job on Hadoop.
 # Hadoop
 Hadoop is a distributed file storage and processing system. It handles all the dirty work in parallel MapReduce like distributing the data, sending the mapper programs to the workers, collecting the results, handling worker failures, and other tasks. It's a key part of many production pipelines handling large quantities of data.
 
-## Load the Data into HDFS
+## Loading the Data into HDFS
 First, I need to put my data into the Hadoop Distributed File System (HDFS). Since I don't want my data floating around randomly, I'll make a directory for it and move it there.
 
 
@@ -309,7 +309,7 @@ hive> use wiki; show tables;
     OK
     people_wiki_sample
 
-## Load the Data into the Hive Table
+## Loading the Data into the Hive Table
 With the table created, I can just load the data into it.
 
 

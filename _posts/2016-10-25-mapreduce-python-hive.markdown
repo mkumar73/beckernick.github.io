@@ -18,7 +18,7 @@ I've dealt with Hadoop and MapReduce at work in the context of analyzing patent 
 
 The dataset comes from Emily Fox and Carlos Guestrin's Clusering and Retrieval course in their [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning) on Coursera. They use it for teaching k-nearest neighbors and locality sensitive hashing, but it's also a great, simple dataset for illustrating MapReduce code. I've taken a 25,000 row sample for this blog post.
 
-Before I begin, I need to give a huge shoutout to the Udacity course [Intro to Hadoop and MapReduce](https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617). I went through this course in the spring of 2016 when I was playing with Hadoop at work for the first time, and it delivers a fantastic introduction. Most importantly, Cloudera and Udacity provide access to a local distribution of Cloudera Hadoop, which I used months later to run all the code in this post.
+Before I begin, I need to give a huge shoutout to the Udacity course [Intro to Hadoop and MapReduce](https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617). I went through this course in the spring of 2016 when I was using Hadoop at work for the first time, and it delivers a fantastic introduction. Most importantly, Cloudera and Udacity provide access to a local distribution of Cloudera Hadoop, which I used months later to run all the code in this post.
 
 Okay. Let's take a quick look at the Wikipedia data to see what we're dealing with.
 

@@ -1,5 +1,5 @@
 ---
-title:  "Logistic Regression from Scratch"
+title:  "Logistic Regression from Scratch in Python"
 date:   2016-11-05
 tags: [machine learning]
 

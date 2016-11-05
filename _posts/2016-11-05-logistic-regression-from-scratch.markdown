@@ -79,7 +79,7 @@ I actually don't need to calculate the log likelihood in order to update the wei
 
 # Building the Logistic Regression Function
 
-With these two functions, I have all the functions I need to implement logistic regression. I still haven't mentioned how I'm going to calculate the gradient, though. It turns out the math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. This isn't surprusing, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
+With these two functions, I have all the functions I need to implement logistic regression. I still haven't mentioned how I'm going to calculate the gradient, though. It turns out the math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. This isn't surprising, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
 
 Finally, I'm ready to build the model function. I'll add in the option to calculate the model with an intercept, since it's a good option to have.
 
@@ -126,7 +126,7 @@ weights = logistic_regression(simulated_separableish_features, simulated_labels,
 # Comparing to Sk-Learn's LogisticRegression
 How do I know if my algorithm spit out the right weights? Well, one the one hand, the math looks right -- so I should be confident it's correct.
 
-Fortunately, I can compare my functions' weights to the weights from sk-learn's logistic regression function, which is known to be a correct implementation. They should be the same if I did everything correctly. Since sk-learn's `LogisticRegression` automatically regularizes (which I didn't do), I set `C=1e15` to essentially turn off regularization.
+Fortunately, I can compare my function's weights to the weights from sk-learn's logistic regression function, which is known to be a correct implementation. They should be the same if I did everything correctly. Since sk-learn's `LogisticRegression` automatically does L2 regularization (which I didn't do), I set `C=1e15` to essentially turn off regularization.
 
 
 ```python
@@ -150,8 +150,9 @@ To get the accuracy, I just need to use the final weights to get the logits for 
 
 
 ```python
-final_scores = np.dot(np.hstack((np.ones((simulated_separableish_features.shape[0], 1)),
-                                 simulated_separableish_features)), weights)
+data_with_intercept = np.hstack((np.ones((simulated_separableish_features.shape[0], 1)),
+                                 simulated_separableish_features))
+final_scores = np.dot(data_with_intercept, weights)
 preds = np.round(sigmoid(final_scores))
 
 print 'Accuracy from scratch: {0}'.format((preds == simulated_labels).sum().astype(float) / len(preds))

@@ -75,7 +75,7 @@ def log_likelihood(features, target, weights):
     return ll
 ```
 
-I actually don't need to calculate the log likelihood in order to do the gradient, but it's a useful check to see that the likelihood is increasing while performing gradient descent/ascent.
+I actually don't need to calculate the log likelihood in order to update the weights, but it's a useful check to see that the likelihood is increasing while performing gradient descent/ascent.
 
 # Building the Logistic Regression Function
 

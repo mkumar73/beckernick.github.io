@@ -60,7 +60,7 @@ def sigmoid(scores):
 
 # Calculating the Likelihood
 
-To maximize the likelihood, I need a function to compute the likelihood. Fortunately, the likelihood (for binary classification) can be reduced to a fairly intuitive form after switching to the log-likelihood. We're able to do this without affecting the weights parameter estimation because log transformation are [monotonic](https://en.wikipedia.org/wiki/Monotonic_function).
+To maximize the likelihood, it'd be nice to have a function to compute the likelihood. Fortunately, the likelihood (for binary classification) can be reduced to a fairly intuitive form after switching to the log-likelihood. We're able to do this without affecting the weights parameter estimation because log transformation are [monotonic](https://en.wikipedia.org/wiki/Monotonic_function).
 
 Carlos Guestrin (Univesity of Washington) details the derivation of the function I'm going to use in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood). The main idea is that the log-likelihood can be rewritten with indicator functions which greatly simplify the math.
 

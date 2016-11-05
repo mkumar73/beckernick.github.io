@@ -123,7 +123,7 @@ weights = logistic_regression(simulated_separableish_features, simulated_labels,
     -140.725421355
 
 
-# Comparing to Sk-Learn's LogisticRegression
+# Comparing with Sk-Learn's LogisticRegression
 How do I know if my algorithm spit out the right weights? Well, one the one hand, the math looks right -- so I should be confident it's correct.
 
 Fortunately, I can compare my function's weights to the weights from sk-learn's logistic regression function, which is known to be a correct implementation. They should be the same if I did everything correctly. Since sk-learn's `LogisticRegression` automatically does L2 regularization (which I didn't do), I set `C=1e15` to essentially turn off regularization.

@@ -1,7 +1,7 @@
 ---
 title:  "Building a Neural Network from Scratch in Python and in TensorFlow"
 date:   2016-10-17
-tags: [neural networks]
+tags: [neural networks, machine learning]
 
 header:
   image: "neural_network_from_scratch/butterfly.jpg"

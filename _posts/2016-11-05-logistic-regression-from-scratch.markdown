@@ -75,9 +75,17 @@ def log_likelihood(features, target, weights):
     return ll
 ```
 
-I actually don't need this function to update the weights, but it's a useful check to see that the likelihood is increasing while performing gradient descent/ascent.
+I actually don't need to calculate the log likelihood in order to get the gradient, but it's a useful check to see that the likelihood is increasing while performing gradient descent/ascent. Why don't I need it? Because I just need the gradient of the log-likelihood. I still haven't mentioned how I'm going to calculate the gradient, though.
 
-Why don't I need it? Because I just need the gradient of the log-likelihood. I still haven't mentioned how I'm going to calculate the gradient, though. It turns out the math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. In other words, the gradient of the log-likelihood for any single pass over the dataset (in matrix form) is just the matrix multiplication of the output error signal and the features. This isn't surprising, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
+I'm not going to go through the math here. Anyone interested in it can watch Carlos Guestrin's derivation using indicators [here](https://www.coursera.org/learn/ml-classification/lecture/W3VBS/very-optional-deriving-gradient-of-log-likelihood) or just read Section 4.4.1 of Hastie and Tibsharani's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). The math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. In other words, the gradient of the log-likelihood for any single pass over the dataset (in matrix form) is just the matrix multiplication of the output error signal and the transpose of the features matrix. Mathematically, 
+
+$$\begin{equation}
+\bigtriangledown ll = X^{T}(Target - Predictions)
+\end{equation}$$
+
+
+This shouldn't be too surprising, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
+
 
 # Building the Logistic Regression Function
 
@@ -97,9 +105,9 @@ def logistic_regression(features, target, num_steps, learning_rate, add_intercep
         predictions = sigmoid(scores)
 
         # Update weights with gradient (same error backprop idea as in the neural network post)
-        output_error_signal = predictions - target
+        output_error_signal = target - predictions
         gradient = np.dot(features.T, output_error_signal)
-        weights -= learning_rate * gradient
+        weights += learning_rate * gradient
         
         # Print log-likelihood every so often
         if step % 10000 == 0:

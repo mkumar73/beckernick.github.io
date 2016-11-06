@@ -58,33 +58,40 @@ def sigmoid(scores):
     return 1 / (1 + np.exp(-scores))
 ```
 
-# Calculating the Likelihood
+# Maximizing the Likelihood
+To maximize the likelihood, I need a way to compute the likelihood and the gradient of the likelihood. Fortunately, the likelihood (for binary classification) can be reduced to a fairly intuitive form by switching to the log-likelihood. We're able to do this without affecting the weights parameter estimation because log transformation are [monotonic](https://en.wikipedia.org/wiki/Monotonic_function).
 
-To maximize the likelihood, it'd be nice to have a function to compute the likelihood. Fortunately, the likelihood (for binary classification) can be reduced to a fairly intuitive form after switching to the log-likelihood. We're able to do this without affecting the weights parameter estimation because log transformation are [monotonic](https://en.wikipedia.org/wiki/Monotonic_function).
+For anyone interested in the derivations of the functions I'm using, check out Section 4.4.1 of Hastie, Tibsharani, and Friedman's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). For those less mathematically inclined, Carlos Guestrin (Univesity of Washington) details one possible derivation of the log-likelihood in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood) using indicator functions.
 
-Carlos Guestrin (Univesity of Washington) details the derivation of the function I'm going to use in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood). The main idea is that the log-likelihood can be rewritten with indicator functions which greatly simplify the math.
+## Calculating the Log-Likelihood
 
-Indicator functions are insanely useful, and I spent way too much time in my second probability class being annoyed at my professor for constantly using them in derivations). Sorry Professor Nolan.
+The log-likelihood can be viewed as as sum over all the training data. Mathematically,
 
+$$\begin{equation}
+ll = \sum_{i=1}^{N}y_{i}\beta ^{T}x_{i} - log(1+e^{\beta^{T}x_{i}})
+\end{equation}$$
+
+where $y$ is the target class, $x_{i}$ represents an individual data point, and $\beta$ is the weights vector.
+
+I can easily turn that into a function and take advantage of matrix algebra.
 
 ```python
-def log_likelihood(features, target, weights):
-    indicator = (target == 1)
-    scores = np.dot(features, weights)
-    ll = np.sum( -1 * (1 - indicator)*scores - np.log(1 + np.exp(-scores)) )
+def log_likelihood(scores, target):
+    ll = np.sum( target*scores - np.log(1 + np.exp(scores)) )
     return ll
 ```
 
-I actually don't need to calculate the log likelihood in order to get the gradient, but it's a useful check to see that the likelihood is increasing while performing gradient descent/ascent. Why don't I need it? Because I just need the gradient of the log-likelihood. I still haven't mentioned how I'm going to calculate the gradient, though.
+## Calculating the Gradient
 
-I'm not going to go through the math here. Anyone interested in it can watch Carlos Guestrin's derivation using indicators [here](https://www.coursera.org/learn/ml-classification/lecture/W3VBS/very-optional-deriving-gradient-of-log-likelihood) or just read Section 4.4.1 of Hastie and Tibsharani's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). The math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. In other words, the gradient of the log-likelihood for any single pass over the dataset (in matrix form) is just the matrix multiplication of the output error signal and the transpose of the features matrix. Mathematically, 
+Now I need an equation for the gradient of the log-likelihood. By taking the derivative of the equation above and reformulating in matrix form, the gradient becomes: 
 
 $$\begin{equation}
-\bigtriangledown ll = X^{T}(Target - Predictions)
+\bigtriangledown ll = X^{T}(Y - Predictions)
 \end{equation}$$
 
+Again, this is really easy to implement. It's so simple I don't even need to wrap it into a function. The gradient here looks very similar to the output layer gradient in a neural network (see my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks if you're curious).
 
-This shouldn't be too surprising, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
+This shouldn't be too surprising, since a neural network is basically just a series of non-linear link functions applied after linear manipulations of the input data.
 
 
 # Building the Logistic Regression Function
@@ -104,7 +111,7 @@ def logistic_regression(features, target, num_steps, learning_rate, add_intercep
         scores = np.dot(features, weights)
         predictions = sigmoid(scores)
 
-        # Update weights with gradient (same error backprop idea as in the neural network post)
+        # Update weights with gradient
         output_error_signal = target - predictions
         gradient = np.dot(features.T, output_error_signal)
         weights += learning_rate * gradient

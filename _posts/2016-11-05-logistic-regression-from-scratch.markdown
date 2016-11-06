@@ -71,7 +71,7 @@ $$\begin{equation}
 ll = \sum_{i=1}^{N}y_{i}\beta ^{T}x_{i} - log(1+e^{\beta^{T}x_{i}})
 \end{equation}$$
 
-where $$y$$ is the target class, $x_{i}$ represents an individual data point, and $\beta$ is the weights vector.
+where $$y$$ is the target class (0 or 1), $$x_{i}$$ is an individual data point, and $$\beta$$ is the weights vector.
 
 I can easily turn that into a function and take advantage of matrix algebra.
 

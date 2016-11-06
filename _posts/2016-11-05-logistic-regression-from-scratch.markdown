@@ -10,7 +10,7 @@ header:
 excerpt: "Logistic Regression, Gradient Descent, Maximum Likelihood"
 ---
 
-In this post, I'm going to walk through implementing binary outcome logistic regression from scratch. Logistic regression is a generalized linear model that we can use to model or predict categorical outcome variables. For example, we might use logistic regression to predict whether someone will be denied or approved for a loan, but probably not to predict the value of someone's house.
+In this post, I'm going to implement binary outcome logistic regression from scratch. Logistic regression is a generalized linear model that we can use to model or predict categorical outcome variables. For example, we might use logistic regression to predict whether someone will be denied or approved for a loan, but probably not to predict the value of someone's house.
 
 So, how does it work? In logistic regression, we're essentially trying to find the weights that maximize the likelihood of producing our given data and use them to categorize the response variable. Maximum Likelihood Estimation is a well covered topic in statistics courses (my Intro to Statistics professor has a straightforward, high-level description [here](http://www2.stat.duke.edu/~banks/111-lectures.dir/lect10.pdf)), and it is extremely useful.
 
@@ -61,7 +61,7 @@ def sigmoid(scores):
 # Maximizing the Likelihood
 To maximize the likelihood, I need a way to compute the likelihood and the gradient of the likelihood. Fortunately, the likelihood (for binary classification) can be reduced to a fairly intuitive form by switching to the log-likelihood. We're able to do this without affecting the weights parameter estimation because log transformation are [monotonic](https://en.wikipedia.org/wiki/Monotonic_function).
 
-For anyone interested in the derivations of the functions I'm using, check out Section 4.4.1 of Hastie, Tibsharani, and Friedman's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). For those less mathematically inclined, Carlos Guestrin (Univesity of Washington) details one possible derivation of the log-likelihood in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood) using indicator functions.
+For anyone interested in the derivations of the functions I'm using, check out Section 4.4.1 of Hastie, Tibsharani, and Friedman's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). For those less comfortable reading derivations, Carlos Guestrin (Univesity of Washington) has a fantastic walkthrough of one possible derivation of the log-likelihood in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood) using indicator functions.
 
 ## Calculating the Log-Likelihood
 
@@ -76,7 +76,8 @@ where $y$ is the target class, $x_{i}$ represents an individual data point, and 
 I can easily turn that into a function and take advantage of matrix algebra.
 
 ```python
-def log_likelihood(scores, target):
+def log_likelihood(features, target, weights):
+    scores = np.dot(features, weights)
     ll = np.sum( target*scores - np.log(1 + np.exp(scores)) )
     return ll
 ```
@@ -118,7 +119,7 @@ def logistic_regression(features, target, num_steps, learning_rate, add_intercep
         
         # Print log-likelihood every so often
         if step % 10000 == 0:
-            print log_likelihood(scores, target)
+            print log_likelihood(feature, target, weights)
         
     return weights
 ```

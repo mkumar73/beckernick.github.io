@@ -77,9 +77,7 @@ def log_likelihood(features, target, weights):
 
 I actually don't need this function to update the weights, but it's a useful check to see that the likelihood is increasing while performing gradient descent/ascent.
 
-Why don't I need it? Because I just need the gradient of the log-likelihood. With these two functions, I have all the functions I need to implement logistic regression. I still haven't mentioned how I'm going to calculate the gradient, though. It turns out the math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. This isn't surprising, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
-
-The gradient of the log-likelihood for any single pass over the dataset (in matrix form) is just the matrix multiplication of the output error signal and the features.
+Why don't I need it? Because I just need the gradient of the log-likelihood. I still haven't mentioned how I'm going to calculate the gradient, though. It turns out the math works out in such a way that I can actually backpropogate the output error just like I did in my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks. In other words, the gradient of the log-likelihood for any single pass over the dataset (in matrix form) is just the matrix multiplication of the output error signal and the features. This isn't surprising, since a neural network is basically just a series of non-linear functions applied to linear manipulations of the input data.
 
 # Building the Logistic Regression Function
 

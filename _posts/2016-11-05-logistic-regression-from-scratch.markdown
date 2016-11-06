@@ -118,7 +118,7 @@ def logistic_regression(features, target, num_steps, learning_rate, add_intercep
         
         # Print log-likelihood every so often
         if step % 10000 == 0:
-            print log_likelihood(features, target, weights)
+            print log_likelihood(scores, target)
         
     return weights
 ```

@@ -14,7 +14,7 @@ In this post, I'm going to implement binary outcome logistic regression from scr
 
 So, how does it work? In logistic regression, we're essentially trying to find the weights that maximize the likelihood of producing our given data and use them to categorize the response variable. Maximum Likelihood Estimation is a well covered topic in statistics courses (my Intro to Statistics professor has a straightforward, high-level description [here](http://www2.stat.duke.edu/~banks/111-lectures.dir/lect10.pdf)), and it is extremely useful.
 
-Since this likelihood maximization is an iterative process, I'll solve the optimization problem with gradient ascent. Gradient ascent is the same as gradient descent, except I'm maximizing instead of minimizing a function. Before I do any of that, though, I need some data.
+Since the likelihood maximization in logistic regression doesn't have a closed form solution, I'll solve the optimization problem with gradient ascent. Gradient ascent is the same as gradient descent, except I'm maximizing instead of minimizing a function. Before I do any of that, though, I need some data.
 
 # Generating Data
 Like I did in my post on [building neural networks from scratch](https://beckernick.github.io/neural-network-scratch/), I'm going to use simulated data. I can easily simulate separable data by sampling from a multivariate normal distribution.

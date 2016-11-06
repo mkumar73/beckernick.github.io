@@ -61,7 +61,7 @@ def sigmoid(scores):
 # Maximizing the Likelihood
 To maximize the likelihood, I need a way to compute the likelihood and the gradient of the likelihood. Fortunately, the likelihood (for binary classification) can be reduced to a fairly intuitive form by switching to the log-likelihood. We're able to do this without affecting the weights parameter estimation because log transformation are [monotonic](https://en.wikipedia.org/wiki/Monotonic_function).
 
-For anyone interested in the derivations of the functions I'm using, check out Section 4.4.1 of Hastie, Tibsharani, and Friedman's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). For those less comfortable reading derivations, Carlos Guestrin (Univesity of Washington) has a fantastic walkthrough of one possible derivation of the log-likelihood in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood) using indicator functions.
+For anyone interested in the derivations of the functions I'm using, check out Section 4.4.1 of Hastie, Tibsharani, and Friedman's [Elements of Statistical Learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/). For those less comfortable reading math, Carlos Guestrin (Univesity of Washington) has a fantastic walkthrough of one possible formulation of the likelihood and gradient in a series of short lectures on [Coursera](https://www.coursera.org/learn/ml-classification/lecture/1ZeTC/very-optional-expressing-the-log-likelihood).
 
 ## Calculating the Log-Likelihood
 
@@ -92,7 +92,7 @@ $$\begin{equation}
 
 Again, this is really easy to implement. It's so simple I don't even need to wrap it into a function. The gradient here looks very similar to the output layer gradient in a neural network (see my [post](https://beckernick.github.io/neural-network-scratch/) on neural networks if you're curious).
 
-This shouldn't be too surprising, since a neural network is basically just a series of non-linear link functions applied after linear manipulations of the input data.
+This shouldn't be surprising, since the output of a neural network is basically just a non-linear link function applied after a linear manipulation of the data. That's exactly what's happening here, too.
 
 
 # Building the Logistic Regression Function

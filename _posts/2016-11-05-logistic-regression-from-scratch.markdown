@@ -163,7 +163,7 @@ print 'Accuracy from sk-learn: {0}'.format(clf.score(simulated_separableish_feat
     Accuracy from sk-learn: 0.9948
 
 
-Nearly perfect (which makes sense given the data). We should only have made mistakes right in the middle between the clusters. Let's make sure that's what happened. In the following plot, blue points are correct predictions, and red points are incorrect
+Nearly perfect (which makes sense given the data). We should only have made mistakes right in the middle between the clusters. Let's make sure that's what happened. In the following plot, blue points are correct predictions and red points are incorrect predictions.
 
 
 ```python

@@ -14,7 +14,7 @@ In this post, I'm going to implement binary outcome logistic regression from scr
 
 So, how does it work? In logistic regression, we're essentially trying to find the weights that maximize the likelihood of producing our given data and use them to categorize the response variable. Maximum Likelihood Estimation is a well covered topic in statistics courses (my Intro to Statistics professor has a straightforward, high-level description [here](http://www2.stat.duke.edu/~banks/111-lectures.dir/lect10.pdf)), and it is extremely useful.
 
-Since this likelihood maximization is an iterative process, I'll solve the optimization problem with gradient descent. Before I do that, though, I need some data.
+Since this likelihood maximization is an iterative process, I'll solve the optimization problem with gradient ascent. Gradient ascent is the same as gradient descent, except I'm maximizing instead of minimizing a function. Before I do any of that, though, I need some data.
 
 # Generating Data
 Like I did in my post on [building neural networks from scratch](https://beckernick.github.io/neural-network-scratch/), I'm going to use simulated data. I can easily simulate separable data by sampling from a multivariate normal distribution.
@@ -159,7 +159,7 @@ print weights
     [-14.09225541  -5.05899648   8.28955762]
 
 
-As expected, my weights nearly perfectly match the sk-learn `LogisticRegression` weights. If I trained the algorithm longer and with a small enough learning rate, they would eventually match exactly. Why? Because gradient descent on a convex function will always reach the global optimum, given enough time and sufficiently small learning rate.
+As expected, my weights nearly perfectly match the sk-learn `LogisticRegression` weights. If I trained the algorithm longer and with a small enough learning rate, they would eventually match exactly. Why? Because gradient ascent on a concave function will always reach the global optimum, given enough time and sufficiently small learning rate.
 
 # What's the Accuracy?
 To get the accuracy, I just need to use the final weights to get the logits for the dataset (`final_scores`). Then I can use `sigmoid` to get the final predictions and round them to the nearest integer (0 or 1) to get the predicted class.

@@ -332,7 +332,7 @@ hive> select * from people_wiki_sample limit 2;
 ## Getting the Word Counts
 With the data in the table, I can get the word counts pretty easily. I need to use three useful Hive commands: `lateral view`, `explode` and `split`. I'll execute these three commands on their own to explain them and then execute the whole query.
 
-So, what does these do?
+So, what do these do?
 
 According to the [Apache wiki](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView), "Lateral view is used in conjunction with user-defined table generating functions such as explode()". I use `lateral view` to apply the `explode` function to the column `text` in every row in the table. `Explode` converts the `text` column to separate rows. `Split` returns an array with each word as an element (similar to Python).
 

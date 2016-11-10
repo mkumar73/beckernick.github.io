@@ -330,7 +330,7 @@ hive> select * from people_wiki_sample limit 2;
     Time taken: 0.087 seconds
 
 ## Getting the Word Counts
-With the data in the table, I can get the word counts pretty easily. I need to use three useful Hive commands: `lateral view`, `explode` and `split`. I'll execute these three commands on their own to explain them and then execute the whole query.
+With the data in the table, I can get the word counts pretty easily. I need to use three useful Hive commands: `lateral view`, `explode` and `split`. I'll detail these three commands on their own to explain them and then execute the whole query.
 
 So, what do these do?
 

@@ -1,5 +1,5 @@
 ---
-title:  "Matrix Factorization for Recommendations in Python"
+title:  "Matrix Factorization for Movie Recommendations in Python"
 date:   2016-11-10
 tags: [machine learning, recommender systems]
 
@@ -177,7 +177,7 @@ ratings_df.head()
 
 
 
-These look good, but I want the format of my ratings matrix to be one row per user and one column per movie. I'll `pivot` `ratings_df` to get that and call the new variable `R`.
+These look good, but I want the format of my ratings matrix to be one row per user and one column per movie. I'll `pivot` `ratings_df` to get that and call the new variable `R_df`.
 
 
 ```python

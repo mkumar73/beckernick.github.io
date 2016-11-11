@@ -10,18 +10,18 @@ header:
 excerpt: "Movie Recommender, Matrix Factorization, Latent Factor Models"
 ---
 
-In this post, I'll detail a basic version of low-rank matrix factorization for recommendations employ it on a dataset of 1 million movie ratings (from 1 to 5) available from the [MovieLens](http://grouplens.org/datasets/movielens/) project. The MovieLens datasets were created collected by GroupLens Research at the University of Minnesota.
+In this post, I'll detail a basic version of low-rank matrix factorization for recommendations and employ it on a dataset of 1 million movie ratings (from 1 to 5) available from the [MovieLens](http://grouplens.org/datasets/movielens/) project. The MovieLens datasets were created collected by GroupLens Research at the University of Minnesota.
 
-[Previously](https://beckernick.github.io/music_recommender/), I used item-based collaborative filtering to make music recommendations from raw artist listen-count data. I had a relatively small amount of data, and ended up making some pretty good recommendations. Collaborative filtering methods that compute distance relationships between items or users are generally thought of as "neighborhood" methods, since they center on the idea of "nearness". Unfortunately, there are two issues with taking this approach:
+[Previously](https://beckernick.github.io/music_recommender/), I used item-based collaborative filtering to make music recommendations from raw artist listen-count data. I had a decent amount of data, and ended up making some pretty good recommendations. Collaborative filtering methods that compute distance relationships between items or users are generally thought of as "neighborhood" methods, since they center on the idea of "nearness". That's how I made the recommendations. Unfortunately, there are two issues with taking this approach:
 
 1. It doesn't scale particularly well to massive datasets
 2. There's a theoretical concern with raw data based approaches.
 
-I talked about the scaling issue in the previous post, but not the conceptual issue. The key concern is that ratings matrices may be overfit and noisy representations of user tastes and preferences. When we use distance based "neighborhood" approaches on raw data, we match to sparse, low-level details that we assume represent the user's preference vectors instead of matching by the vectors themselves. It's a subtle difference, but it's important.
+I talked about the scaling issue in the previous post, but not the conceptual issue. The key concern is that ratings matrices may be overfit and noisy representations of user tastes and preferences. When we use distance based "neighborhood" approaches on raw data, we match on sparse, low-level details that we assume represent the user's preference vectors instead of matching on the vectors themselves. It's a subtle difference, but it's important.
 
-For example, if I've listened to ten Red Hot Chili Peppers songs and you've listened to ten different Red Hot Chili Peppers songs, the raw user action matrix wouldn't have any overlap. We'd be in entirely separate neighborhoods, even though it seems pretty likely we share at least some underlying preferencs.
+For example, if I've listened to ten Red Hot Chili Peppers songs and you've listened to ten different Red Hot Chili Peppers songs, the raw user action matrix wouldn't have any overlap. Mathematically, the dot product of our action vectors would be 0. We'd be in entirely separate neighborhoods, even though it seems pretty likely we share at least some underlying preferencs.
 
-If it sounds like using song features (such as genre) could help, you're right. But, to steal Joseph Konstan's (professor at Minnesota involved with GroupLens Research who has an awesome [Coursera course](https://www.coursera.org/specializations/recommender-systems) on Recommender Systems) example, what if we both like songs with great storytelling, regardless of the genre. How do we resolve this? I need a method that can derive tastes and preference vectors from the raw data.
+Using item features (such as genre) could help fix this issue, but not entirely. Stealing Joseph Konstan's (professor at Minnesota involved with GroupLens Research who has an awesome [Coursera course](https://www.coursera.org/specializations/recommender-systems) on Recommender Systems) example, what if we both like songs with great storytelling, regardless of the genre. How do we resolve this? I need a method that can derive tastes and preference vectors from the raw data.
 
 Low-Rank Matrix Factorization is that kind of method.
 
@@ -29,15 +29,15 @@ Low-Rank Matrix Factorization is that kind of method.
 
 Matrix factorization is the breaking down of one matrix in a product of multiple matrices. It's extremely well studied in mathematics, and it's highly useful. There are many different ways to factor matrices, but singular value decomposition is particularly useful for making recommendations.
 
-So what is singular value decomposition (SVD)? At a high level, SVD is an algorithm that decomposes a matrix $R$ into the best lower rank (i.e. smaller/simpler) approximation of the original matrix $R$. Mathematically, it decomposes R into a two unitary matrices and a diagonal matrix:
+So what is singular value decomposition (SVD)? At a high level, SVD is an algorithm that decomposes a matrix $$R$$ into the best lower rank (i.e. smaller/simpler) approximation of the original matrix $$R$. Mathematically, it decomposes R into a two unitary matrices and a diagonal matrix:
 
 $$\begin{equation}
 R = U\Sigma V^{T}
 \end{equation}$$
 
-where R is users's ratings matrix, $U$ is the user "features" matrix, $\Sigma$ is the diagonal matrix of singular values (essentially weights), and $V^{T}$ is the movie "features" matrix. $U$ and $V^{T}$ are orthogonal, and represent different things. $U$ represents how much users "like" each feature and $V^{T}$ represents how relevant each feature is to each movie.
+where R is users's ratings matrix, $$U$$ is the user "features" matrix, $$\Sigma$$ is the diagonal matrix of singular values (essentially weights), and $$V^{T}$$ is the movie "features" matrix. $$U$$ and $$V^{T}$$ are orthogonal, and represent different things. $$U$$ represents how much users "like" each feature and $$V^{T}$$ represents how relevant each feature is to each movie.
 
-To get the lower rank approximation, we take these matrices and keep only the top $k$ features, which we think of as the underlying tastes and preferences vectors.
+To get the lower rank approximation, we take these matrices and keep only the top $$k$$ features, which we think of as the underlying tastes and preferences vectors.
 
 
 # Setting Up the Ratings Data
@@ -398,7 +398,7 @@ from scipy.sparse.linalg import svds
 U, sigma, Vt = svds(R_demeaned, k = 50)
 ```
 
-Done. The function returns exactly what I detailed earlier in this post, except that the $\Sigma$ returned is just the values instead of a diagonal matrix. This is useful, but since I'm going to leverage matrix multiplication to get predictions I'll convert it to the diagonal matrix form.
+Done. The function returns exactly what I detailed earlier in this post, except that the $$\Sigma$$ returned is just the values instead of a diagonal matrix. This is useful, but since I'm going to leverage matrix multiplication to get predictions I'll convert it to the diagonal matrix form.
 
 
 ```python
@@ -407,7 +407,7 @@ sigma = np.diag(sigma)
 
 # Making Predictions from the Decomposed Matrices
 
-I now have everything I need to make movie ratings predictions for every user. I can do it all at once by following the math and matrix multiply $U$, $\Sigma$, and $V^{T}$ back to get the rank $k=50$ approximation of $R$.
+I now have everything I need to make movie ratings predictions for every user. I can do it all at once by following the math and matrix multiply $$U$, $$\Sigma$, and $$V^{T}$$ back to get the rank $$k=50$$ approximation of $$R$.
 
 I also need to add the user means back to get the actual star ratings prediction.
 
@@ -416,11 +416,11 @@ I also need to add the user means back to get the actual star ratings prediction
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_ratings_mean.reshape(-1, 1)
 ```
 
-If I wanted to put this kind of system into production, I'd want to create a training and validation set and optimize the number of latent features ($k$) by minimizing the Root Mean Square Error. Intuitively, the Root Mean Square Error will decrease on the training set as $k$ increases (because I'm approximating the original ratings matrix with a higher rank matrix).
+If I wanted to put this kind of system into production, I'd want to create a training and validation set and optimize the number of latent features ($k$) by minimizing the Root Mean Square Error. Intuitively, the Root Mean Square Error will decrease on the training set as $$k$$ increases (because I'm approximating the original ratings matrix with a higher rank matrix).
 
 However, for movies, between around 20 and 100 feature "preferences" vectors have been found to be optimal for generalizing to unseen data.
 
-I could create a training and validation set and optimize $k$ by minimizing RMSE, but since I'm just going through proof of concept I'll leave that for another post. I just want to see some movie recommendations.
+I could create a training and validation set and optimize $$k$$ by minimizing RMSE, but since I'm just going through proof of concept I'll leave that for another post. I just want to see some movie recommendations.
 
 # Making Movie Recommendations
 Finally, it's time. With the predictions matrix for every user, I can build a function to recommend movies for any user. All I need to do is return the movies with the highest predicted rating that the specified user hasn't already rated. Though I didn't use actually use any explicit movie content features (such as genre or title), I'll merge in that information to get a more complete picture of the recommendations.

@@ -403,182 +403,19 @@ I also need to add the user means back to get the predicted 5-star ratings.
 
 ```python
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_ratings_mean.reshape(-1, 1)
+preds_df = pd.DataFrame(all_user_predicted_ratings, columns = R_df.columns)
 ```
 
 If I wanted to put this kind of system into production, I'd want to create a training and validation set and optimize the number of latent features ($$k$$) by minimizing the Root Mean Square Error. Intuitively, the Root Mean Square Error will continuously decrease on the training set as $$k$$ increases (because I'm approximating the original ratings matrix with a higher rank matrix). On the validation set, however, the error will eventually start increasing because the training set is an overfit representation of user tastes.
 
 For movies, predictions from lower rank matrices with values of $$k$$ between roughly 20 and 100 have been found to be the best at generalizing to unseen data.
 
-I could create a training and validation set and optimize $$k$$ by minimizing RMSE, but since I'm just going through proof of concept I'll leave that for another post. I just want to see some movie recommendations.
+I could create a training and validation set and optimize $$k$$ by minimizing RMSE, but since I'm just going through a proof of concept I'll leave that for another post. I just want to see some movie recommendations.
 
 # Making Movie Recommendations
-Finally, it's time. With the predictions matrix for every user, I can build a function to recommend movies for any user. All I need to do is return the movies with the highest predicted rating that the specified user hasn't already rated. Though I didn't use actually use any explicit movie content features (such as genre or title), I'll merge in that information to get a more complete picture of the recommendations.
+Finally, it's time. With the predictions matrix for every user, I can build a function to recommend movies for any user. All I need to do is return the movies with the highest predicted rating that the specified user hasn't already rated. Though I didn't actually use any explicit movie content features (such as genre or title), I'll merge in that information to get a more complete picture of the recommendations.
 
 I'll also return the list of movies the user has already rated, for the sake of comparison.
-
-
-```python
-preds_df = pd.DataFrame(all_user_predicted_ratings, columns = R_df.columns)
-preds_df.head()
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>MovieID</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>...</th>
-      <th>3943</th>
-      <th>3944</th>
-      <th>3945</th>
-      <th>3946</th>
-      <th>3947</th>
-      <th>3948</th>
-      <th>3949</th>
-      <th>3950</th>
-      <th>3951</th>
-      <th>3952</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4.288861</td>
-      <td>0.143055</td>
-      <td>-0.195080</td>
-      <td>-0.018843</td>
-      <td>0.012232</td>
-      <td>-0.176604</td>
-      <td>-0.074120</td>
-      <td>0.141358</td>
-      <td>-0.059553</td>
-      <td>-0.195950</td>
-      <td>...</td>
-      <td>0.027807</td>
-      <td>0.001640</td>
-      <td>0.026395</td>
-      <td>-0.022024</td>
-      <td>-0.085415</td>
-      <td>0.403529</td>
-      <td>0.105579</td>
-      <td>0.031912</td>
-      <td>0.050450</td>
-      <td>0.088910</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.744716</td>
-      <td>0.169659</td>
-      <td>0.335418</td>
-      <td>0.000758</td>
-      <td>0.022475</td>
-      <td>1.353050</td>
-      <td>0.051426</td>
-      <td>0.071258</td>
-      <td>0.161601</td>
-      <td>1.567246</td>
-      <td>...</td>
-      <td>-0.056502</td>
-      <td>-0.013733</td>
-      <td>-0.010580</td>
-      <td>0.062576</td>
-      <td>-0.016248</td>
-      <td>0.155790</td>
-      <td>-0.418737</td>
-      <td>-0.101102</td>
-      <td>-0.054098</td>
-      <td>-0.140188</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1.818824</td>
-      <td>0.456136</td>
-      <td>0.090978</td>
-      <td>-0.043037</td>
-      <td>-0.025694</td>
-      <td>-0.158617</td>
-      <td>-0.131778</td>
-      <td>0.098977</td>
-      <td>0.030551</td>
-      <td>0.735470</td>
-      <td>...</td>
-      <td>0.040481</td>
-      <td>-0.005301</td>
-      <td>0.012832</td>
-      <td>0.029349</td>
-      <td>0.020866</td>
-      <td>0.121532</td>
-      <td>0.076205</td>
-      <td>0.012345</td>
-      <td>0.015148</td>
-      <td>-0.109956</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.408057</td>
-      <td>-0.072960</td>
-      <td>0.039642</td>
-      <td>0.089363</td>
-      <td>0.041950</td>
-      <td>0.237753</td>
-      <td>-0.049426</td>
-      <td>0.009467</td>
-      <td>0.045469</td>
-      <td>-0.111370</td>
-      <td>...</td>
-      <td>0.008571</td>
-      <td>-0.005425</td>
-      <td>-0.008500</td>
-      <td>-0.003417</td>
-      <td>-0.083982</td>
-      <td>0.094512</td>
-      <td>0.057557</td>
-      <td>-0.026050</td>
-      <td>0.014841</td>
-      <td>-0.034224</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1.574272</td>
-      <td>0.021239</td>
-      <td>-0.051300</td>
-      <td>0.246884</td>
-      <td>-0.032406</td>
-      <td>1.552281</td>
-      <td>-0.199630</td>
-      <td>-0.014920</td>
-      <td>-0.060498</td>
-      <td>0.450512</td>
-      <td>...</td>
-      <td>0.110151</td>
-      <td>0.046010</td>
-      <td>0.006934</td>
-      <td>-0.015940</td>
-      <td>-0.050080</td>
-      <td>-0.052539</td>
-      <td>0.507189</td>
-      <td>0.033830</td>
-      <td>0.125706</td>
-      <td>0.199244</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 3706 columns</p>
-</div>
-
 
 
 ```python
@@ -595,7 +432,7 @@ def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num
                  )
 
     print 'User {0} has already rated {1} movies.'.format(userID, user_full.shape[0])
-    print 'Recommending highest {0} predicted ratings movies not already rated.'.format(num_recommendations)
+    print 'Recommending the highest {0} predicted ratings movies not already rated.'.format(num_recommendations)
     
     # Recommend the highest predicted rating movies that the user hasn't seen yet.
     recommendations = (movies_df[~movies_df['MovieID'].isin(user_full['MovieID'])].
@@ -608,15 +445,12 @@ def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num
                       )
 
     return user_full, recommendations
-```
 
-
-```python
 already_rated, predictions = recommend_movies(preds_df, 837, movies_df, ratings_df, 10)
 ```
 
     User 837 has already rated 69 movies.
-    Recommending highest 10 predicted ratings movies not already rated.
+    Recommending the highest 10 predicted ratings movies not already rated.
 
 
 So, how'd I do?
@@ -826,13 +660,13 @@ Pretty cool! These look like pretty good recommendations. It's also good to see 
 
 # Conclusion
 
-We've seen that we can make good recommendations with raw data based collaborative filtering methods (neighborhood models) and latent features from low-rank matrix factorization methods (factorization models).
+We've seen that we can make good recommendations with raw data based collaborative filtering methods (neighborhood models) and latent features based matrix factorization methods (factorization models).
 
-Low-dimensional matrix recommenders try to capture the underlying features driving the raw data (which we understand as tastes and preferences). From a theoretical perspective, if we want to make recommendations based on people's tastes, this seems like the better approach. This technique also scales **significantly** better to larger datasets.
+Low-dimensional matrix recommenders try to capture the underlying features driving the raw data (which we understand as tastes and preferences). From a theoretical perspective, if we want to make recommendations based on people's tastes, this seems like the better approach. This technique also scales **significantly** better to larger datasets, since we can actually approximate the SVD with gradient descent.
 
 However, we still likely lose some meaningful signals by using a lower-rank matrix. And though these factorization based techniques work extremely well, there's research being done on new methods. These efforts have resulted in various types probabilistic matrix factorization (which works and scales even better) and many other approaches.
 
-One particularly cool and effective strategy is to combine factorization and neighborhood methods into one [framework](http://www.cs.rochester.edu/twiki/pub/Main/HarpSeminar/Factorization_Meets_the_Neighborhood-_a_Multifaceted_Collaborative_Filtering_Model.pdf). This research field is extremely active, and I highly recommend Joseph Konstan's Coursera course, [Introduction to Recommender Systems](https://www.coursera.org/specializations/recommender-systems), for anyone looking to get a high level overview of the field. The optional readings are influential papers in the field from the last 15-ish years, and they're really cool.
+One particularly cool and effective strategy is to combine factorization and neighborhood methods into one [framework](http://www.cs.rochester.edu/twiki/pub/Main/HarpSeminar/Factorization_Meets_the_Neighborhood-_a_Multifaceted_Collaborative_Filtering_Model.pdf). This research field is extremely active, and I highly recommend Joseph Konstan's Coursera course, [Introduction to Recommender Systems](https://www.coursera.org/specializations/recommender-systems), for anyone looking to get a high level overview of the field. The optional readings are influential papers in the field from the last 15-ish years, and they're really informative.
 
 ***
 For those interested, the Jupyter Notebook with all the code can be found in the [Github repository](https://github.com/beckernick/matrix_factorization_recommenders) for this post.

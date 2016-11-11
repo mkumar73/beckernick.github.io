@@ -14,7 +14,7 @@ In this post, I'll walk through a basic version of low-rank matrix factorization
 
 [Previously](https://beckernick.github.io/music_recommender/), I used item-based collaborative filtering to make music recommendations from raw artist listen-count data. I had a decent amount of data, and ended up making some pretty good recommendations. Collaborative filtering methods that compute distance relationships between items or users are generally thought of as "neighborhood" methods, since they center on the idea of "nearness". That's how I made the artist recommendations -- finding the artists with the closest vectors. Unfortunately, there are two issues with taking this approach:
 
-1. It doesn't scale particularly well to massive datasets
+1. It doesn't scale particularly well to massive datasets.
 2. There's a theoretical concern with raw data based approaches.
 
 I talked about the scaling issue in the previous post, but not the conceptual issue. The key concern is that ratings matrices may be overfit and noisy representations of user tastes and preferences. When we use distance based "neighborhood" approaches on raw data, we match on sparse, low-level details that we assume represent the user's preference vectors instead of matching on the vectors themselves. It's a subtle difference, but it's important.

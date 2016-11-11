@@ -666,7 +666,7 @@ Low-dimensional matrix recommenders try to capture the underlying features drivi
 
 However, we still likely lose some meaningful signals by using a lower-rank matrix. And though these factorization based techniques work extremely well, there's research being done on new methods. These efforts have resulted in various types probabilistic matrix factorization (which works and scales even better) and many other approaches.
 
-One particularly cool and effective strategy is to combine factorization and neighborhood methods into one [framework](http://www.cs.rochester.edu/twiki/pub/Main/HarpSeminar/Factorization_Meets_the_Neighborhood-_a_Multifaceted_Collaborative_Filtering_Model.pdf). This research field is extremely active, and I highly recommend Joseph Konstan's Coursera course, [Introduction to Recommender Systems](https://www.coursera.org/specializations/recommender-systems), for anyone looking to get a high level overview of the field. The optional readings are influential papers in the field from the last 15-ish years, and they're really informative.
+One particularly cool and effective strategy is to combine factorization and neighborhood methods into one [framework](http://www.cs.rochester.edu/twiki/pub/Main/HarpSeminar/Factorization_Meets_the_Neighborhood-_a_Multifaceted_Collaborative_Filtering_Model.pdf). This research field is extremely active, and I highly recommend Joseph Konstan's Coursera course, [Introduction to Recommender Systems](https://www.coursera.org/specializations/recommender-systems), for anyone looking to get a broad overview of the field.
 
 ***
 For those interested, the Jupyter Notebook with all the code can be found in the [Github repository](https://github.com/beckernick/matrix_factorization_recommenders) for this post.

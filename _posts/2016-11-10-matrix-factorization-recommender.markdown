@@ -29,13 +29,13 @@ Low-Rank Matrix Factorization is that kind of method.
 
 Matrix factorization is the breaking down of one matrix in a product of multiple matrices. It's extremely well studied in mathematics, and it's highly useful. There are many different ways to factor matrices, but singular value decomposition is particularly useful for making recommendations.
 
-So what is singular value decomposition (SVD)? At a high level, SVD is an algorithm that decomposes a matrix $$R$$ into the best lower rank (i.e. smaller/simpler) approximation of the original matrix $$R$. Mathematically, it decomposes R into a two unitary matrices and a diagonal matrix:
+So what is singular value decomposition (SVD)? At a high level, SVD is an algorithm that decomposes a matrix $$R$$ into the best lower rank (i.e. smaller/simpler) approximation of the original matrix $$R$$. Mathematically, it decomposes $$R$$ into a two unitary matrices and a diagonal matrix:
 
 $$\begin{equation}
 R = U\Sigma V^{T}
 \end{equation}$$
 
-where R is users's ratings matrix, $$U$$ is the user "features" matrix, $$\Sigma$$ is the diagonal matrix of singular values (essentially weights), and $$V^{T}$$ is the movie "features" matrix. $$U$$ and $$V^{T}$$ are orthogonal, and represent different things. $$U$$ represents how much users "like" each feature and $$V^{T}$$ represents how relevant each feature is to each movie.
+where $$R$$ is users's ratings matrix, $$U$$ is the user "features" matrix, $$\Sigma$$ is the diagonal matrix of singular values (essentially weights), and $$V^{T}$$ is the movie "features" matrix. $$U$$ and $$V^{T}$$ are orthogonal, and represent different things. $$U$$ represents how much users "like" each feature and $$V^{T}$$ represents how relevant each feature is to each movie.
 
 To get the lower rank approximation, we take these matrices and keep only the top $$k$$ features, which we think of as the underlying tastes and preferences vectors.
 
@@ -396,7 +396,7 @@ sigma = np.diag(sigma)
 
 # Making Predictions from the Decomposed Matrices
 
-I now have everything I need to make movie ratings predictions for every user. I can do it all at once by following the math and matrix multiply $$U$, $$\Sigma$, and $$V^{T}$$ back to get the rank $$k=50$$ approximation of $$R$.
+I now have everything I need to make movie ratings predictions for every user. I can do it all at once by following the math and matrix multiply $$U$, $$\Sigma$, and $$V^{T}$$ back to get the rank $$k=50$$ approximation of $$R$$.
 
 I also need to add the user means back to get the actual star ratings prediction.
 

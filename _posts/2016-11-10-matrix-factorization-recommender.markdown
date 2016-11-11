@@ -52,17 +52,11 @@ import numpy as np
 ratings_list = [i.strip().split("::") for i in open('/users/nickbecker/Downloads/ml-1m/ratings.dat', 'r').readlines()]
 users_list = [i.strip().split("::") for i in open('/users/nickbecker/Downloads/ml-1m/users.dat', 'r').readlines()]
 movies_list = [i.strip().split("::") for i in open('/users/nickbecker/Downloads/ml-1m/movies.dat', 'r').readlines()]
-```
 
-
-```python
 ratings = np.array(ratings_list)
 users = np.array(users_list)
 movies = np.array(movies_list)
-```
 
-
-```python
 ratings_df = pd.DataFrame(ratings_list, columns = ['UserID', 'MovieID', 'Rating', 'Timestamp'], dtype = int)
 movies_df = pd.DataFrame(movies_list, columns = ['MovieID', 'Title', 'Genres'])
 movies_df['MovieID'] = movies_df['MovieID'].apply(pd.to_numeric)
@@ -74,9 +68,6 @@ I'll also take a look at the movies and ratings dataframes.
 ```python
 movies_df.head()
 ```
-
-
-
 
 <div>
 <table border="1" class="dataframe">
@@ -193,8 +184,6 @@ These look good, but I want the format of my ratings matrix to be one row per us
 R_df = ratings_df.pivot(index = 'UserID', columns ='MovieID', values = 'Rating').fillna(0)
 R_df.head()
 ```
-
-
 
 
 <div>
@@ -416,7 +405,7 @@ I also need to add the user means back to get the actual star ratings prediction
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt) + user_ratings_mean.reshape(-1, 1)
 ```
 
-If I wanted to put this kind of system into production, I'd want to create a training and validation set and optimize the number of latent features ($k$) by minimizing the Root Mean Square Error. Intuitively, the Root Mean Square Error will decrease on the training set as $$k$$ increases (because I'm approximating the original ratings matrix with a higher rank matrix).
+If I wanted to put this kind of system into production, I'd want to create a training and validation set and optimize the number of latent features ($$k$$) by minimizing the Root Mean Square Error. Intuitively, the Root Mean Square Error will decrease on the training set as $$k$$ increases (because I'm approximating the original ratings matrix with a higher rank matrix).
 
 However, for movies, between around 20 and 100 feature "preferences" vectors have been found to be optimal for generalizing to unseen data.
 
@@ -592,7 +581,6 @@ preds_df.head()
 
 
 
-
 ```python
 def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num_recommendations=5):
     
@@ -637,8 +625,6 @@ So, how'd I do?
 ```python
 already_rated.head(10)
 ```
-
-
 
 
 <div>

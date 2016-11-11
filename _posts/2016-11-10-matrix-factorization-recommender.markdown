@@ -12,7 +12,7 @@ excerpt: "Movie Recommender, Matrix Factorization, Latent Factor Models"
 
 In this post, I'll walk through a basic version of low-rank matrix factorization for recommendations and apply it to a dataset of 1 million movie ratings (from 1 to 5) available from the [MovieLens](http://grouplens.org/datasets/movielens/) project. The MovieLens datasets were collected by GroupLens Research at the University of Minnesota.
 
-[Previously](https://beckernick.github.io/music_recommender/), I used item-based collaborative filtering to make music recommendations from raw artist listen-count data. I had a decent amount of data, and ended up making some pretty good recommendations. Collaborative filtering methods that compute distance relationships between items or users are generally thought of as "neighborhood" methods, since they center on the idea of "nearness". That's how I made the recommendations. Unfortunately, there are two issues with taking this approach:
+[Previously](https://beckernick.github.io/music_recommender/), I used item-based collaborative filtering to make music recommendations from raw artist listen-count data. I had a decent amount of data, and ended up making some pretty good recommendations. Collaborative filtering methods that compute distance relationships between items or users are generally thought of as "neighborhood" methods, since they center on the idea of "nearness". That's how I made the artist recommendations -- finding the artists with the closest vectors. Unfortunately, there are two issues with taking this approach:
 
 1. It doesn't scale particularly well to massive datasets
 2. There's a theoretical concern with raw data based approaches.

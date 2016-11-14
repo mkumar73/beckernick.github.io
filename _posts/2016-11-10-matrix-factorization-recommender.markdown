@@ -21,7 +21,7 @@ I talked about the scaling issue in the previous post, but not the conceptual is
 
 For example, if I've listened to ten Red Hot Chili Peppers songs and you've listened to ten different Red Hot Chili Peppers songs, the raw user action matrix wouldn't have any overlap. Mathematically, the dot product of our action vectors would be 0. We'd be in entirely separate neighborhoods, even though it seems pretty likely we share at least some underlying preferences.
 
-Using item features (such as genre) could help fix this issue, but not entirely. Stealing an example from Joseph Konston (professor at Minnesota who has a [Coursera course](https://www.coursera.org/specializations/recommender-systems) on recommender systems), what if we both like songs with great storytelling, regardless of the genre. How do we resolve this? I need a method that can derive tastes and preference vectors from the raw data.
+Using item features (such as genre) could help fix this issue, but not entirely. Stealing an example from Joseph Konston (professor at Minnesota who has a [Coursera course](https://www.coursera.org/specializations/recommender-systems) on recommender systems), what if we both like songs with great storytelling, regardless of the genre? How do we resolve this? I need a method that can derive tastes and preference vectors from the raw data.
 
 Low-Rank Matrix Factorization is that kind of method.
 

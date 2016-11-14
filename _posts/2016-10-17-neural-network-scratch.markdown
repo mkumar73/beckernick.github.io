@@ -300,7 +300,7 @@ def cross_entropy_softmax_loss_array(softmax_probs_array, y_onehot):
     return loss
 ```
 
-To avoid overfitting in predictive modeling, we often use L2 regularization. This kind of regularization works by squashing weights closer to zero, and it also contributes to the total loss of the model. So we need a function to calculate the regularization loss. Fortunately, L2 regulariation loss has a simple formula:
+To avoid overfitting in predictive modeling, we often use L2 regularization. This kind of regularization works by squashing weights closer to zero, and it also contributes to the total loss of the model. So we need a function to calculate the regularization loss. Fortunately, L2 regularization loss has a simple formula:
 
 $$\begin{equation}
 0.5\timesλ \times weights^2

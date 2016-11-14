@@ -27,7 +27,7 @@ Low-Rank Matrix Factorization is that kind of method.
 
 # Matrix Factorization via Singular Value Decomposition
 
-Matrix factorization is the breaking down of one matrix in a product of multiple matrices. It's extremely well studied in mathematics, and it's highly useful. There are many different ways to factor matrices, but singular value decomposition is particularly useful for making recommendations.
+Matrix factorization is the breaking down of one matrix into a product of multiple matrices. It's extremely well studied in mathematics, and it's highly useful. There are many different ways to factor matrices, but singular value decomposition is particularly useful for making recommendations.
 
 So what is singular value decomposition (SVD)? At a high level, SVD is an algorithm that decomposes a matrix $$R$$ into the best lower rank (i.e. smaller/simpler) approximation of the original matrix $$R$$. Mathematically, it decomposes $$R$$ into two unitary matrices and a diagonal matrix:
 
@@ -410,7 +410,7 @@ If I wanted to put this kind of system into production, I'd want to create a tra
 
 For movies, predictions from lower rank matrices with values of $$k$$ between roughly 20 and 100 have been found to be the best at generalizing to unseen data.
 
-I could create a training and validation set and optimize $$k$$ by minimizing RMSE, but since I'm just going through a proof of concept I'll leave that for another post. I just want to see some movie recommendations.
+I could create a training and validation set and optimize $$k$$ by minimizing RMSE, but I'll leave that for another post. I just want to see some movie recommendations.
 
 # Making Movie Recommendations
 Finally, it's time. With the predictions matrix for every user, I can build a function to recommend movies for any user. All I need to do is return the movies with the highest predicted rating that the specified user hasn't already rated. Though I didn't actually use any explicit movie content features (such as genre or title), I'll merge in that information to get a more complete picture of the recommendations.
@@ -423,7 +423,7 @@ def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num
     
     # Get and sort the user's predictions
     user_row_number = userID - 1 # UserID starts at 1, not 0
-    sorted_user_predictions = preds_df.iloc[user_row_number].sort_values(ascending=False) # UserID starts at 1
+    sorted_user_predictions = preds_df.iloc[user_row_number].sort_values(ascending=False)
     
     # Get the user's data and merge in the movie information.
     user_data = original_ratings_df[original_ratings_df.UserID == (userID)]

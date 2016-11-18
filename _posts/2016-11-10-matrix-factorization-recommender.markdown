@@ -53,10 +53,6 @@ ratings_list = [i.strip().split("::") for i in open('/users/nickbecker/Downloads
 users_list = [i.strip().split("::") for i in open('/users/nickbecker/Downloads/ml-1m/users.dat', 'r').readlines()]
 movies_list = [i.strip().split("::") for i in open('/users/nickbecker/Downloads/ml-1m/movies.dat', 'r').readlines()]
 
-ratings = np.array(ratings_list)
-users = np.array(users_list)
-movies = np.array(movies_list)
-
 ratings_df = pd.DataFrame(ratings_list, columns = ['UserID', 'MovieID', 'Rating', 'Timestamp'], dtype = int)
 movies_df = pd.DataFrame(movies_list, columns = ['MovieID', 'Title', 'Genres'])
 movies_df['MovieID'] = movies_df['MovieID'].apply(pd.to_numeric)

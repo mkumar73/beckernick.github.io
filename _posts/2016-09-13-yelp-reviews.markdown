@@ -1,7 +1,7 @@
 ---
 title:  "Predicting Ratings from 1+ GBs of Yelp Reviews"
 date:   2016-09-13
-tags: [machine learning]
+tags: [statistical modeling]
 
 header:
   image: "yelp_reviews/yelp_logo.png"

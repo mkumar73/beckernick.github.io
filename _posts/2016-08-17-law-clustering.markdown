@@ -1,7 +1,7 @@
 ---
 title:  "Clustering US Laws using TF-IDF and K-Means"
 date:   2016-08-18
-tags: [machine learning]
+tags: [statistical modeling]
 
 header:
   image: "congress_edge_detection.jpg"
@@ -379,7 +379,7 @@ print_nearest_neighbors(tfs[bill_id], clean_bills_dictionary, model_tf_idf, k=5)
 Pretty good! Remember, we didn't use the title of the laws in the analysis. These rankings are just based on the textual similarity. Since the nearest neighbors seem to be decent, let's try some k-means clustering.
 
 ## Clustering with K-Means
-With the groundwork already in place, all we have to do is implement the k-means model. Ideally, we'd choose the number of clusters based on domain knowledge. We could also use one of a variety of techniques to find a "good" number of clusters such as using the Gap Statistic or the Elbow Method. For simplicity, I'll just set `k = 50`. If the data were evenly distributed across clusters, each cluster would have 2% of the data, which seems fine to me for this blog post.
+With the groundwork already in place, all we have to do is implement the k-means model. Ideally, we'd choose the number of clusters based on domain knowledge. We could also use one of a variety of techniques to find a "good" number of clusters such as using the Gap Statistic or the Elbow Method. The Elbow Method is a simple, but effective, way to tune the `k` parameter. Essentially, we calculate the within-cluster sum of squared error (which decreases as `k` increases by definition) and pick the `k` as the value when we stop getting large decreases in the within-cluster sum of squares. However, for simplicity, I'll just set `k = 50` -- that seems fine to me for this blog post.
 
 
 ```python
@@ -412,7 +412,7 @@ plt.show()
 ![png](https://raw.githubusercontent.com/beckernick/beckernick.github.io/master/images/clustering_laws_images/clusters_histogram.png)
 
 
-So it's not uniformly distributed (which makes sense), but it's not a **_complete_** trainwreck. Good enough to push forward. Let's assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws as values assigned to their respective clusters.
+So it's not uniformly distributed (which makes sense), but it's also not exatly obvious that 50 was a good choice of `k`. Oh well! Good enough to push forward. Let's assign the bills to their clusters and see if they make sense. We'll create a dictionary with the clusters as keys and the laws as values assigned to their respective clusters.
 
 
 

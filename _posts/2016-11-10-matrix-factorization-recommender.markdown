@@ -1,7 +1,7 @@
 ---
 title:  "Matrix Factorization for Movie Recommendations in Python"
 date:   2016-11-10
-tags: [machine learning, recommender systems]
+tags: [statistical modeling, recommender systems]
 
 header:
   image: "matrix_factorization_recommenders/waterfall_fingerlakes.jpg"

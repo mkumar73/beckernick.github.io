@@ -1,7 +1,7 @@
 ---
 title:  "Logistic Regression from Scratch in Python"
 date:   2016-11-05
-tags: [statistical modeling]
+tags: [machine learning]
 
 header:
   image: "logistic_regression_from_scratch/rainbow_niagara.jpg"

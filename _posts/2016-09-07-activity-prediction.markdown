@@ -1,7 +1,7 @@
 ---
 title:  "Predicting Human Activity from Smartphone Accelerometer and Gyroscope Data"
 date:   2016-09-07
-tags: [statistical modeling]
+tags: [machine learning]
 
 header:
   image: "smartphone_accelerometer.jpg"

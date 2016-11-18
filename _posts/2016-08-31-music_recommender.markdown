@@ -1,7 +1,7 @@
 ---
 title:  "Music Recommendations with Collaborative Filtering and Cosine Distance"
 date:   2016-08-31
-tags: [statistical modeling, recommender systems]
+tags: [recommender systems]
 
 header:
   image: "last_fm_spotify_edited.png"

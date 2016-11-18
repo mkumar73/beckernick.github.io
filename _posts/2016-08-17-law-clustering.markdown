@@ -1,7 +1,7 @@
 ---
 title:  "Clustering US Laws using TF-IDF and K-Means"
 date:   2016-08-18
-tags: [statistical modeling]
+tags: [machine learning]
 
 header:
   image: "congress_edge_detection.jpg"

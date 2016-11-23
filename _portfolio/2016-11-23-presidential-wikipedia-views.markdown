@@ -1,5 +1,5 @@
 ---
-title:  "The Election's Effect on Candidates's Wikipedia Page Views"
+title:  "The Election's Effect on Candidates' Wikipedia Page Views"
 date:   2016-11-23
 tags: [Politics, Consumer Behavior]
 
@@ -15,15 +15,17 @@ I recently learned that the Wikimedia Foundation provides a ton of [data](https:
 
 Fortunately, there's an [API](https://www.mediawiki.org/wiki/API:Main_page) and a [Python package](https://github.com/mediawiki-utilities/python-mwviews), eliminating the need to download and comb through the raw hourly datasets for simple queries. The API only provides access to data going back through mid-2015, but it's still awesome for a free service.
 
-Since we just had a presidential election, I was curious how the election might have affected the candidates's popularity on Wikipedia. The results are pretty dramatic.
+Since we just had a presidential election, I was curious how the election might have affected the candidates' popularity on Wikipedia. The results are pretty dramatic.
 
 
 ![](/images/wikipedia_views/presidential_wiki_views.png?raw=true)
 
-All the candidates's pages were visited more on the day after the election, but Trump had a staggering 5.5 million more views the day after.
+All the candidates' pages were visited more on the day after the election, but Trump had a staggering 5.5 million more views the day after.
 
 
 The raw hourly page views datasets are updated every hour, which is pretty cool. I bet there are signals in the Wikipedia usage data that would be pretty useful for short-term forecasting a ton of different phenomena.
+
+***
 
 ***
 

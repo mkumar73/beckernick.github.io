@@ -4,7 +4,7 @@ date:   2016-11-23
 tags: [Politics]
 
 header:
-  image: "/wikipedia_views/trump_hillary.jpg"
+  image: "/wikipedia_views/wikipedia_header.png"
   caption: "Photo credit: [**CNN**](http://www.cnn.com/2016/03/05/opinions/clinton-trump-made-for-each-other-opinion-zelizer/)"
 
 excerpt: "Presidential Candidates, Wikipedia, Visualization"

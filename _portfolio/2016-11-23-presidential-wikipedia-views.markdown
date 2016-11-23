@@ -5,7 +5,6 @@ tags: [Politics, Consumer Behavior]
 
 header:
   image: "/wikipedia_views/manhattan_skyline.png"
-  caption: "Photo credit: [**Wikipedia**](http://www.cnn.com/2016/03/05/opinions/clinton-trump-made-for-each-other-opinion-zelizer/)"
 
 excerpt: "Presidential Candidates, Wikipedia, Visualization"
 ---

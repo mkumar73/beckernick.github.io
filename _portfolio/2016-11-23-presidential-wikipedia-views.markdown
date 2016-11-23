@@ -1,7 +1,7 @@
 ---
 title:  "The Election's Effect on Candidates's Wikipedia Page Views"
 date:   2016-11-23
-tags: [Politics]
+tags: [Politics, Consumer Behavior]
 
 header:
   image: "/wikipedia_views/wikipedia_header.png"

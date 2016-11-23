@@ -4,7 +4,7 @@ date:   2016-11-23
 tags: [Politics, Consumer Behavior]
 
 header:
-  image: "/wikipedia_views/manhattan_skyline.png"
+  image: "/wikipedia_views/manhattan_skyline.jpg"
 
 excerpt: "Presidential Candidates, Wikipedia, Visualization"
 ---

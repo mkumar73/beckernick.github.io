@@ -11,7 +11,9 @@ excerpt: "Presidential Candidates, Wikipedia, Visualization"
 
 When I want to find out the background and policy positions of politicians, I usually start by checking their Wikipedia pages. I'd bet that most people do, too.
 
-I recently learned that the Wikimedia Foundation provides a ton of [data](https://meta.wikimedia.org/wiki/Research:Data) for research purposes, and it's totally free! One of the first things I stumbled upon was hourly page view data for every article on Wikipedia (over 800 million as of September 2013). The datasets are large, though, so using them was a bit cumbersome on my Macbook Air (mostly because I had to download them). I could connect to the [shared server](https://wikitech.wikimedia.org/wiki/Help:Tool_Labs#FAQ) and run queries, but, fortunately, Wikimedia provides an [API](https://www.mediawiki.org/wiki/API:Main_page) and a [Python wrapper](https://github.com/mediawiki-utilities/python-mwviews). The API only provides access to data going back through mid-2015, but it's still awesome for a free service.
+I recently learned that the Wikimedia Foundation provides a ton of [data](https://meta.wikimedia.org/wiki/Research:Data) for research purposes, and it's totally free! One of the first things I stumbled upon was hourly page view data for every article on Wikipedia (over 800 million as of September 2013). The datasets are large, though, so using them was a bit cumbersome on my Macbook Air (mostly because I had to download them).
+
+I could connect to the [shared server](https://wikitech.wikimedia.org/wiki/Help:Tool_Labs#FAQ) and run queries, but, fortunately, Wikimedia provides an [API](https://www.mediawiki.org/wiki/API:Main_page) and a [Python wrapper](https://github.com/mediawiki-utilities/python-mwviews). The API only provides access to data going back through mid-2015, but it's still awesome for a free service.
 
 Since we just had a presidential election, I was curious how the election might have affected the candidates' popularity on Wikipedia. The results are pretty dramatic.
 

@@ -194,7 +194,7 @@ Where to begin? Well, for a neural network, I need:
 1. A model architecture
 1. Arrays of weight vectors
 2. Arrays of bias vectors
-3. An activiation function
+3. An activation function
 4. A function to convert the output to a probability distribution
 5. A loss function
 6. A way to use the output of the model to tune the model iteratively and improve it (error backpropagation)
@@ -210,7 +210,7 @@ Because my network structure determines the weights and biases array shapes, I'l
 Each black arrow represents one weight vector, and the three layers are labeled clearly. We can represent all of the weights at any layer as an array of the individual weight vectors. A basic, three-layer network has two sets of weights arrays and bias vectors. There's no bias in the image, but the bias vectors don't change the architecture in any meaningful way (they just get added in to change the neuron's threshold). The way to go from the input to the output: 
 
 1. Apply the first layer's weights to the raw data (via matrix multiplication). I'll call this the input layer.
-2. Add a bias vector and apply one of many possible activiation functions to that new matrix, resulting in the hidden layer.
+2. Add a bias vector and apply one of many possible activation functions to that new matrix, resulting in the hidden layer.
 3. Apply the second layer's weights to the hidden layer matrix and add a bias vector. I'll call this the output layer.
 
 Once we have the output layer, we apply some kind of non-linear normalization function in order to let the output values represent a probabilitiy distribution. A very common choice is the softmax function, because it's easily differentiable and intuitively fits classification tasks.
@@ -231,7 +231,7 @@ With these, I can initialize starting weights and biases for the network. Since 
 
 But, since the output of that calculation defines the hidden layer, I also need to end up with an array that represents my chosen number of `hidden_nodes` vectors collectively. So I need my layer 1 weights array to have a shape of `(num_features x hidden_nodes)`. The layer 1 bias array gets added to the input layer, so it needs to have shape `(1, hidden_nodes)` for the math to line up.
 
-The same logic determines the shapes of the next weights and bias arrays, except instead of starting from the raw data and going to the hidden layer, we're going from the hidden layer to the output. We want the output to have one neuron for each possible class, so `layer2_weights_array` needs shape `(hidden_nodes, num_labels)`. The layer 2 bias array gets added to the output layer, so it needs to have shape `(1, hidden_nodes)`.
+The same logic determines the shapes of the next weights and bias arrays, except instead of starting from the raw data and going to the hidden layer, we're going from the hidden layer to the output. We want the output to have one neuron for each possible class, so `layer2_weights_array` needs shape `(hidden_nodes, num_labels)`. The layer 2 bias array gets added to the output layer, so it needs to have shape `(1, num_labels)`.
 
 
 ```python
@@ -242,8 +242,8 @@ layer2_weights_array = np.random.normal(0, 1, [hidden_nodes, num_labels])
 layer2_biases_array = np.zeros((1, num_labels))
 ```
 
-## ReLU Activiation
-Okay, now I need the activiation function I'm going to use to get the output at the hidden layer. The ReLU (Rectified Linear Unit) is a commonly chosen function because of several mathematical advantages (see [here](https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) for details). It's a simple function that has `output = 0` for any `input < 0` and `output = input` for any `input >= 0`. I can code that easily.
+## ReLU Activation
+Okay, now I need the activation function I'm going to use to get the output at the hidden layer. The ReLU (Rectified Linear Unit) is a commonly chosen function because of several mathematical advantages (see [here](https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) for details). It's a simple function that has `output = 0` for any `input < 0` and `output = input` for any `input >= 0`. I can code that easily.
 
 
 ```python

@@ -9,11 +9,11 @@ header:
 excerpt: "Model Evaluation, Oversampling, Prediction"
 ---
 
-Imbalanced data is everywhere. Amazon wants to classify fake reviews, banks want to predict fraudulent credit card charges, and Facebook researchers are probably wondering if they can predict which news articles are fake.
+Imbalanced datasets are everywhere. Amazon wants to classify fake reviews, banks want to predict fraudulent credit card charges, and, as of this November, Facebook researchers are probably wondering if they can predict which news articles are fake.
 
-In each of these cases, only a small fraction of observations are actually positives. I'd guess that only 1 in 10,000 credit card charges are fradulent, at most. Recently, oversampling the minority class observations has become a common approach to improve the quality of models. By oversampling, models are sometimes better able to learn patterns that differentiate classes. However, this post isn't about why this can improve modeling.
+In each of these cases, only a small fraction of observations are actually positives. I'd guess that only 1 in 10,000 credit card charges are fradulent, at most. Recently, oversampling the minority class observations has become a common approach to improve the quality of models. By oversampling, models are sometimes better able to learn patterns that differentiate classes. 
 
-Instead, I'm going to explore how the _**timing**_ of oversampling can affect the generalization ability of a model. Since one of the primary goals of model validation is to estimate how it will perform on unseen data (in production), oversampling correctly is critical.
+However, this post isn't about why this can improve modeling. Instead, I'm going to explore how the _**timing**_ of oversampling can affect the generalization ability of a model. Since one of the primary goals of model validation is to estimate how it will perform on unseen data (in production), oversampling correctly is critical.
 
 # Preparing the Data
 
@@ -29,168 +29,77 @@ from sklearn.metrics import recall_score
 from imblearn.over_sampling import SMOTE
 ```
 
-
 ```python
 loans = pd.read_csv('/Users/nickbecker/Python_Projects/classification_course/lending-club-data.csv.zip')
-loans.head()
+loans.iloc[0]
 ```
 
 
 
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>member_id</th>
-      <th>loan_amnt</th>
-      <th>funded_amnt</th>
-      <th>funded_amnt_inv</th>
-      <th>term</th>
-      <th>int_rate</th>
-      <th>installment</th>
-      <th>grade</th>
-      <th>sub_grade</th>
-      <th>...</th>
-      <th>sub_grade_num</th>
-      <th>delinq_2yrs_zero</th>
-      <th>pub_rec_zero</th>
-      <th>collections_12_mths_zero</th>
-      <th>short_emp</th>
-      <th>payment_inc_ratio</th>
-      <th>final_d</th>
-      <th>last_delinq_none</th>
-      <th>last_record_none</th>
-      <th>last_major_derog_none</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1077501</td>
-      <td>1296599</td>
-      <td>5000</td>
-      <td>5000</td>
-      <td>4975</td>
-      <td>36 months</td>
-      <td>10.65</td>
-      <td>162.87</td>
-      <td>B</td>
-      <td>B2</td>
-      <td>...</td>
-      <td>0.4</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>8.14350</td>
-      <td>20141201T000000</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1077430</td>
-      <td>1314167</td>
-      <td>2500</td>
-      <td>2500</td>
-      <td>2500</td>
-      <td>60 months</td>
-      <td>15.27</td>
-      <td>59.83</td>
-      <td>C</td>
-      <td>C4</td>
-      <td>...</td>
-      <td>0.8</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1</td>
-      <td>2.39320</td>
-      <td>20161201T000000</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1077175</td>
-      <td>1313524</td>
-      <td>2400</td>
-      <td>2400</td>
-      <td>2400</td>
-      <td>36 months</td>
-      <td>15.96</td>
-      <td>84.33</td>
-      <td>C</td>
-      <td>C5</td>
-      <td>...</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>8.25955</td>
-      <td>20141201T000000</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1076863</td>
-      <td>1277178</td>
-      <td>10000</td>
-      <td>10000</td>
-      <td>10000</td>
-      <td>36 months</td>
-      <td>13.49</td>
-      <td>339.31</td>
-      <td>C</td>
-      <td>C1</td>
-      <td>...</td>
-      <td>0.2</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>8.27585</td>
-      <td>20141201T000000</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1075269</td>
-      <td>1311441</td>
-      <td>5000</td>
-      <td>5000</td>
-      <td>5000</td>
-      <td>36 months</td>
-      <td>7.90</td>
-      <td>156.46</td>
-      <td>A</td>
-      <td>A4</td>
-      <td>...</td>
-      <td>0.8</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>5.21533</td>
-      <td>20141201T000000</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 68 columns</p>
-</div>
+    id                                                                       1077501
+    member_id                                                                1296599
+    loan_amnt                                                                   5000
+    funded_amnt                                                                 5000
+    funded_amnt_inv                                                             4975
+    term                                                                   36 months
+    int_rate                                                                   10.65
+    installment                                                               162.87
+    grade                                                                          B
+    sub_grade                                                                     B2
+    emp_title                                                                    NaN
+    emp_length                                                             10+ years
+    home_ownership                                                              RENT
+    annual_inc                                                                 24000
+    is_inc_v                                                                Verified
+    issue_d                                                          20111201T000000
+    loan_status                                                           Fully Paid
+    pymnt_plan                                                                     n
+    url                            https://www.lendingclub.com/browse/loanDetail....
+    desc                             Borrower added on 12/22/11 > I need to upgra...
+    purpose                                                              credit_card
+    title                                                                   Computer
+    zip_code                                                                   860xx
+    addr_state                                                                    AZ
+    dti                                                                        27.65
+    delinq_2yrs                                                                    0
+    earliest_cr_line                                                 19850101T000000
+    inq_last_6mths                                                                 1
+    mths_since_last_delinq                                                       NaN
+    mths_since_last_record                                                       NaN
+                                                         ...                        
+    total_pymnt                                                              5861.07
+    total_pymnt_inv                                                          5831.78
+    total_rec_prncp                                                             5000
+    total_rec_int                                                             861.07
+    total_rec_late_fee                                                             0
+    recoveries                                                                     0
+    collection_recovery_fee                                                        0
+    last_pymnt_d                                                     20150101T000000
+    last_pymnt_amnt                                                           171.62
+    next_pymnt_d                                                                 NaN
+    last_credit_pull_d                                               20150101T000000
+    collections_12_mths_ex_med                                                     0
+    mths_since_last_major_derog                                                  NaN
+    policy_code                                                                    1
+    not_compliant                                                                  0
+    status                                                                Fully Paid
+    inactive_loans                                                                 1
+    bad_loans                                                                      0
+    emp_length_num                                                                11
+    grade_num                                                                      5
+    sub_grade_num                                                                0.4
+    delinq_2yrs_zero                                                               1
+    pub_rec_zero                                                                   1
+    collections_12_mths_zero                                                       1
+    short_emp                                                                      0
+    payment_inc_ratio                                                         8.1435
+    final_d                                                          20141201T000000
+    last_delinq_none                                                               1
+    last_record_none                                                               1
+    last_major_derog_none                                                          1
+    Name: 0, dtype: object
+
 
 
 

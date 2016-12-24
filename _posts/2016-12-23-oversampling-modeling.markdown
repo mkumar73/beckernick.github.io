@@ -1,12 +1,12 @@
 ---
-title:  "The Right Way to Oversample in Model Training"
+title:  "The Right Way to Oversample in Predictive Modeling"
 date:   2016-12-23
 tags: [machine learning]
 
 header:
   image: "oversampling/billygoat_a_trail_lake.jpg"
 
-excerpt: "Model Evaluation, Oversampling, Prediction"
+excerpt: "Model Evaluation, Oversampling, Predictive Modeling"
 ---
 
 Imbalanced datasets are everywhere. Amazon wants to classify fake reviews, banks want to predict fraudulent credit card charges, and, as of this November, Facebook researchers are probably wondering if they can predict which news articles are fake.
@@ -200,7 +200,7 @@ By oversampling before splitting into training and validation datasets, I "bleed
 
 To see how this works, think about the case of simple oversampling (where I just duplicate observations). If I upsample a dataset before splitting it into a train and validation set, I could end up with the same observation in both datasets. As a result, the model will be able to perfectly predict the value for those observations when predicting on the validation set, inflating the accuracy and recall.
 
-When upsampling using SMOTE, I don't create duplicate observations. However, because the SMOTE algorithm uses the nearest neighbors of observations to create synthetic data, it still "bleed" information. If the nearest neighbors of minority class observations in the training set end up in the validation set, their information is partially reflected by the synthetic data in the training set. Since I'm splitting the data randomly, we'd expect to have this happen. As a result, the model will be better able to predict validation set values than on completely new data.
+When upsampling using SMOTE, I don't create duplicate observations. However, because the SMOTE algorithm uses the nearest neighbors of observations to create synthetic data, it still bleeds information. If the nearest neighbors of minority class observations in the training set end up in the validation set, their information becomes partially captured by the synthetic data in the training set. Since I'm splitting the data randomly, we'd expect to have this happen. As a result, the model will be better able to predict validation set values than on completely new data.
 
 When I predict on the unseen test data, though, the "false boost" disappears, and I get the true generalization results.
 

@@ -17,7 +17,7 @@ However, this post isn't about why this can improve modeling. Instead, I'm going
 
 # Preparing the Data
 
-I'm going to try to predict whether someone will default on or a creditor will have to charge off a loan, using data from Lending Club. I'll start by importing some packages and loading the data.
+I'm going to try to predict whether someone will default on or a creditor will have to charge off a loan, using data from Lending Club. I'll start by importing some modules and loading the data.
 
 
 ```python

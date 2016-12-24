@@ -252,6 +252,6 @@ The validation results closely match the unseen test data results, which is exac
 
 # Conclusion
 
-Oversampling is well-known way to potentially improve models trained on imbalanced data. But it's important to remember that oversampling incorrectly can lead to thinking a model will generalize better than it actually does. Random forests are great because they don't overfit (see [Brieman 2001](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf) for a proof), but poor sampling practices can still lead to false conclusions about the quality of a model.
+Oversampling is a well-known way to potentially improve models trained on imbalanced data. But it's important to remember that oversampling incorrectly can lead to thinking a model will generalize better than it actually does. Random forests are great because they don't overfit (see [Brieman 2001](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf) for a proof), but poor sampling practices can still lead to false conclusions about the quality of a model.
 
 When the model is in production, it's predicting on unseen data. The main point of model validation is to estimate how the model will generalize to new data. If the decision to put a model into production is based on how it performs on a validation set, it's critical that oversampling is done correctly.

@@ -1,5 +1,5 @@
 ---
-title:  "The Right Way to Over-Sample in Model Training"
+title:  "The Right Way to Oversample in Model Training"
 date:   2016-12-23
 tags: [machine learning]
 

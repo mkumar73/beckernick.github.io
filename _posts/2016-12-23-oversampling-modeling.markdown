@@ -248,7 +248,7 @@ training_target, test_target, = train_test_split(loans_relevant_enconded.drop(['
 
 # The Wrong Way to Oversample
 
-With my training data created, I'll upsample the bad loans using the SMOTE algorithm (Synthetic Minority Oversampling Technique). At a high level, SMOTE creates synthetic observations of the minority class (bad loans) by:
+With my training data created, I'll upsample the bad loans using the [SMOTE algorithm](https://www.jair.org/media/953/live-953-2037-jair.pdf) (Synthetic Minority Oversampling Technique). At a high level, SMOTE creates synthetic observations of the minority class (bad loans) by:
 
 1. Finding the k-nearest-neighbors for minority class observations (finding similar observations)
 2. Randomly choosing one of the k-nearest-neighbors and using it to create a similar, but randomly tweaked, new observation.

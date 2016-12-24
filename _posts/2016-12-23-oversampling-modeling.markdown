@@ -110,7 +110,7 @@ loans_relevant_enconded = pd.get_dummies(loans_data_relevent)
 
 # Creating the Training and Test Sets
 
-With the data prepared, I can create a training dataset and a test dataset. I'll use the training dataset to build and validate the model, and treat the test dataset as the "unseen" new data I'd see if the model were in production.
+With the data prepared, I can create a training dataset and a test dataset. I'll use the training dataset to build and validate the model, and treat the test dataset as the unseen new data I'd see if the model were in production.
 
 
 ```python
@@ -248,7 +248,7 @@ print recall_score(test_target, clf_rf.predict(test_features))
 
 
 
-The validation results closely match the "unseen" test data results, which is exactly what I would want to see after putting a model into production.
+The validation results closely match the unseen test data results, which is exactly what I would want to see after putting a model into production.
 
 # Conclusion
 

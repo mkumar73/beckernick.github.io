@@ -30,7 +30,7 @@ from imblearn.over_sampling import SMOTE
 ```
 
 ```python
-loans = pd.read_csv('/Users/nickbecker/Python_Projects/classification_course/lending-club-data.csv.zip')
+loans = pd.read_csv('../lending-club-data.csv.zip')
 loans.iloc[0]
 ```
 
@@ -50,41 +50,7 @@ loans.iloc[0]
     emp_title                                                                    NaN
     emp_length                                                             10+ years
     home_ownership                                                              RENT
-    annual_inc                                                                 24000
-    is_inc_v                                                                Verified
-    issue_d                                                          20111201T000000
-    loan_status                                                           Fully Paid
-    pymnt_plan                                                                     n
-    url                            https://www.lendingclub.com/browse/loanDetail....
-    desc                             Borrower added on 12/22/11 > I need to upgra...
-    purpose                                                              credit_card
-    title                                                                   Computer
-    zip_code                                                                   860xx
-    addr_state                                                                    AZ
-    dti                                                                        27.65
-    delinq_2yrs                                                                    0
-    earliest_cr_line                                                 19850101T000000
-    inq_last_6mths                                                                 1
-    mths_since_last_delinq                                                       NaN
-    mths_since_last_record                                                       NaN
-                                                         ...                        
-    total_pymnt                                                              5861.07
-    total_pymnt_inv                                                          5831.78
-    total_rec_prncp                                                             5000
-    total_rec_int                                                             861.07
-    total_rec_late_fee                                                             0
-    recoveries                                                                     0
-    collection_recovery_fee                                                        0
-    last_pymnt_d                                                     20150101T000000
-    last_pymnt_amnt                                                           171.62
-    next_pymnt_d                                                                 NaN
-    last_credit_pull_d                                               20150101T000000
-    collections_12_mths_ex_med                                                     0
-    mths_since_last_major_derog                                                  NaN
-    policy_code                                                                    1
-    not_compliant                                                                  0
-    status                                                                Fully Paid
-    inactive_loans                                                                 1
+    [...]
     bad_loans                                                                      0
     emp_length_num                                                                11
     grade_num                                                                      5
@@ -103,7 +69,7 @@ loans.iloc[0]
 
 
 
-There's a lot of cool person and loan-specific information in this dataset. The target variable is `bad_loans`, which is 1 if the loan was charged off or the lessee defaulted, and 0 otherwise. I know this data is imbalanced, how imbalanced is it?
+There's a lot of cool person and loan-specific information in this dataset. The target variable is `bad_loans`, which is 1 if the loan was charged off or the lessee defaulted, and 0 otherwise. I know this data is imbalanced, but how imbalanced is it?
 
 
 ```python
@@ -119,7 +85,7 @@ loans.bad_loans.value_counts()
 
 
 
-Charge offs occurred or people defaulted on about 19% of loans, so there's some imbalance in the data but it's not terrible. I'll remove a few observations with missing values for a relevant feature and then pick a handful of features to use in a random forest model.
+Charge offs occurred or people defaulted on about 19% of loans, so there's some imbalance in the data but it's not terrible. I'll remove a few observations with missing values for a payment-to-income ratio and then pick a handful of features to use in a random forest model.
 
 
 ```python
@@ -135,7 +101,7 @@ model_variables = ['grade', 'home_ownership','emp_length_num', 'sub_grade','shor
 loans_data_relevent = loans[model_variables]
 ```
 
-Next, I need to one-hot encode the categorical features as binary variables to use them in sklearn' random forest classifier.
+Next, I need to one-hot encode the categorical features as binary variables to use them in sklearn's random forest classifier.
 
 
 ```python
@@ -162,16 +128,12 @@ With my training data created, I'll upsample the bad loans using the [SMOTE algo
 1. Finding the k-nearest-neighbors for minority class observations (finding similar observations)
 2. Randomly choosing one of the k-nearest-neighbors and using it to create a similar, but randomly tweaked, new observation.
 
-After upsampling with to a class ratio of 1.0, I should have a balanced dataset. There's no need (and often it's not smart) to balance the classes, but it magnifies the issue caused by incorrectly timed oversampling.
+After upsampling to a class ratio of 1.0, I should have a balanced dataset. There's no need (and often it's not smart) to balance the classes, but it magnifies the issue caused by incorrectly timed oversampling.
 
 
 ```python
 sm = SMOTE(random_state=12, ratio = 1.0)
 x_res, y_res = sm.fit_sample(training_features, training_target)
-```
-
-
-```python
 print training_target.value_counts(), np.bincount(y_res)
 ```
 
@@ -234,8 +196,6 @@ Only 80% accuracy and 13% recall on the test data. That's a **huge** difference!
 
 # What Happened?
 
-When the model is in production, it's predicting on unseen data. The entire point of using a validation set is to estimate how the model will generalize to that new data.
-
 By oversampling before splitting into training and validation datasets, I "bleed" information from the validation set into the training of the model.
 
 To see how this works, think about the case of simple oversampling (where I just duplicate observations). If I upsample a dataset before splitting it into a train and validation set, I could end up with the same observation in both datasets. As a result, the model will be able to perfectly predict the value for those observations when predicting on the validation set, inflating the accuracy and recall.
@@ -269,46 +229,29 @@ clf_rf = RandomForestClassifier(n_estimators=25, random_state=12)
 clf_rf.fit(x_train_res, y_train_res)
 ```
 
-
-
-
-    RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
-                max_depth=None, max_features='auto', max_leaf_nodes=None,
-                min_impurity_split=1e-07, min_samples_leaf=1,
-                min_samples_split=2, min_weight_fraction_leaf=0.0,
-                n_estimators=25, n_jobs=1, oob_score=False, random_state=12,
-                verbose=0, warm_start=False)
-
-
-
-
 ```python
 print 'Validation Results'
 print clf_rf.score(x_val, y_val)
 print recall_score(y_val, clf_rf.predict(x_val))
+print '\nTest Results'
+print clf_rf.score(test_features, test_target)
+print recall_score(test_target, clf_rf.predict(test_features))
 ```
 
     Validation Results
     0.800362483009
     0.138195777351
-
-
-
-```python
-print 'Test Results'
-print clf_rf.score(test_features, test_target)
-print recall_score(test_target, clf_rf.predict(test_features))
-```
-
+    
     Test Results
     0.803278688525
     0.142546718818
+
 
 
 The validation results closely match the "unseen" test data results, which is exactly what I would want to see after putting a model into production.
 
 # Conclusion
 
-Oversampling is well-covered way to potentially improve models trained on imbalanced data. But it's important to remember that oversampling incorrectly can lead to thinking a model will generalize better than it actually does. Random forests are great because they don't overfit (see [Brieman 2001](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf) for a proof), but poor sampling practices can still lead to false conclusions about the quality of a model.
+Oversampling is well-known way to potentially improve models trained on imbalanced data. But it's important to remember that oversampling incorrectly can lead to thinking a model will generalize better than it actually does. Random forests are great because they don't overfit (see [Brieman 2001](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf) for a proof), but poor sampling practices can still lead to false conclusions about the quality of a model.
 
-If the decision to put a model into production is based on how it performs on a validation set, it's critical that oversampling is done correctly.
+When the model is in production, it's predicting on unseen data. The main point of model validation is to estimate how the model will generalize to new data. If the decision to put a model into production is based on how it performs on a validation set, it's critical that oversampling is done correctly.

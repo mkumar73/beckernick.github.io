@@ -9,11 +9,11 @@ header:
 excerpt: "Model Evaluation, Oversampling, Predictive Modeling"
 ---
 
-Imbalanced datasets are everywhere. Amazon wants to classify fake reviews, banks want to predict fraudulent credit card charges, and, as of this November, Facebook researchers are probably wondering if they can predict which news articles are fake.
+Imbalanced datasets spring up everywhere. Amazon wants to classify fake reviews, banks want to predict fraudulent credit card charges, and, as of this November, Facebook researchers are probably wondering if they can predict which news articles are fake.
 
-In each of these cases, only a small fraction of observations are actually positives. I'd guess that only 1 in 10,000 credit card charges are fraudulent, at most. Recently, oversampling the minority class observations has become a common approach to improve the quality of models. By oversampling, models are sometimes better able to learn patterns that differentiate classes. 
+In each of these cases, only a small fraction of observations are actually positives. I'd guess that only 1 in 10,000 credit card charges are fraudulent, at most. Recently, oversampling the minority class observations has become a common approach to improve the quality of predictive modeling. By oversampling, models are sometimes better able to learn patterns that differentiate classes. 
 
-However, this post isn't about why this can improve modeling. Instead, I'm going to explore how the _**timing**_ of oversampling can affect the generalization ability of a model. Since one of the primary goals of model validation is to estimate how it will perform on unseen data (in production), oversampling correctly is critical.
+However, this post isn’t about how this can improve modeling. Instead, it's about how the _**timing**_ of oversampling can affect the generalization ability of a model. Since one of the primary goals of model validation is to estimate how it will perform on unseen data, oversampling correctly is critical.
 
 # Preparing the Data
 

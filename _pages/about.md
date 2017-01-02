@@ -3,7 +3,6 @@ title: "About Me"
 permalink: /about/
 header:
   image: "niagara_falls.jpg"
-  caption: "Photo credit: Nick Becker"
 
 ---
 

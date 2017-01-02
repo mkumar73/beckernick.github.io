@@ -65,7 +65,7 @@ For anyone interested in the derivations of the functions I'm using, check out S
 
 ## Calculating the Log-Likelihood
 
-The log-likelihood can be viewed as as sum over all the training data. Mathematically,
+The log-likelihood can be viewed as a sum over all the training data. Mathematically,
 
 $$\begin{equation}
 ll = \sum_{i=1}^{N}y_{i}\beta ^{T}x_{i} - log(1+e^{\beta^{T}x_{i}})

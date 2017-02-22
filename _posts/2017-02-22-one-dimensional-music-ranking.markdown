@@ -23,7 +23,7 @@ If you don't care about the math or the data and just want to see the results, s
 
 # Defining One-Dimensionality Mathematically
 
-When I say an artist is one-dimensional, I'm really saying that the characteristics of their songs are all really similar. There's very little variety in their sound. The goal then is to represent this concept mathematically so I can actually quantify how similar an artist's songs are.
+When I say an artist is one-dimensional, I'm really saying that the characteristics of their songs are all really similar. There's very little variety in their sound. The goal, then, is to represent this concept mathematically so I can actually quantify how similar an artist's songs are.
 
 To do that, I'll try to capture how close together these songs are in some K-dimensional vector space defined by the number of song characteristics I think impact how I perceive the sound (or in this case, the number of relevant characteristics Spotify gives me access to).
 

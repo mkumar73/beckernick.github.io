@@ -1,5 +1,5 @@
 ---
-title:  "Which Popular Band is the Most One-Dimensional?"
+title:  "Which Popular Artist is the Most One-Dimensional?"
 date:   2017-02-22
 tags: [machine learning]
 

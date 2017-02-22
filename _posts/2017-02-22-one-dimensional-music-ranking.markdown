@@ -1,6 +1,6 @@
 ---
 title:  "Which Popular Band is the Most One-Dimensional?"
-date:   2017-02-22
+date:   2016-02-22
 tags: [machine learning]
 
 header:

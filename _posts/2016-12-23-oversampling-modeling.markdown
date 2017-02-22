@@ -6,7 +6,7 @@ tags: [machine learning]
 header:
   image: "oversampling/billygoat_a_trail_lake.jpg"
 
-excerpt: "Model Evaluation, Oversampling, Predictive Modeling"
+excerpt: "Model Evaluation (Edit), Oversampling, Predictive Modeling"
 ---
 
 Imbalanced datasets spring up everywhere. Amazon wants to classify fake reviews, banks want to predict fraudulent credit card charges, and, as of this November, Facebook researchers are probably wondering if they can predict which news articles are fake.

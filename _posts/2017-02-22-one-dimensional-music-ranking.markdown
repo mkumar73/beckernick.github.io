@@ -11,7 +11,7 @@ excerpt: "Music Analysis, Web APIs, Math"
 
 If you're like me, when you listen to music, you sometimes catch yourself thinking, "This band is so one-dimensional. All of their songs sound the same!"
 
-When I had this experience again last week, I finally decided to find out whether anyone had ever written about this / tried to actually quantify this concept. I found tons of [websites](http://www.watchmojo.com/mobile/id/12804/) and [discussions](https://www.reddit.com/r/Music/comments/3qu62n/what_band_sounds_the_same_on_almost_every_song/) listing [bands](https://www.thetoptens.com/bands-who-songs-all-sound-same/) that [authors](http://www.gamespot.com/forums/offtopic-discussion-314159273/bands-whos-songs-all-sound-the-same-26510911/) think are one-dimensional, but it seemed like **nobody had actually tried to quantify it.**
+When I had this experience again last week, I finally decided to find out whether anyone had ever written about this. I found tons of [websites](http://www.watchmojo.com/mobile/id/12804/) and [discussions](https://www.reddit.com/r/Music/comments/3qu62n/what_band_sounds_the_same_on_almost_every_song/) listing [bands](https://www.thetoptens.com/bands-who-songs-all-sound-same/) that [authors](http://www.gamespot.com/forums/offtopic-discussion-314159273/bands-whos-songs-all-sound-the-same-26510911/) think are one-dimensional, but it seemed like **nobody had actually tried to quantify it.**
 
 This post is my stab at doing just that. Using math and data gathered from the Spotify API, I'm going to try to answer the question of which popular artists are the most one-dimensional. I'm only going to use an artist's top 10 tracks to represent their "sound". So really, I'm measuring which artist's top hits are the most one-dimensional.
 

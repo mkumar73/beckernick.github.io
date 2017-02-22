@@ -46,13 +46,13 @@ This can be a little confusing. It's easier to get an intution of this metric vi
 
 ## Visualizing One-Dimensionality
 
-In the plots below, the red X represents the center of each cluster of three points. I've connected them into a triangle to really draw attention to how one group of points is more tighly knit than the other.
+In the plots below, the red X represents the center of each cluster of three points. The red, blue, and green lines connect each point to the center. I've connected the points into a triangle to illustrate how one group of points is more tighly knit than the other.
 
 
 ![png](/images/one_dimensional_music/cluster_metric_example.png?raw=True)
 
+The metric I created reflects how spread out these triangles are. Since the red, blue, and green lines are smaller in the right triangle than in the left triangle, the right group's Cluster Spread value is much smaller than the left group's Cluster Spread value.
 
-It's pretty clear that the cluster of points on the right are more tightly packed than the cluster of points on the left, and the metric I created reflects this. The right group's Cluster Spread is much smaller than the left group's Cluster Spread, which makes sense intuitively.
 
 It's easy to see how this works in two dimensions. While I can't visualize how this works in eight dimensions, the logic extends perfectly. I can use my Cluster Spread metric to measure any the spread of any set of points in 8-D space just like I did in the 2-D space above.
 

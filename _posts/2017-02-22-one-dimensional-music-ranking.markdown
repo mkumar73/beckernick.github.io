@@ -110,7 +110,7 @@ While I won't say this is **the** definitive ranking, and I chose the audio feat
 
 After ranking artists from the 2012-2016 Top 100 Tracks playlists, I wanted to evaluate some classic artists across time periods.
 
-I didn't calculate Cluster Spread for every major group in history, but I did try a lot of bands (at least another 75-100). In a nail biters, Kesha managed to beat out Creed (a heavy favorite going into this process) as the most one-dimensional of all time.
+I didn't calculate Cluster Spread for every major group in history, but I did try a lot of bands (at least another 75-100). In a nail biter, Kesha managed to beat out Creed (a heavy favorite going into this process) as the most one-dimensional of all time.
 
 But don't worry Creed fans. There's always a chance they'll come out of retirement and write a new hit that will [take them higher](https://www.youtube.com/watch?v=DhAFbwoaH7o).
 

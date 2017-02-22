@@ -40,7 +40,7 @@ I'll define an artist's **cluster spread** as the sum of the squared distances o
 
 Mathematically,
 
-$$CS = \sum_{i=1}^{10}\sum_{i=1}^{k}(x_{i} - c)^{2}$$
+$$CS = \sum_{s=1}^{10}\sum_{i=1}^{k}(x_{i} - c)^{2}$$
 
 This can be a little confusing. It's easier to get an intution of this metric visually, by looking at two made-up examples.
 
@@ -102,7 +102,7 @@ In total, I ranked about 200 artists. The 10 most one-dimensional artists with t
 
 These look pretty good to me! Artists like Kesha, PSY, and Carly Rae Jepsen are classic examples of one-dimensional bands you might have picked before reading this.
 
-While I won't say this is **the** definitive ranking, and I chose the audio features compeltely subjectively, I think this is the best anyone has done so far.
+While I won't say this is **the** definitive ranking, and I chose the audio features I personally thought were relevant, I think this is the best anyone has done so far.
 
 
 # Kesha Wins Most One-Dimensional of All Time

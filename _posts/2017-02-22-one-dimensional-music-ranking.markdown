@@ -31,16 +31,20 @@ Within that mathematical framework, I can represent each song as a vector and ca
 
 Sounds good in the abstract, but I need to get more specific.
 
-### Cluster Spread
+## Cluster Spread
 
 I'll define an artist's **cluster spread** as the sum of the squared distances of a given song vector to the center of all the song vectors, summed over every song. Any definition of distance will have its own issues, but this seems like a pretty good way to measure how spread out a cluster is since:
 
 1. If all song features range from 0 to 1, the squared distance reduces the impact of any individual song.
 2. I'm using the top 10 tracks for every artist, making a summation-based metric comparable across artists.
 
-Mathematically, $$CS = \sum_{i=1}^{10}\sum_{i=1}^{k}(x_{i} - c)^{2}$$
+Mathematically,
+
+$$CS = \sum_{i=1}^{10}\sum_{i=1}^{k}(x_{i} - c)^{2}$$
 
 This can be a little confusing. It's easier to get an intution of this metric visually, by looking at two made-up examples.
+
+## Visualizing One-Dimensionality
 
 In the plots below, the red X represents the center of each cluster of three points. I've connected them into a triangle to really draw attention to how one group of points is more tighly knit than the other.
 
@@ -48,7 +52,7 @@ In the plots below, the red X represents the center of each cluster of three poi
 ![png](/images/one_dimensional_music/cluster_metric_example.png?raw=True)
 
 
-It's pretty clear that the cluster of points on the right are more tightly packed than the cluster of points on the left, and the distance metric I created reflects this. The right group's Cluster Spread is much smaller than the left group's Cluster Spread, which makes sense intuitively.
+It's pretty clear that the cluster of points on the right are more tightly packed than the cluster of points on the left, and the metric I created reflects this. The right group's Cluster Spread is much smaller than the left group's Cluster Spread, which makes sense intuitively.
 
 It's easy to see how this works in two dimensions. While I can't visualize how this works in eight dimensions, the logic extends perfectly. I can use my Cluster Spread metric to measure any the spread of any set of points in 8-D space just like I did in the 2-D space above.
 
@@ -58,7 +62,7 @@ With the math taken care of, it's time to move on to the music.
 
 The [Spotify API](https://developer.spotify.com/web-api/) is awesome. Most importantly, for this project, Spotify provides access to [audio features](https://developer.spotify.com/web-api/get-audio-features/) for any song in their collection. Audio features are characteristics of songs like danceability, energy, and loudness that Spotify has assigned numerical values to represent.
 
-I decided to use eight of the features. I picked ones that naturally lend themselves to a being ranked numerically (so I didn't use things like the key and time signature, but did include things like how acoustic the song is). The eight characteristics I chose are:
+I decided to use eight of the features. I picked ones that naturally lend themselves to being ranked numerically (so I didn't use things like the key and time signature, but did include things like how acoustic the song is). The eight characteristics I chose are:
 
 1. Acousticness
 2. Danceability

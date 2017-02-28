@@ -42,7 +42,7 @@ Mathematically,
 
 $$CS = \sum_{s=1}^{10}\sum_{i=1}^{k}(x_{i} - c)^{2}$$
 
-This can be a little confusing. It's easier to get an intution of this metric visually, by looking at two made-up examples.
+This can be a little confusing. It's easier to get the intuition of this metric visually, by looking at two made-up examples.
 
 ## Visualizing One-Dimensionality
 

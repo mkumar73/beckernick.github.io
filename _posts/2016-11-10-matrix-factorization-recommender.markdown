@@ -419,7 +419,7 @@ def recommend_movies(predictions_df, userID, movies_df, original_ratings_df, num
     
     # Get and sort the user's predictions
     user_row_number = userID - 1 # UserID starts at 1, not 0
-    sorted_user_predictions = preds_df.iloc[user_row_number].sort_values(ascending=False)
+    sorted_user_predictions = predictions_df.iloc[user_row_number].sort_values(ascending=False)
     
     # Get the user's data and merge in the movie information.
     user_data = original_ratings_df[original_ratings_df.UserID == (userID)]

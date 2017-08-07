@@ -10,7 +10,7 @@ header:
 excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
 ---
 
-Though many state of the art results from neural networks use linear rectifiers as activation functions, the sigmoid is the bread and butter activation function. To really understand a network, it's we need to know where each component comes from. The computationally efficient derivative of the sigmoid function is one of the less obvious components. Though it's usually take care of under the hood in the higher level libraries like Tensorflow and others, it's worth taking the time to understand where it comes from.
+Though many state of the art results from neural networks use linear rectifiers as activation functions, the sigmoid is the bread and butter activation function. To really understand a network, it's important to know where each component comes from. The computationally efficient derivative of the sigmoid function is one of the less obvious components. Though it's usually take care of under the hood in the higher level libraries like Tensorflow and others, it's worth taking the time to understand where it comes from.
 
 The sigmoid function, $f(x) = \frac{1}{1+e^{-x}}$ is a special case of the generalized logistic function, and it essentially squashes input to be between zero and one. Its derivative has advantageous properties, which partially explains it's widespread use as an activation function in neural networks.
 

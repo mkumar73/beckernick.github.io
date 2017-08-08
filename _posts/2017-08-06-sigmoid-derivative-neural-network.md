@@ -14,22 +14,22 @@ Though many state of the art results from neural networks use linear rectifiers 
 
 The sigmoid function, $$f(x) = \frac{1}{1+e^{-x}}$$ is a special case of the generalized logistic function, and it essentially squashes input to be between zero and one. Its derivative has advantageous properties, which partially explains it's widespread use as an activation function in neural networks.
 
-But it's not obvious from looking at the function how the derivative arises. In this post, I'll walk through each step of the derivation and discuss why people use $\frac{d}{dx}S(x) = S(x)(1 - S(x))$ instead of any other version.
+But it's not obvious from looking at the function how the derivative arises. In this post, I'll walk through each step of the derivation and discuss why people use $$\frac{d}{dx}S(x) = S(x)(1 - S(x))$$ instead of any other version.
 
 
 ## Derivation
 
-Enough writing, time for the math. Let's begin by defining the sigmoid function, $S(x)$
+Enough writing, time for the math. Let's begin by defining the sigmoid function, $$S(x)$$
 
 $$Sigmoid(x) = \large \frac{1}{1+e^{-x}}$$
 
-With the function defined, we can take the derivative with respect to the input, $x$
+With the function defined, we can take the derivative with respect to the input, $$x$$
 
 $$\frac{d}{dx}S(x) = \frac{d}{dx} \frac{1}{1+e^{-x}}$$
 
-To compute this derivative, we can use the [quotient rule](https://en.wikipedia.org/wiki/Quotient_rule). The quotient rule is a way to take the derivative a function when the numerator and denominator are both differentiable. By the quotient rule, the derivative of a function $f(x)$ with a numerator and denominator can be expressed as: $\frac{d}{dx}f = \frac{(denominator*\frac{d}{dx}numerator) - (numerator*\frac{d}{dx}denominator)}{denominator^{2}}$
+To compute this derivative, we can use the [quotient rule](https://en.wikipedia.org/wiki/Quotient_rule). The quotient rule is a way to take the derivative a function when the numerator and denominator are both differentiable. By the quotient rule, the derivative of a function $$f(x)$$ with a numerator and denominator can be expressed as: $$\frac{d}{dx}f = \frac{(denominator*\frac{d}{dx}numerator) - (numerator*\frac{d}{dx}denominator)}{denominator^{2}}$$
 
-With this, we can come back to the sigmoid derivative. Since the numerator is a constant, it's derivative is zero. To take the derivative of the denominator, $1+e^{-x}$, we need to use the [chain rule](https://en.wikipedia.org/wiki/Chain_rule). According to the chain rule, the derivative of $f(a^{x})$ is $\frac{df}{dx} = \frac{df}{da} \frac{da}{dx}$. Using the chain rule on the denominator, we get $\frac{d(1+e^{-x})}{dx} = -e^{-x}$
+With this, we can come back to the sigmoid derivative. Since the numerator is a constant, it's derivative is zero. To take the derivative of the denominator, $$1+e^{-x}$$, we need to use the [chain rule](https://en.wikipedia.org/wiki/Chain_rule). According to the chain rule, the derivative of $$f(a^{x})$$ is $$\frac{df}{dx} = \frac{df}{da} \frac{da}{dx}$$. Using the chain rule on the denominator, we get $$\frac{d(1+e^{-x})}{dx} = -e^{-x}$$
 
 Now, we can use the quotient rule to take the derivative:
 
@@ -55,11 +55,11 @@ Now we can do the canceling in the first term.
 
 $$\frac{d}{dx}S(x) = \frac{1}{(1+e^{-x})} - \frac{1}{(1+e^{-x})^2}$$
 
-This is starting to look good. Both terms have $\frac{1}{(1+e^{-x})}$, so we can take that out and distribute it.
+This is starting to look good. Both terms have $$\frac{1}{(1+e^{-x})}$$, so we can take that out and distribute it.
 
 $$\frac{d}{dx}S(x) = \frac{1}{(1+e^{-x})} (1 - \frac{1}{1+e^{-x}})$$
 
-One last step. The definition of sigmoid, $S(x) = \frac{1}{1+e^{-x}}$,  is inside this equation, so we can substitute it back in.
+One last step. The definition of sigmoid, $$S(x) = \frac{1}{1+e^{-x}}$$,  is inside this equation, so we can substitute it back in.
 
 $$\frac{d}{dx}S(x) = S(x)(1 - S(x))$$
 
@@ -67,9 +67,9 @@ And there it is. The derivative of the sigmoid function is the sigmoid function 
 
 ## Why is this formula Superior?
 
-$\large \frac{d}{dx}S(x) = S(x)(1 - S(x))$ is better than $\large \frac{d}{dx}S(x) = \frac{e^{-x}}{(1+e^{-x})^2}$ primarily for one reason.
+$$\large \frac{d}{dx}S(x) = S(x)(1 - S(x))$$ is better than $$\large \frac{d}{dx}S(x) = \frac{e^{-x}}{(1+e^{-x})^2}$$ primarily for one reason.
 
-When we're backpropagating the errors in a network through a sigmoid activation function, $S(x)$ has already been computed. During the forward pass, we computed $S(x)$ when we multiplied the inputs by the weights and applied the sigmoid function. If we cache that matrix we can calculate the derivative now with just a few simple matrix operations. This computational speedup is extremely useful when we're doing computations on massive matrices and across multiple layers in a network.
+When we're backpropagating the errors in a network through a sigmoid activation function, $$S(x)$$ has already been computed. During the forward pass, we computed $$S(x)$$ when we multiplied the inputs by the weights and applied the sigmoid function. If we cache that matrix we can calculate the derivative now with just a few simple matrix operations. This computational speedup is extremely useful when we're doing computations on massive matrices and across multiple layers in a network.
 
 
 

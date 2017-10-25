@@ -7,7 +7,7 @@ header:
   image: "sigmoid_derivative/bryce_hoodoos.jpg"
   caption: "Photo Credit: Ginny Lehman"
 
-excerpt: "Neural Networks, Hidden Layers, Backpropagation, TensorFlow"
+excerpt: "Sigmoid, Derivatives, Mathematics"
 ---
 
 Though many state of the art results from neural networks use linear rectifiers as activation functions, the sigmoid is the bread and butter activation function. To really understand a network, it's important to know where each component comes from. The computationally efficient derivative of the sigmoid function is one of the less obvious components. Though it's usually taken care of under the hood in the higher level libraries like Tensorflow and others, it's worth taking the time to understand where it comes from.
@@ -71,7 +71,7 @@ And there it is. The derivative of the sigmoid function is the sigmoid function 
 
 $$\frac{d}{dx}S(x) = S(x)(1 - S(x))$$ is better than $$\frac{d}{dx}S(x) = \frac{e^{-x}}{(1+e^{-x})^2}$$ primarily for one reason.
 
-When we're backpropagating the errors in a network through a sigmoid activation function, $$S(x)$$ has already been computed. During the forward pass, we computed $$S(x)$$ when we multiplied the inputs by the weights and applied the sigmoid function. If we cache that matrix we can calculate the derivative now with just a few simple matrix operations. This computational speedup is extremely useful when we're doing computations on massive matrices and across multiple layers in a network.
+When we're backpropagating the errors in a network through a layer with a sigmoid activation function, $$S(x)$$ has already been computed. During the forward pass, we computed $$S(x)$$ when we multiplied the inputs by the weights and applied the sigmoid function. If we cache that matrix we can calculate the derivative now with just a few simple matrix operations. This computational speedup is extremely useful when we're doing computations on massive matrices and across multiple layers in a network.
 
 
 

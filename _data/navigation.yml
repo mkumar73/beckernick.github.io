@@ -3,8 +3,8 @@ main:
   - title: "about"
     url: /about/
 
-  - title: "data science"
-    url: /datascience/
+  - title: "neural networks"
+    url: /neuralnets/
 
-  - title: "visuals"
-    url: /visuals/
+  - title: "time series"
+    url: /timeseries/

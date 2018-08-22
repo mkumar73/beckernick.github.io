@@ -10,7 +10,7 @@ locale                   : "en"
 title                    : "manish kumar"
 title_separator          : "-"
 name                     : "manish kumar"
-description              : "data science, neural networks blog"
+description              : "machine learning, neural nets, time series, blog"
 url                      : "https://mkumar73.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 gh_repo                  :
@@ -80,7 +80,7 @@ author:
   keybase          :
   instagram        :
   lastfm           :
-  linkedin         : ""
+  linkedin         : "https://www.linkedin.com/in/manish-kumar-01795b36/"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username

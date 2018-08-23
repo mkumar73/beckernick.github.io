@@ -4,8 +4,8 @@ permalink: /python/
 title: "Python Posts"
 author_profile: true
 header:
-  image: "neural-nets-image.jpeg"
-  caption: "Photo credit: https://cdn-images-1.medium.com/"
+  image: "python-pic.jpg"
+  caption: "Photo credit: manish kumar"
 
 ---
 

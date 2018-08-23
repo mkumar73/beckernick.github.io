@@ -4,8 +4,8 @@ permalink: /timeseries/
 title: "Time Series Posts"
 author_profile: true
 header:
-  image: "japanese_arches.jpg"
-  caption: "Photo credit: Ginny Lehman"
+  image: "neural-nets-image.jpeg"
+  caption: "Photo credit: https://cdn-images-1.medium.com/"
 
 ---
 

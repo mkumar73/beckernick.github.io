@@ -4,7 +4,7 @@ permalink: /neuralnets/
 title: "Neural Networks posts by tags"
 author_profile: true
 header:
-  image: "neural-nets-image.jpeg"
+  image: "nn-image.jpg"
   caption: "photo credit: https://cdn-images-1.medium.com/"
 
 ---

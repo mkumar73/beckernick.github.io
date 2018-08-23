@@ -4,7 +4,7 @@ permalink: /python/
 title: "Python posts by tags"
 author_profile: true
 header:
-  image: "python-pic.jpg"
+  image: "py-image.jpg"
   caption: "photo credit: manish kumar"
 
 ---

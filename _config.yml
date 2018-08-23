@@ -212,7 +212,7 @@ compress_html:
 collections:
   portfolio_py:
     output: true
-    permalink: /python/
+    permalink: /python/:title/
   portfolio_nn:
     output: true
     permalink: /neuralnets/:path/

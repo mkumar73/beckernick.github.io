@@ -27,7 +27,7 @@ comments:
     # https://developers.facebook.com/docs/plugins/comments
     appid                :
     num_posts            : # 5 (default)
-    colorscheme          : "air" # "light" (default), "dark", "contrast", "mint", "sunrise", "dirt", "aqua"
+    colorscheme          : # "light" (default), "dark", "contrast", "mint", "sunrise", "dirt", "aqua", "air"
 
 # SEO Related
 google_site_verification :

@@ -4,8 +4,8 @@ permalink: /neuralnets/
 title: "Artificial Neural Network Posts"
 author_profile: true
 header:
-  image: "renwick_string.jpg"
-  caption: "Photo credit: Ginny Lehman"
+  image: "neural-nets-image.jpeg"
+  caption: "Photo credit: https://cdn-images-1.medium.com/"
 
 ---
 

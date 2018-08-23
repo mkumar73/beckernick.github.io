@@ -1,9 +1,6 @@
 ---
 title: "About"
 permalink: /about/
-header:
-  image: "neural-nets-image.jpeg"
-  caption: "Photo credit: https://cdn-images-1.medium.com/"
 
 ---
 

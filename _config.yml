@@ -212,9 +212,10 @@ compress_html:
 collections:
   portfolio:
     output: true
-    permalink: /:collection/neuralnets/:path/
-    permalink: /:collection/timeseries/:path/
     permalink: /:collection/python/:path/
+  nn_portfolio:
+    output: true
+    permalink: /:collection/neuralnets/:path/
 
 
 defaults:

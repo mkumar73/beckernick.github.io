@@ -1,12 +1,12 @@
 ---
-title:  "python porfolio"
+title:  "Dynamic Programming"
 date:   2018-08-23
 tags: [python]
 
 excerpt: "programming ....."
 ---
 
-# Python new file for testing
+## Python new file for testing
 
 ```python
 import numpy as np

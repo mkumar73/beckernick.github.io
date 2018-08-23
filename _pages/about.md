@@ -21,15 +21,16 @@ Finance, Retail, Healthcare etc.
 
 Few of the projects he has worked on:
 
-1. Product Identification and Classification using product images, line drawings etc.
-2. Hand Gesture Identification for Robot (Pepper) using CNN and Transfer Learning.
-3. Credit Risk Analysis framework development.
-4. KPMG Analytics and Visualization Environment(KAVE), (https://github.com/KaveIO/)
+* Product Identification and Classification using product images, line drawings etc.
+* Hand Gesture Identification for Robot (Pepper) using CNN and Transfer Learning.
+* Credit Risk Analysis framework development.
+* KPMG Analytics and Visualization Environment(KAVE), (https://github.com/KaveIO/)
 development.
-5. Payment Denial and Revenue Forecast Analysis for HealthCare domain.
-6. Budget and Forecasting for Pharmaceutical domain.
-7. WIN propensity and Revenue Forecasting.
-8. Product analysis and Customer Churn Propensity for Telecom domain.
+* Payment Denial and Revenue Forecast Analysis for HealthCare domain.
+* Budget and Forecasting for Pharmaceutical domain.
+* WIN propensity and Revenue Forecasting.
+* Product analysis and Customer Churn Propensity for Telecom domain.
+
 
 
 _Contact details: manishkr7003@gmail.com_

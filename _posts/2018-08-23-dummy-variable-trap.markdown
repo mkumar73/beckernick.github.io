@@ -6,7 +6,7 @@ tags: [machine learning, time series]
 excerpt: "machine learning, label encoder, one-hot encoding"
 ---
 
-# What are Dummy Variables ??
+## What are Dummy Variables ??
 As the name suggest, Dummy variable are something which are used to replace the 
 original variable
 

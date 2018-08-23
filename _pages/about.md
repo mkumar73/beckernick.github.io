@@ -16,3 +16,15 @@ and Big Data platform named KAVE. With practical industry experience and immense
 motivation for research in advance Neural Networks and Machine Learning, he is 
 actively involved in Deep Learning project and wishes to contribute in this field 
 of science.
+
+
+{% include base_path %}
+{% include group-by-array collection=site.portfolio field="tags" %}
+
+{% for tag in group_names %}
+  {% assign posts = group_items[forloop.index0] %}
+  <h2 id="{{ tag | slugify }}" class="archive__subtitle">{{ tag }}</h2>
+  {% for post in posts %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endfor %}

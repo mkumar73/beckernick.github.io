@@ -5,6 +5,7 @@ title: "Time Series posts by tags"
 author_profile: true
 header:
   image: "tf-image.jpeg"
+  caption: "photo credit: https:google.com/"
 
 ---
 

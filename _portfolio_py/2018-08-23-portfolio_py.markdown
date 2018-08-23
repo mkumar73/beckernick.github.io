@@ -6,4 +6,13 @@ tags: [python]
 excerpt: "programming ....."
 ---
 
-Python
+# Python new file for testing
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.arange(10)
+plt.plot(a)
+plt.show()
+```

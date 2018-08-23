@@ -30,7 +30,3 @@ development.
 * Budget and Forecasting for Pharmaceutical domain.
 * WIN propensity and Revenue Forecasting.
 * Product analysis and Customer Churn Propensity for Telecom domain.
-
-
-
-_Contact details: manishkr7003@gmail.com_

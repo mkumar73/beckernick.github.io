@@ -215,13 +215,13 @@ collections:
     permalink: /python/:path/
   portfolio_nn:
     output: true
-    permalink: /:collection/neuralnets/:path/
+    permalink: /neuralnets/:path/
   portfolio_ts:
     output: true
-    permalink: /:collection/timeseries/:path/
+    permalink: /timeseries/:path/
   portfolio_ml:
     output: true
-    permalink: /:collection/machinelearning/:path/
+    permalink: /machinelearning/:path/
 
 defaults:
   # _posts
@@ -257,6 +257,33 @@ defaults:
   - scope:
       path: ""
       type: portfolio_py
+    values:
+      layout: single
+      author_profile: false
+      share: true
+
+  # _portfolio_ml
+  - scope:
+      path: ""
+      type: portfolio_ml
+    values:
+      layout: single
+      author_profile: true
+      share: true
+
+    # _portfolio_nn
+  - scope:
+      path: ""
+      type: portfolio_nn
+    values:
+      layout: single
+      author_profile: true
+      share: true
+
+    # _portfolio_ts
+  - scope:
+      path: ""
+      type: portfolio_ts
     values:
       layout: single
       author_profile: true

@@ -10,7 +10,7 @@ header:
 ---
 
 {% include base_path %}
-{% include group-by-array collection=site.portfolio field="tags" %}
+{% include group-by-array collection=site.portfolio_ts field="tags" %}
 
 {% for tag in group_names %}
   {% assign posts = group_items[forloop.index0] %}

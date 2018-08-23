@@ -8,3 +8,9 @@ main:
 
   - title: "time series"
     url: /timeseries/
+
+  - title: "machine learning"
+    url: /machinelearning/
+
+  - title: "python"
+    url: /python/

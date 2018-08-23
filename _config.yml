@@ -243,6 +243,10 @@ defaults:
     values:
       layout: single
       author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
 
   # _portfolio
   - scope:
@@ -251,7 +255,10 @@ defaults:
     values:
       layout: single
       author_profile: true
+      read_time: true
+      comments: true
       share: true
+      related: true
 
   # _portfolio_py
   - scope:
@@ -261,6 +268,9 @@ defaults:
       layout: single
       author_profile: true
       share: true
+      read_time: true
+      comments: true
+      related: true
 
   # _portfolio_ml
   - scope:
@@ -269,7 +279,10 @@ defaults:
     values:
       layout: single
       author_profile: true
+      read_time: true
+      comments: true
       share: true
+      related: true
 
     # _portfolio_nn
   - scope:
@@ -279,6 +292,9 @@ defaults:
       layout: single
       author_profile: true
       share: true
+      read_time: true
+      comments: true
+      related: true
 
     # _portfolio_ts
   - scope:
@@ -287,4 +303,7 @@ defaults:
     values:
       layout: single
       author_profile: true
+      read_time: true
+      comments: true
       share: true
+      related: true

@@ -1,9 +1,9 @@
 ---
-title:  "Clustering US Laws using TF-IDF and K-Means"
-date:   2016-08-18
-tags: [machine learning]
+title:  "new way to test profile"
+date:   2016-08-23
+tags: [machine learning, time series, python]
 
-excerpt: "Natural Language Processing, TF-IDF, and K-Means Clustering"
+excerpt: "t1, t2, t3"
 ---
 
 ```python

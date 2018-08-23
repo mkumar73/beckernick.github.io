@@ -5,7 +5,7 @@ title: "Python Posts"
 author_profile: true
 header:
   image: "python-pic.jpg"
-  caption: "Photo credit: manish kumar"
+  caption: "photo credit: manish kumar"
 
 ---
 

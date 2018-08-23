@@ -5,7 +5,7 @@ title: "Artificial Neural Network Posts"
 author_profile: true
 header:
   image: "neural-nets-image.jpeg"
-  caption: "Photo credit: https://cdn-images-1.medium.com/"
+  caption: "photo credit: https://cdn-images-1.medium.com/"
 
 ---
 

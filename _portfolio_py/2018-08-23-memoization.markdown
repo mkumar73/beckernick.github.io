@@ -3,10 +3,10 @@ title:  "Dynamic Programming"
 date:   2018-08-23
 tags: [python]
 
-excerpt: "programming ....."
+excerpt: "programming, memoization"
 ---
 
-## Python new file for testing
+## 
 
 ```python
 import numpy as np

@@ -1,6 +1,7 @@
 ---
 title:  "Beware of Dummy Variable Trap"
 date:   2018-08-23
+categories : [machine learning]
 tags: [machine learning, time series]
 
 excerpt: "machine learning, label encoder, one-hot encoding"

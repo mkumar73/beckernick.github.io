@@ -4,8 +4,7 @@ permalink: /timeseries/
 title: "Time Series posts by tags"
 author_profile: true
 header:
-  image: "neural-nets-image.jpeg"
-  caption: "photo credit: https://cdn-images-1.medium.com/"
+  image: "tf-image.jpeg"
 
 ---
 

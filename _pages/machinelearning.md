@@ -4,8 +4,8 @@ permalink: /machinelearning/
 title: "Machine Learning posts by tags"
 author_profile: true
 header:
-  image: "neural-nets-image.jpeg"
-  caption: "photo credit: https://cdn-images-1.medium.com/"
+  image: "ml-image.jpg"
+  caption: "photo credit: https://www.ie.edu/"
 
 ---
 

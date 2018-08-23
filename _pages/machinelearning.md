@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /machinelearning/
-title: "Machine Learning Posts"
+title: "Machine Learning posts by tags"
 author_profile: true
 header:
   image: "neural-nets-image.jpeg"

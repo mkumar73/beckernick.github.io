@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /python/
-title: "Python Posts"
+title: "Python posts by tags"
 author_profile: true
 header:
   image: "python-pic.jpg"

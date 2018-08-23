@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /neuralnets/
-title: "Artificial Neural Network Posts"
+title: "Neural Networks posts by tags"
 author_profile: true
 header:
   image: "neural-nets-image.jpeg"

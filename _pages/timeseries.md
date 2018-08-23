@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /timeseries/
-title: "Time Series Posts"
+title: "Time Series posts by tags"
 author_profile: true
 header:
   image: "neural-nets-image.jpeg"

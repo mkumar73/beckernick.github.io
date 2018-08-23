@@ -1,7 +1,7 @@
 ---
 layout: archive
-permalink: /datascience/
-title: "Data Science Posts by Tags"
+permalink: /neuralnets/
+title: "Artificial Neural Network Posts"
 author_profile: true
 header:
   image: "renwick_string.jpg"

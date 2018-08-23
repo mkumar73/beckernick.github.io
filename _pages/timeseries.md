@@ -1,7 +1,7 @@
 ---
 layout: archive
-permalink: /visuals/
-title: "Visualizations by Tags"
+permalink: /timeseries/
+title: "Time Series Posts"
 author_profile: true
 header:
   image: "japanese_arches.jpg"

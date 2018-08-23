@@ -4,7 +4,7 @@ permalink: /timeseries/
 title: "Time Series posts by tags"
 author_profile: true
 header:
-  image: "tf-image.jpeg"
+  image: "ts-image.jpg"
   caption: "photo credit: https:google.com/"
 
 ---

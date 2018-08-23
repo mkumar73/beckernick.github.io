@@ -256,8 +256,8 @@ defaults:
   # _portfolio_py
   - scope:
       path: ""
-      type: portfolio
+      type: portfolio_py
     values:
       layout: single
-      author_profile: false
+      author_profile: true
       share: true

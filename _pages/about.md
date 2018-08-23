@@ -5,9 +5,9 @@ permalink: /about/
 ---
 
 Manish is currently a research student at University of Osnabrück in the field of 
-Cognitive Science. His main area of research is Neural networks particularly 
-Convolutional Neural Networks(CNN), Autoencoder(AE), RNN and LSTM and its applications
-in various fields like Finance, Retail, Healthcare etc.
+Cognitive Science. His main area of research is Artificial Neural Networks particularly 
+CNNs, Autoencoder(AE), RNN and LSTM and its applications in various fields like 
+Finance, Retail, Healthcare etc.
 
 
 **2017-Present** : Master's Student, Cognitive Science, University of Osnabrück, Germany

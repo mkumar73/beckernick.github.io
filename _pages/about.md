@@ -10,13 +10,13 @@ Convolutional Neural Networks(CNN), Autoencoder(AE), RNN and LSTM and its applic
 in various fields like Finance, Retail, Healthcare etc.
 
 
-2017-Present : Master's Student, Cognitive Science, University of Osnabrück, Germany
+**2017-Present** : Master's Student, Cognitive Science, University of Osnabrück, Germany
 
-2015-2017 : Data Science Consultant, KPMG, India
+**2015-2017** : Data Science Consultant, KPMG, India
 
-2011-2015 : Sr. Software Engineer, Accenture, India
+**2011-2015** : Sr. Software Engineer, Accenture, India
 
-2007-2011 : Bachelor's Student, Computer Science, University of Pune, India
+**2007-2011** : Bachelor's Student, Computer Science, University of Pune, India
 
 
 Few of the projects he has worked on:
@@ -30,3 +30,6 @@ development.
 6. Budget and Forecasting for Pharmaceutical domain.
 7. WIN propensity and Revenue Forecasting.
 8. Product analysis and Customer Churn Propensity for Telecom domain.
+
+
+_Contact details: manishkr7003@gmail.com_

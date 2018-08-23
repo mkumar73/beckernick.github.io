@@ -1,4 +1,4 @@
-# main links links
+# main links and sub-links
 main:
   - title: "about"
     url: /about/
@@ -6,11 +6,11 @@ main:
   - title: "neural networks"
     url: /neuralnets/
 
-  - title: "time series"
-    url: /timeseries/
-
   - title: "machine learning"
     url: /machinelearning/
+
+  - title: "time series"
+    url: /timeseries/
 
   - title: "python"
     url: /python/

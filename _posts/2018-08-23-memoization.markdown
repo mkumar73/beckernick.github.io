@@ -230,7 +230,7 @@ either the `Dynamic Programming` or `Memoization` approach.
 
 **Time complexity : O(n)**
 
-In case of Bottom-up approach as well, the values are stored in the hash table in this case the dictionary
+In case of Bottom-up approach as well, the values are stored in the hash table, in this case the dictionary,
 but the loop has to be evaluated all the time and restore the result. In contrary to Memoization where 
 it enter the loop only if the required key is not present in the hash map.
 
@@ -252,10 +252,10 @@ class Fibonacci:
 
     def __call__(self, n):
         if n not in self.cache:
-            if n == 0:
-                self.cache[0] = 1
-            elif n == 1:
+            if n == 1:
                 self.cache[1] = 1
+            elif n == 2:
+                self.cache[2] = 1
             else:
                 self.cache[n] = self.__call__(n-1) + self.__call__(n-2)
         return self.cache[n]
@@ -263,13 +263,12 @@ class Fibonacci:
 
 fib = Fibonacci()
 
-print('Using python class:')
-for i in range(15):
+for i in range(1, 11):
     print(fib(i), end=", ")
 
 # Result:
 # Using python class:
-# 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610,
+# 1, 1, 2, 3, 5, 8, 13, 21, 34, 55,
 ```
 
 ## Class and decorator based implementation
@@ -295,15 +294,14 @@ class Memoize:
 
 @Memoize
 def fib(n):
-    if n == 0:
-        return 1
-    if n == 1:
+    if n == 1 or n == 2:
         return 1
     else:
         return fib(n-1) + fib(n-2)
-        
-print('Using python class and decorators:')
-for i in range(10):
+
+
+print('Using Class based approach:')
+for i in range(1, 11):
     print(fib(i), end=', ')
     
 # Result:

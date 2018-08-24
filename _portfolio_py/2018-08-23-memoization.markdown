@@ -164,7 +164,7 @@ Results:
 # time taken for n = 40: 0:00:00.000020
 ```
 
-Observations: As compared to normal recursion implementation, it is a huge improvement with 
+*Observations:* As compared to normal recursion implementation, it is a huge improvement with 
 respect to time complexity. The time taken for finding the 10th element of the series is almost 
 similar for both the approach but memoization shines for `n=40`. 
 
@@ -173,8 +173,62 @@ Time complexity :  Time complexity : **O(n)**
 
 ## Solution to Fibonacci using Dynamic Programming (Bottom-up)
 
+Let's see the implementation of the Fibonacci's series using `Bottom up approach`.
 
 
+```python
+# using dynamic programming (bottom-up approach)
+
+import datetime
+
+def fib_bottom_up(n):
+
+    bottom_up = dict()
+    bottom_up[1] = 1
+    bottom_up[2] = 1
+
+    if n == 1 or n == 2:
+        return 1
+
+    for i in range(3, n+1):
+        bottom_up[i] = bottom_up[i-1] + bottom_up[i-2]
+
+    return bottom_up[n]
 
 
+# time taken for n=10
+start = datetime.now()
+print('for n = 10:', fib_bottom_up(10))
+end = datetime.now()
+print('time taken for n = 10:', end - start)
+
+# time taken for n=40
+start = datetime.now()
+print('for n = 40:', fib_bottom_up(40))
+end = datetime.now()
+print('time taken for n = 40:', end - start)
+```
+
+Results:
+```python
+# for n = 10: 55
+# time taken for n = 10: 0:00:00.000030
+# for n = 40: 102334155
+# time taken for n = 40: 0:00:00.000050
+```
+
+*Observations:* The time taken to evaluate the 10th element is quite comparable for all the three 
+approaches but we can easily see that the result for larger series we should always consider using
+either the `Dynamic Programming` or `Memoization` approach.
+
+## Conclusion
+
+After, verifying the results for Fibonacci's series, we can say that the normal recursion approach is 
+not suitable for complicated scenarios. This is just one of the use case that I tried to cover but
+in reality, the situation can be more challenging. So, the solutions also depends on the kind of 
+problem.
+
+Disclaimer: The example presented is just for the purpose of demonstration, there can always be
+a better approach for the same use case. Also, please comment below in case you want to see some
+specific posts like this. Thank you.:) 
 

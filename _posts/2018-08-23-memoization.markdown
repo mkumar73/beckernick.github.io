@@ -56,8 +56,8 @@ print('time taken for n = 40:', end - start)
 
 The *else* part of the function *fib(n)* implements recursion as it calls the function
 itself with the parameter of the last and the second last number of the fibonacci series.
-Let' see the result and time taken for them to completed for two different series one
-when 'n=10' and other with 'n=40'.
+Let's see the result and the time taken for them to completed for two different series one
+when `n=10` and other with `n=40`.
 
 Results:
 ```python
@@ -73,7 +73,7 @@ Results:
 If you notice carefully, the time taken for computing the 40th element of a Fibonacci's series
 is not at all linear if we compare it with `n=10`. The reason behind it is that in order to
 calculate the element of longer fibonacci series the loop has to go back again and again for
-every iteration without maintaining any hash table to store the previously calculated result.
+each iteration without maintaining any hash table to store the previously calculated result.
 
 **Time complexity : O(2^n)**
   
@@ -90,8 +90,9 @@ For illustration, lets see the steps involved for calculating `fib(4)`.
    b. the value to fib(3) and fib(2) are not stored any where, so it has to start
       again from step 2.
 
-As a result, for larger series, it is not advisable to use recursion as it is and improve
-the implementation if possible.
+As a result, for larger series, it is not advisable to use recursion as it might get
+and quite time intensive during run-time so improve the implementation if possible
+depending on the use case.
 
 
 ## Dynamic Programming and Memoization
@@ -166,10 +167,16 @@ Results:
 
 *Observations:* As compared to normal recursion implementation, it is a huge improvement with 
 respect to time complexity. The time taken for finding the 10th element of the series is almost 
-similar for both the approach but memoization shines for `n=40`. 
+similar for both the approach but memoization shines for `n=40`. The function `fib_memoization`
+is passed with two parameters, first the value of `n` and a dictionary for storing the intermediate
+values. 
 
 **Time complexity : O(n)**
 
+During execution, the dictionary keeps track of all the values computed and stores them as a key-value
+pair and it goes to the loop only when the key is not present in the map or hash table and evaluate the results. 
+As a result, for `n=40` it has to evaluate the loop far less times as compared with the original 
+recursion example.
 
 ## Solution to Fibonacci using Dynamic Programming (Bottom-up)
 
@@ -223,6 +230,88 @@ either the `Dynamic Programming` or `Memoization` approach.
 
 **Time complexity : O(n)**
 
+In case of Bottom-up approach as well, the values are stored in the hash table in this case the dictionary
+but the loop has to be evaluated all the time and restore the result. In contrary to Memoization where 
+it enter the loop only if the required key is not present in the hash map.
+
+`Note:` The time taken to completed the process depends on the system we use, so it will definitely vary
+for your system. 
+
+## Class based implementation
+
+In real scenarios, it is always advisable to use the Object Oriented Programming (OOP) construct 
+whenever possible for code maintainability and clarity. Keep it in mind, see the below implementaion
+for your reference.
+
+```python
+class Fibonacci:
+
+    def __init__(self):
+        # store the result for future use
+        self.cache = {}
+
+    def __call__(self, n):
+        if n not in self.cache:
+            if n == 0:
+                self.cache[0] = 1
+            elif n == 1:
+                self.cache[1] = 1
+            else:
+                self.cache[n] = self.__call__(n-1) + self.__call__(n-2)
+        return self.cache[n]
+
+
+fib = Fibonacci()
+
+print('Using python class:')
+for i in range(15):
+    print(fib(i), end=", ")
+
+# Result:
+# Using python class:
+# 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610,
+```
+
+## Class and decorator based implementation
+
+Decorators are one of the important topic in python programming and we will discuss it
+in details in some other post but for now, just follow it's application for the current
+use case.
+
+```python
+# class and decorator based memoization
+
+class Memoize:
+
+    def __init__(self, fn):
+        self.fn = fn
+        self.memo = {}
+
+    def __call__(self, *args):
+        if args not in self.memo.keys():
+            self.memo[args] = self.fn(*args)
+        return self.memo[args]
+
+
+@Memoize
+def fib(n):
+    if n == 0:
+        return 1
+    if n == 1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+        
+print('Using python class and decorators:')
+for i in range(10):
+    print(fib(i), end=', ')
+    
+# Result:
+# Using python class and decorators::
+# 1, 1, 2, 3, 5, 8, 13, 21, 34, 55,
+```
+
+
 ## Conclusion
 
 After, verifying the results for Fibonacci's series, we can say that the normal recursion approach is 
@@ -235,5 +324,5 @@ a better approach for the same use case. Also, please comment below in case you 
 specific posts like this. Please see the
 [Github Repository](https://github.com/mkumar73/py_practice/blob/master/recursion_memoization_dp.py) 
  for the complete code.Thank you.:)
- 
+  
 

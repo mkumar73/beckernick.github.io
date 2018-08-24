@@ -75,7 +75,7 @@ is not at all linear if we compare it with `n=10`. The reason behind it is that 
 calculate the element of longer fibonacci series the loop has to go back again and again for
 every iteration without maintaining any hash table to store the previously calculated result.
 
-Time complexity : O(2^n)
+Time complexity : **O(2^n)**
   
 For illustration, lets see the steps involved for calculating `fib(4)`.
 
@@ -140,7 +140,7 @@ def fib_memoization(n, d):
         return result
 
 
-# dictionary for the function fib_dictionary
+# dictionary for the function fib_memoization
 d = {1: 1, 2: 1}
 
 # time taken for n=10
@@ -168,7 +168,7 @@ Observations: As compared to normal recursion implementation, it is a huge impro
 respect to time complexity. The time taken for finding the 10th element of the series is almost 
 similar for both the approach but memoization shines for `n=40`. 
 
-Time complexity :  Time complexity : O(n)
+Time complexity :  Time complexity : **O(n)**
 
 
 ## Solution to Fibonacci using Dynamic Programming (Bottom-up)

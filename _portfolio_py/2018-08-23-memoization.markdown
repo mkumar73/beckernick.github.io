@@ -71,17 +71,19 @@ Results:
 ## Drawbacks of Recursion
 
 If you notice carefully, the time taken for computing 40th element of a Fibonacci's series
-is not at all linear if we compare it with *n=10*. The reason behind it is that in order to
+is not at all linear if we compare it with `n=10`. The reason behind it is that in order to
 calculate the element of longer fibonacci series the loop has to go back again and again for
 every iteration without maintaining any hash table to store the previously calculated result.
 
-For illustration, lets see the steps involved for calculating *fib(4)*.
+Time complexity of recursion is 
+  
+For illustration, lets see the steps involved for calculating `fib(4)`.
 
 1. 1st and 2nd element will be returned as 0 and 1.
   So, fib(1) and fib(2) will 0 and 1 respectively.
-2. For 3rd element function has to perform *fib(3-1) + fib(3-2)*.
+2. For 3rd element function has to perform `fib(3-1) + fib(3-2)`.
   and now, fib(3) = fib(2) + fib(1) = 1 + 0 = 1
-3. Now for 4th element function has to perform *fib(4-1) + fib(4-2)*.
+3. Now for 4th element function has to perform `fib(4-1) + fib(4-2)`.
    
    a. fib(4) = fib(3) + fib(2)
    
@@ -93,3 +95,9 @@ the implementation if possible.
 
 
 ## Dynamic Programming and Memoization
+
+It has been observed that most of the people get confused between Dynamic programming and
+Memoization. So, it define it one by one.
+
+**Dynamic Prgramming**
+

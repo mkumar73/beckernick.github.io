@@ -234,14 +234,14 @@ In case of Bottom-up approach as well, the values are stored in the hash table i
 but the loop has to be evaluated all the time and restore the result. In contrary to Memoization where 
 it enter the loop only if the required key is not present in the hash map.
 
-`Note:` The time taken to completed the process depends on the system we use, so it will definitely vary
+`Note:` The time taken to complete the process depends on the system we use, so it will definitely vary
 for your system. 
 
 ## Class based implementation
 
 In real scenarios, it is always advisable to use the Object Oriented Programming (OOP) construct 
-whenever possible for code maintainability and clarity. Keep it in mind, see the below implementaion
-for your reference.
+whenever possible for code maintainability and clarity. Keeping it in mind, we have added the solution.
+See the below implementation for your reference.
 
 ```python
 class Fibonacci:

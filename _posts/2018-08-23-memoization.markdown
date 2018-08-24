@@ -221,14 +221,18 @@ Results:
 approaches but we can easily see that the result for larger series we should always consider using
 either the `Dynamic Programming` or `Memoization` approach.
 
+Time complexity :  Time complexity : **O(n)**
+
 ## Conclusion
 
 After, verifying the results for Fibonacci's series, we can say that the normal recursion approach is 
 not suitable for complicated scenarios. This is just one of the use case that I tried to cover but
 in reality, the situation can be more challenging. So, the solutions also depends on the kind of 
-problem.
+problem. 
 
 Disclaimer: The example presented is just for the purpose of demonstration, there can always be
 a better approach for the same use case. Also, please comment below in case you want to see some
-specific posts like this. Thank you.:) 
+specific posts like this. Please see the
+[Github Repository](https://github.com/mkumar73/py_practice/blob/master/recursion_memoization_dp.py) 
+ for the complete code.Thank you.:) 
 

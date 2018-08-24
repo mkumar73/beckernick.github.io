@@ -91,8 +91,8 @@ For illustration, lets see the steps involved for calculating `fib(4)`.
       again from step 2.
 
 As a result, for larger series, it is not advisable to use recursion as it might get
-and quite time intensive during run-time so improve the implementation if possible
-depending on the use case.
+quite time intensive during run-time. However, one can always improve the implementation 
+if possible depending on the use case.
 
 
 ## Dynamic Programming and Memoization

@@ -20,3 +20,5 @@ as a result, they have to be encoded to using some custom logic or using inbuilt
 like **LabelEncoder** or **OneHotEncoder**.
 
 ## What are dummy Variables?
+
+- In-progress, will be completed soon.!!.

@@ -5,7 +5,7 @@ title: "Machine Learning posts by tags"
 author_profile: true
 header:
   image: "ml-image.jpg"
-  caption: "photo credit: https://www.ie.edu/"
+  caption: "photo credit: http://scikit-learn.org/"
 
 ---
 
